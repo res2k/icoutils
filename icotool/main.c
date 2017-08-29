@@ -66,7 +66,7 @@ enum {
     CURSOR_OPT,
 };
 
-static const char *short_opts = "xlco:i:w:h:p:b:X:Y:t:r:";
+static const char *short_opts = "-xlco:i:w:h:p:b:X:Y:t:r:";
 static struct option long_opts[] = {
     { "extract",		no_argument,    	NULL, 'x' },
     { "list",			no_argument,		NULL, 'l' },
@@ -215,6 +215,8 @@ main(int argc, char **argv)
     bool create_mode = false;
     FILE *in;
     const char *inname;
+    size_t filec = 0;
+    char** filev = 0;
     size_t raw_filec = 0;
     char** raw_filev = 0;
 
@@ -231,6 +233,11 @@ main(int argc, char **argv)
 
     while ((c = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
         switch (c) {
+        case 1:
+            filev = realloc (filev, (filec+1)*sizeof (char*));
+            filev[filec] = optarg;
+            filec++;
+            break;
         case 'x':
             extract_mode = true;
             break;
@@ -303,6 +310,12 @@ main(int argc, char **argv)
         }
     }
 
+    /* Handle options after '--' */
+    filev = realloc (filev, (filec+argc-optind)*sizeof (char*));
+    for (c = optind ; c < argc ; c++) {
+        filev[filec++] = argv[c];
+    }
+
     if (extract_mode + create_mode + list_mode > 1)
         die(_("multiple commands specified"));
     if (extract_mode + create_mode + list_mode == 0) {
@@ -314,10 +327,10 @@ main(int argc, char **argv)
         die(_("only one of --icon and --cursor may be specified"));
 
     if (list_mode) {
-        if (argc-optind <= 0)
+        if (filec <= 0)
             die(_("missing file argument"));
-        for (c = optind ; c < argc ; c++) {
-            if (open_file_or_stdin(argv[c], &in, &inname)) {
+        for (c = 0 ; c < filec ; c++) {
+            if (open_file_or_stdin(filev[c], &in, &inname)) {
                 if (!extract_icons(in, inname, true, NULL, filter))
                     exit(1);
                 if (in != stdin)
@@ -327,13 +340,13 @@ main(int argc, char **argv)
     }
 
     if (extract_mode) {
-        if (argc-optind <= 0)
+        if (filec <= 0)
             die(_("missing arguments"));
 
-        for (c = optind ; c < argc ; c++) {
+        for (c = 0 ; c < filec ; c++) {
             int matched;
 
-            if (open_file_or_stdin(argv[c], &in, &inname)) {
+            if (open_file_or_stdin(filev[c], &in, &inname)) {
                 matched = extract_icons(in, inname, false, extract_outfile_gen, filter);
                 if (matched == -1)
                     exit(1);
@@ -346,9 +359,9 @@ main(int argc, char **argv)
     }
 
     if (create_mode) {
-        if (argc-optind+raw_filec <= 0)
+        if (filec+raw_filec <= 0)
             die(_("missing arguments"));
-        if (!create_icon(argc-optind, argv+optind, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), hotspot_x, hotspot_y, alpha_threshold, bitdepth))
+        if (!create_icon(filec, filev, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), hotspot_x, hotspot_y, alpha_threshold, bitdepth))
             exit(1);
     }
 
