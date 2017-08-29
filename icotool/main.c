@@ -93,23 +93,23 @@ static bool
 filter(int i, int w, int h, int bd, int ps, bool icon, int hx, int hy)
 {
     if (image_index != -1 && i != image_index)
-	return false;
+        return false;
     if (width != -1 && w != width)
-	return false;
+        return false;
     if (height != -1 && h != height)
-	return false;
+        return false;
     if (bitdepth != -1 && bd != bitdepth)
-	return false;
+        return false;
     /*if (bd < minbitdepth)
         return false;*/
     if (palettesize != -1 && ps != palettesize)
-	return false;
+        return false;
     if ((icon_only && !icon) || (cursor_only && icon))
-	return false;
+        return false;
     if (hotspot_x_set && hx != hotspot_x)
-	return false;
+        return false;
     if (hotspot_y_set && hy != hotspot_y)	
-	return false;
+        return false;
     return true;
 }
 
@@ -117,11 +117,11 @@ static FILE *
 create_outfile_gen(char **out)
 {
     if (output != NULL) {
-	*out = xstrdup(output);
-	return fopen(output, "wb");
+        *out = xstrdup(output);
+        return fopen(output, "wb");
     }
     if (isatty(STDOUT_FILENO))
-	die(_("refusing to write binary data to terminal"));
+        die(_("refusing to write binary data to terminal"));
     *out = xstrdup(_("(standard out)"));
     return stdout;
 }
@@ -130,29 +130,29 @@ static FILE *
 extract_outfile_gen(const char *inname, char **outname_ptr, int w, int h, int bc, int i)
 {
     if (output == NULL || is_directory(output)) {
-	StrBuf *outname;
-	const char *inbase;
+        StrBuf *outname;
+        const char *inbase;
 
-	outname = strbuf_new();
-	if (output != NULL) {
-	    strbuf_append(outname, output);
-	    if (!ends_with(output, "/"))
-		strbuf_append(outname, "/");
-	}
-	inbase = strrchr(inname, '/');
-	inbase = (inbase == NULL ? inname : inbase+1);
-	if (ends_with_nocase(inbase, ".ico") || ends_with_nocase(inbase, ".cur")) {
-	    strbuf_append_substring(outname, inbase, 0, strlen(inbase)-4);
-	} else {
-	    strbuf_append(outname, inbase);
-	}
-	strbuf_appendf(outname, "_%d_%dx%dx%d.png", i, w, h, bc);
-	*outname_ptr = strbuf_free_to_string(outname);
-	return fopen(*outname_ptr, "wb");
+        outname = strbuf_new();
+        if (output != NULL) {
+            strbuf_append(outname, output);
+            if (!ends_with(output, "/"))
+                strbuf_append(outname, "/");
+        }
+        inbase = strrchr(inname, '/');
+        inbase = (inbase == NULL ? inname : inbase+1);
+        if (ends_with_nocase(inbase, ".ico") || ends_with_nocase(inbase, ".cur")) {
+            strbuf_append_substring(outname, inbase, 0, strlen(inbase)-4);
+        } else {
+            strbuf_append(outname, inbase);
+        }
+        strbuf_appendf(outname, "_%d_%dx%dx%d.png", i, w, h, bc);
+        *outname_ptr = strbuf_free_to_string(outname);
+        return fopen(*outname_ptr, "wb");
     }
     else if (strcmp(output, "-") == 0) {
-	*outname_ptr = xstrdup(_("(standard out)"));
-	return stdout;
+        *outname_ptr = xstrdup(_("(standard out)"));
+        return stdout;
     }
 
     *outname_ptr = xstrdup(output);
@@ -180,7 +180,7 @@ display_help(void)
     printf(_("  -X, --hotspot-x=COORD        match or set cursor hotspot x-coordinate\n"));
     printf(_("  -Y, --hotspot-y=COORD        match or set cursor hotspot y-coordinate\n"));
     printf(_("  -t, --alpha-threshold=LEVEL  highest level in alpha channel indicating\n"
-	     "                               transparent image portions (default is 127)\n"));
+             "                               transparent image portions (default is 127)\n"));
     printf(_("  -r, --raw=FILENAME           store input file as raw PNG (\"Vista icons\")\n"));
     printf(_("      --icon                   match icons only\n"));
     printf(_("      --cursor                 match cursors only\n"));
@@ -194,14 +194,14 @@ open_file_or_stdin(char *name, FILE **outfile, const char **outname)
 {
     if (strcmp(name, "-") == 0) {
         *outfile = stdin;
-	*outname = "(standard in)";
+        *outname = "(standard in)";
     } else {
         *outfile = fopen(name, "rb");
-	*outname = name;
-	if (*outfile == NULL) {
-	    warn("%s: cannot open file", name);
-	    return false;
-	}
+        *outname = name;
+        if (*outfile == NULL) {
+            warn("%s: cannot open file", name);
+            return false;
+        }
     }
     return true;
 }
@@ -222,121 +222,121 @@ main(int argc, char **argv)
 
 #ifdef ENABLE_NLS
     if (setlocale(LC_ALL, "") == NULL)
-	warn(_("%s: cannot set locale: %s"), program_name, errstr);
+        warn(_("%s: cannot set locale: %s"), program_name, errstr);
     if (bindtextdomain(PACKAGE, LOCALEDIR) == NULL)
-	warn(_("%s: bindtextdomain failed: %s"), program_name, errstr);
+        warn(_("%s: bindtextdomain failed: %s"), program_name, errstr);
     if (textdomain(PACKAGE) == NULL)
-	warn(_("%s: cannot set message domain: %s"), program_name, errstr);
+        warn(_("%s: cannot set message domain: %s"), program_name, errstr);
 #endif
 
     while ((c = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
-	switch (c) {
-	case 'x':
-	    extract_mode = true;
-	    break;
-	case 'l':
-	    list_mode = true;
-	    break;
-	case 'c':
-	    create_mode = true;
-	    break;
-	case VERSION_OPT:
-	    version_etc(stdout, PROGRAM, PACKAGE, VERSION, "Oskar Liljeblad", NULL);
-	    exit(0);
-	case HELP_OPT:
-	    display_help();
-	    exit(0);
-	case 'o':
-	    output = optarg;
-	    break;
-	case 'i':
-	    if (!parse_int32(optarg, &image_index) || image_index < 0)
-		die(_("invalid index value: %s"), optarg);
-	    break;
-	case 'w':
-	    if (!parse_int32(optarg, &width) || width < 0)
-		die(_("invalid width value: %s"), optarg);
-	    break;
-	case 'h':
-	    if (!parse_int32(optarg, &height) || height < 0)
-		die(_("invalid height value: %s"), optarg);
-	    break;
-	case 'p':
-	    if (!parse_int32(optarg, &palettesize) || palettesize < 0)
-		die(_("invalid palette-size value: %s"), optarg);
-	    break;
-	case 'b':
-	    if (!parse_int32(optarg, &bitdepth) || bitdepth < 0)
-		die(_("invalid bit-depth value: %s"), optarg);
-	    break;
+        switch (c) {
+        case 'x':
+            extract_mode = true;
+            break;
+        case 'l':
+            list_mode = true;
+            break;
+        case 'c':
+            create_mode = true;
+            break;
+        case VERSION_OPT:
+            version_etc(stdout, PROGRAM, PACKAGE, VERSION, "Oskar Liljeblad", NULL);
+            exit(0);
+        case HELP_OPT:
+            display_help();
+            exit(0);
+        case 'o':
+            output = optarg;
+            break;
+        case 'i':
+            if (!parse_int32(optarg, &image_index) || image_index < 0)
+                die(_("invalid index value: %s"), optarg);
+            break;
+        case 'w':
+            if (!parse_int32(optarg, &width) || width < 0)
+                die(_("invalid width value: %s"), optarg);
+            break;
+        case 'h':
+            if (!parse_int32(optarg, &height) || height < 0)
+                die(_("invalid height value: %s"), optarg);
+            break;
+        case 'p':
+            if (!parse_int32(optarg, &palettesize) || palettesize < 0)
+                die(_("invalid palette-size value: %s"), optarg);
+            break;
+        case 'b':
+            if (!parse_int32(optarg, &bitdepth) || bitdepth < 0)
+                die(_("invalid bit-depth value: %s"), optarg);
+            break;
         /*case 'm':
             if (!parse_uint32(optarg, &minbitdepth))
                 die(_("invalid minimum bit-depth value: %s"), optarg);
             break;*/
-	case 'X':
-	    if (!parse_int32(optarg, &hotspot_x) || hotspot_x < 0)
-		die(_("invalid hotspot-x value: %s"), optarg);
-	    hotspot_x_set = true;
-	    break;
-	case 'Y':
-	    if (!parse_int32(optarg, &hotspot_y) || hotspot_y < 0)
-		die(_("invalid hotspot-y value: %s"), optarg);
-	    hotspot_y_set = true;
-	    break;
-	case 't':
-	    if (!parse_int32(optarg, &alpha_threshold) || alpha_threshold < 0)
-		die(_("invalid alpha-threshold value: %s"), optarg);
-	    break;
-	case 'r':
-	    raw_filev = realloc (raw_filev, (raw_filec+1)*sizeof (char*));
-	    raw_filev[raw_filec] = optarg;
-	    raw_filec++;
-	    break;
-	case ICON_OPT:
-	    icon_only = true;
-	    break;
-	case CURSOR_OPT:
-	    cursor_only = true;
-	    break;
-	case '?':
-	    exit(1);
-	}
+        case 'X':
+            if (!parse_int32(optarg, &hotspot_x) || hotspot_x < 0)
+                die(_("invalid hotspot-x value: %s"), optarg);
+            hotspot_x_set = true;
+            break;
+        case 'Y':
+            if (!parse_int32(optarg, &hotspot_y) || hotspot_y < 0)
+                die(_("invalid hotspot-y value: %s"), optarg);
+            hotspot_y_set = true;
+            break;
+        case 't':
+            if (!parse_int32(optarg, &alpha_threshold) || alpha_threshold < 0)
+                die(_("invalid alpha-threshold value: %s"), optarg);
+            break;
+        case 'r':
+            raw_filev = realloc (raw_filev, (raw_filec+1)*sizeof (char*));
+            raw_filev[raw_filec] = optarg;
+            raw_filec++;
+            break;
+        case ICON_OPT:
+            icon_only = true;
+            break;
+        case CURSOR_OPT:
+            cursor_only = true;
+            break;
+        case '?':
+            exit(1);
+        }
     }
 
     if (extract_mode + create_mode + list_mode > 1)
-	die(_("multiple commands specified"));
+        die(_("multiple commands specified"));
     if (extract_mode + create_mode + list_mode == 0) {
-	warn(_("missing argument"));
-	display_help();
-	exit (1);
+        warn(_("missing argument"));
+        display_help();
+        exit (1);
     }
     if (icon_only && cursor_only)
-	die(_("only one of --icon and --cursor may be specified"));
+        die(_("only one of --icon and --cursor may be specified"));
 
     if (list_mode) {
-	if (argc-optind <= 0)
-	    die(_("missing file argument"));
-	for (c = optind ; c < argc ; c++) {
-	    if (open_file_or_stdin(argv[c], &in, &inname)) {
-		if (!extract_icons(in, inname, true, NULL, filter))
-		    exit(1);
-		if (in != stdin)
-		    fclose(in);
-	    }
-	}
+        if (argc-optind <= 0)
+            die(_("missing file argument"));
+        for (c = optind ; c < argc ; c++) {
+            if (open_file_or_stdin(argv[c], &in, &inname)) {
+                if (!extract_icons(in, inname, true, NULL, filter))
+                    exit(1);
+                if (in != stdin)
+                    fclose(in);
+            }
+        }
     }
 
     if (extract_mode) {
-	if (argc-optind <= 0)
-	    die(_("missing arguments"));
+        if (argc-optind <= 0)
+            die(_("missing arguments"));
 
         for (c = optind ; c < argc ; c++) {
             int matched;
 
-	    if (open_file_or_stdin(argv[c], &in, &inname)) {
-	        matched = extract_icons(in, inname, false, extract_outfile_gen, filter);
-	        if (matched == -1)
-	            exit(1);
+            if (open_file_or_stdin(argv[c], &in, &inname)) {
+                matched = extract_icons(in, inname, false, extract_outfile_gen, filter);
+                if (matched == -1)
+                    exit(1);
                 if (matched == 0)
                     fprintf(stderr, _("%s: no images matched\n"), inname);
                 if (in != stdin)
@@ -347,7 +347,7 @@ main(int argc, char **argv)
 
     if (create_mode) {
         if (argc-optind+raw_filec <= 0)
-	    die(_("missing arguments"));
+            die(_("missing arguments"));
         if (!create_icon(argc-optind, argv+optind, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), hotspot_x, hotspot_y, alpha_threshold, bitdepth))
             exit(1);
     }
