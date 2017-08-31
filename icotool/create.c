@@ -66,7 +66,7 @@ xfread(void *ptr, size_t size, FILE *stream)
 }
 
 bool
-create_icon(size_t filec, InputFile *filev, size_t raw_filec, RawInputFile* raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t alpha_threshold)
+create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon_mode, int32_t alpha_threshold)
 {
     struct {
         FILE *in;
@@ -93,9 +93,6 @@ create_icon(size_t filec, InputFile *filev, size_t raw_filec, RawInputFile* raw_
     uint32_t d, x;
     uint32_t dib_start;
     png_byte ct;
-    size_t org_filec = filec;
-    
-    filec += raw_filec;
 
     img = xzalloc(filec * sizeof(*img));
 
@@ -107,18 +104,13 @@ create_icon(size_t filec, InputFile *filev, size_t raw_filec, RawInputFile* raw_
         bool need_transparency;
         const char* real_filev;
         int32_t bit_count = -1;
-        if (c >= org_filec) {
-            real_filev = raw_filev[c-org_filec].name;
-            img[c].hotspot_x = raw_filev[c-org_filec].hotspot_x;
-            img[c].hotspot_y = raw_filev[c-org_filec].hotspot_y;
-        } else {
-            real_filev = filev[c].name;
-            bit_count = filev[c].bit_count;
-            img[c].hotspot_x = filev[c].hotspot_x;
-            img[c].hotspot_y = filev[c].hotspot_y;
-        };
 
-        img[c].store_raw = (c >= org_filec);
+        real_filev = filev[c].name;
+        if(!filev[c].is_raw) bit_count = filev[c].bit_count;
+        img[c].hotspot_x = filev[c].hotspot_x;
+        img[c].hotspot_y = filev[c].hotspot_y;
+
+        img[c].store_raw = filev[c].is_raw;
         set_message_header(real_filev);
 
         img[c].in = fopen(real_filev, "rb");

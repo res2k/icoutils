@@ -218,8 +218,6 @@ main(int argc, char **argv)
     size_t i;
     size_t filec = 0;
     InputFile* filev = 0;
-    size_t raw_filec = 0;
-    RawInputFile* raw_filev = 0;
     int num_bitdepth = 0;
 
     set_program_name(argv[0]);
@@ -238,6 +236,7 @@ main(int argc, char **argv)
         case 1:
             filev = realloc (filev, (filec+1)*sizeof (InputFile));
             filev[filec].name = optarg;
+            filev[filec].is_raw = false;
             filev[filec].bit_count = bitdepth;
             filev[filec].hotspot_x = hotspot_x;
             filev[filec].hotspot_y = hotspot_y;
@@ -301,11 +300,12 @@ main(int argc, char **argv)
                 die(_("invalid alpha-threshold value: %s"), optarg);
             break;
         case 'r':
-            raw_filev = realloc (raw_filev, (raw_filec+1)*sizeof (RawInputFile));
-            raw_filev[raw_filec].name = optarg;
-            raw_filev[raw_filec].hotspot_x = hotspot_x;
-            raw_filev[raw_filec].hotspot_y = hotspot_y;
-            raw_filec++;
+            filev = realloc (filev, (filec+1)*sizeof (InputFile));
+            filev[filec].name = optarg;
+            filev[filec].is_raw = true;
+            filev[filec].hotspot_x = hotspot_x;
+            filev[filec].hotspot_y = hotspot_y;
+            filec++;
             break;
         case ICON_OPT:
             icon_only = true;
@@ -371,7 +371,7 @@ main(int argc, char **argv)
     }
 
     if (create_mode) {
-        if (filec+raw_filec <= 0)
+        if (filec <= 0)
            die(_("missing arguments"));
         if (num_bitdepth == 1) {
             /* Change bitdepth to the single value provided (for compatibility) */
@@ -381,6 +381,7 @@ main(int argc, char **argv)
         } else if (num_bitdepth > 1) {
             /* Warn if bitdepth is unset */
             for (i = 0 ; i < filec ; i++) {
+                if (filev[i].is_raw) continue;
                 if (filev[i].bit_count < 0) {
                     fprintf(stderr, _("%s: No bit-depth given\n"), filev[i].name);
                 }
@@ -391,20 +392,14 @@ main(int argc, char **argv)
             for (i = 0 ; i < filec ; i++) {
                 filev[i].hotspot_x = hotspot_x;
             }
-            for (i = 0 ; i < raw_filec ; i++) {
-                raw_filev[i].hotspot_x = hotspot_x;
-            }
         }
         if (hotspot_y_set == 1) {
             /* Change hotspot to the single value provided (for compatibility) */
             for (i = 0 ; i < filec ; i++) {
                 filev[i].hotspot_y = hotspot_y;
             }
-            for (i = 0 ; i < raw_filec ; i++) {
-                raw_filev[i].hotspot_y = hotspot_y;
-            }
         }
-        if (!create_icon(filec, filev, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), alpha_threshold))
+        if (!create_icon(filec, filev, create_outfile_gen, (icon_only ? true : !cursor_only), alpha_threshold))
             exit(1);
     }
 
