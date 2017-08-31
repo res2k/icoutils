@@ -66,7 +66,7 @@ xfread(void *ptr, size_t size, FILE *stream)
 }
 
 bool
-create_icon(size_t filec, InputFile *filev, size_t raw_filec, char** raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t hotspot_x, int32_t hotspot_y, int32_t alpha_threshold)
+create_icon(size_t filec, InputFile *filev, size_t raw_filec, RawInputFile* raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t hotspot_x, int32_t hotspot_y, int32_t alpha_threshold)
 {
     struct {
         FILE *in;
@@ -106,7 +106,7 @@ create_icon(size_t filec, InputFile *filev, size_t raw_filec, char** raw_filev, 
         const char* real_filev;
         int32_t bit_count = -1;
         if (c >= org_filec)
-            real_filev = raw_filev[c-org_filec];
+            real_filev = raw_filev[c-org_filec].name;
         else {
             real_filev = filev[c].name;
             bit_count = filev[c].bit_count;

@@ -46,5 +46,8 @@ typedef struct InputFile_s {
     char *name;
     int32_t bit_count;
 } InputFile;
-bool create_icon(size_t filec, InputFile *filev, size_t raw_filec, char** raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t hotspot_x, int32_t hotspot_y, int32_t alpha_threshold);
+typedef struct RawInputFile_s {
+    char *name;
+} RawInputFile;
+bool create_icon(size_t filec, InputFile *filev, size_t raw_filec, RawInputFile *raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t hotspot_x, int32_t hotspot_y, int32_t alpha_threshold);
 #endif

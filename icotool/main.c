@@ -219,7 +219,7 @@ main(int argc, char **argv)
     size_t filec = 0;
     InputFile* filev = 0;
     size_t raw_filec = 0;
-    char** raw_filev = 0;
+    RawInputFile* raw_filev = 0;
     int num_bitdepth = 0;
 
     set_program_name(argv[0]);
@@ -299,8 +299,8 @@ main(int argc, char **argv)
                 die(_("invalid alpha-threshold value: %s"), optarg);
             break;
         case 'r':
-            raw_filev = realloc (raw_filev, (raw_filec+1)*sizeof (char*));
-            raw_filev[raw_filec] = optarg;
+            raw_filev = realloc (raw_filev, (raw_filec+1)*sizeof (RawInputFile));
+            raw_filev[raw_filec].name = optarg;
             raw_filec++;
             break;
         case ICON_OPT:
