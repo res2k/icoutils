@@ -220,6 +220,7 @@ main(int argc, char **argv)
     InputFile* filev = 0;
     size_t raw_filec = 0;
     char** raw_filev = 0;
+    int num_bitdepth = 0;
 
     set_program_name(argv[0]);
 
@@ -237,6 +238,7 @@ main(int argc, char **argv)
         case 1:
             filev = realloc (filev, (filec+1)*sizeof (InputFile));
             filev[filec].name = optarg;
+            filev[filec].bit_count = bitdepth;
             filec++;
             break;
         case 'x':
@@ -276,6 +278,7 @@ main(int argc, char **argv)
         case 'b':
             if (!parse_int32(optarg, &bitdepth) || bitdepth < 0)
                 die(_("invalid bit-depth value: %s"), optarg);
+            ++num_bitdepth;
             break;
         /*case 'm':
             if (!parse_uint32(optarg, &minbitdepth))
@@ -314,7 +317,9 @@ main(int argc, char **argv)
     /* Handle options after '--' */
     filev = realloc (filev, (filec+argc-optind)*sizeof (InputFile));
     for (c = optind ; c < argc ; c++) {
-        filev[filec++].name = argv[c];
+        filev[filec].name = argv[c];
+        filev[filec].bit_count = bitdepth;
+        ++filec;
     }
 
     if (extract_mode + create_mode + list_mode > 1)
@@ -361,8 +366,21 @@ main(int argc, char **argv)
 
     if (create_mode) {
         if (filec+raw_filec <= 0)
-            die(_("missing arguments"));
-        if (!create_icon(filec, filev, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), hotspot_x, hotspot_y, alpha_threshold, bitdepth))
+           die(_("missing arguments"));
+        if (num_bitdepth == 1) {
+            /* Change bitdepth to the single value provided (for compatibility) */
+            for (i = 0 ; i < filec ; i++) {
+                filev[i].bit_count = bitdepth;
+            }
+        } else if (num_bitdepth > 1) {
+            /* Warn if bitdepth is unset */
+            for (i = 0 ; i < filec ; i++) {
+                if (filev[i].bit_count < 0) {
+                    fprintf(stderr, _("%s: No bit-depth given\n"), filev[i].name);
+                }
+            }
+        }
+        if (!create_icon(filec, filev, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), hotspot_x, hotspot_y, alpha_threshold))
             exit(1);
     }
 

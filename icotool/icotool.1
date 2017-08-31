@@ -93,7 +93,10 @@ in the image to be matched instead. Valid values are 1, 2, 4, 8, 16, 24
 and 32.
 
 In create mode, this option will allow you to specify a minimum bit depth
-for images in the icon file.
+for images in the icon file.  If you provide the option once it will apply
+to all input files.  If you specify it multiple times, it will apply to
+all input files following a particular option; in that case you should
+specify a bit depth for all images.
 .\".B \-m, \-\-min-bit-depth=\fICOUNT\fR
 .\"This option allows the number of bits per pixel in the image to be matched instead
 .\"(minimally).
