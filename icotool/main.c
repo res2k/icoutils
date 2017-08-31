@@ -215,6 +215,7 @@ main(int argc, char **argv)
     bool create_mode = false;
     FILE *in;
     const char *inname;
+    size_t i;
     size_t filec = 0;
     char** filev = 0;
     size_t raw_filec = 0;
@@ -329,8 +330,8 @@ main(int argc, char **argv)
     if (list_mode) {
         if (filec <= 0)
             die(_("missing file argument"));
-        for (c = 0 ; c < filec ; c++) {
-            if (open_file_or_stdin(filev[c], &in, &inname)) {
+        for (i = 0 ; i < filec ; i++) {
+            if (open_file_or_stdin(filev[i], &in, &inname)) {
                 if (!extract_icons(in, inname, true, NULL, filter))
                     exit(1);
                 if (in != stdin)
@@ -343,10 +344,10 @@ main(int argc, char **argv)
         if (filec <= 0)
             die(_("missing arguments"));
 
-        for (c = 0 ; c < filec ; c++) {
+        for (i = 0 ; i < filec ; i++) {
             int matched;
 
-            if (open_file_or_stdin(filev[c], &in, &inname)) {
+            if (open_file_or_stdin(filev[i], &in, &inname)) {
                 matched = extract_icons(in, inname, false, extract_outfile_gen, filter);
                 if (matched == -1)
                     exit(1);
