@@ -206,6 +206,35 @@ open_file_or_stdin(char *name, FILE **outfile, const char **outname)
     return true;
 }
 
+static void
+input_files_init (InputFiles *files)
+{
+    memset (files, 0, sizeof (InputFiles));
+}
+
+static void
+input_files_add (InputFiles *files, char* name, int32_t bit_count, int32_t file_hotspot_x, int32_t file_hotspot_y)
+{
+    files->files = realloc (files->files, (files->count+1)*sizeof (InputFile));
+    files->files[files->count].name = name;
+    files->files[files->count].is_raw = false;
+    files->files[files->count].bit_count = bitdepth;
+    files->files[files->count].hotspot_x = file_hotspot_x;
+    files->files[files->count].hotspot_y = file_hotspot_y;
+    files->count++;
+}
+
+static void
+input_files_add_raw (InputFiles *files, char* name, int32_t file_hotspot_x, int32_t file_hotspot_y)
+{
+    files->files = realloc (files->files, (files->count+1)*sizeof (InputFile));
+    files->files[files->count].name = name;
+    files->files[files->count].is_raw = true;
+    files->files[files->count].hotspot_x = file_hotspot_x;
+    files->files[files->count].hotspot_y = file_hotspot_y;
+    files->count++;
+}
+
 int
 main(int argc, char **argv)
 {
@@ -216,11 +245,11 @@ main(int argc, char **argv)
     FILE *in;
     const char *inname;
     size_t i;
-    size_t filec = 0;
-    InputFile* filev = 0;
+    InputFiles files;
     int num_bitdepth = 0;
 
     set_program_name(argv[0]);
+    input_files_init (&files);
 
 #ifdef ENABLE_NLS
     if (setlocale(LC_ALL, "") == NULL)
@@ -234,13 +263,7 @@ main(int argc, char **argv)
     while ((c = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
         switch (c) {
         case 1:
-            filev = realloc (filev, (filec+1)*sizeof (InputFile));
-            filev[filec].name = optarg;
-            filev[filec].is_raw = false;
-            filev[filec].bit_count = bitdepth;
-            filev[filec].hotspot_x = hotspot_x;
-            filev[filec].hotspot_y = hotspot_y;
-            filec++;
+            input_files_add (&files, optarg, bitdepth, hotspot_x, hotspot_y);
             break;
         case 'x':
             extract_mode = true;
@@ -300,12 +323,7 @@ main(int argc, char **argv)
                 die(_("invalid alpha-threshold value: %s"), optarg);
             break;
         case 'r':
-            filev = realloc (filev, (filec+1)*sizeof (InputFile));
-            filev[filec].name = optarg;
-            filev[filec].is_raw = true;
-            filev[filec].hotspot_x = hotspot_x;
-            filev[filec].hotspot_y = hotspot_y;
-            filec++;
+            input_files_add_raw (&files, optarg, hotspot_x, hotspot_y);
             break;
         case ICON_OPT:
             icon_only = true;
@@ -319,13 +337,8 @@ main(int argc, char **argv)
     }
 
     /* Handle options after '--' */
-    filev = realloc (filev, (filec+argc-optind)*sizeof (InputFile));
     for (c = optind ; c < argc ; c++) {
-        filev[filec].name = argv[c];
-        filev[filec].bit_count = bitdepth;
-        filev[filec].hotspot_x = hotspot_x;
-        filev[filec].hotspot_y = hotspot_y;
-        ++filec;
+        input_files_add (&files, argv[c], bitdepth, hotspot_x, hotspot_y);
     }
 
     if (extract_mode + create_mode + list_mode > 1)
@@ -339,10 +352,10 @@ main(int argc, char **argv)
         die(_("only one of --icon and --cursor may be specified"));
 
     if (list_mode) {
-        if (filec <= 0)
+        if (files.count <= 0)
             die(_("missing file argument"));
-        for (i = 0 ; i < filec ; i++) {
-            if (open_file_or_stdin(filev[i].name, &in, &inname)) {
+        for (i = 0 ; i < files.count ; i++) {
+            if (open_file_or_stdin(files.files[i].name, &in, &inname)) {
                 if (!extract_icons(in, inname, true, NULL, filter))
                     exit(1);
                 if (in != stdin)
@@ -352,13 +365,13 @@ main(int argc, char **argv)
     }
 
     if (extract_mode) {
-        if (filec <= 0)
+        if (files.count <= 0)
             die(_("missing arguments"));
 
-        for (i = 0 ; i < filec ; i++) {
+        for (i = 0 ; i < files.count ; i++) {
             int matched;
 
-            if (open_file_or_stdin(filev[i].name, &in, &inname)) {
+            if (open_file_or_stdin(files.files[i].name, &in, &inname)) {
                 matched = extract_icons(in, inname, false, extract_outfile_gen, filter);
                 if (matched == -1)
                     exit(1);
@@ -371,35 +384,35 @@ main(int argc, char **argv)
     }
 
     if (create_mode) {
-        if (filec <= 0)
+        if (files.count <= 0)
            die(_("missing arguments"));
         if (num_bitdepth == 1) {
             /* Change bitdepth to the single value provided (for compatibility) */
-            for (i = 0 ; i < filec ; i++) {
-                filev[i].bit_count = bitdepth;
+            for (i = 0 ; i < files.count ; i++) {
+                files.files[i].bit_count = bitdepth;
             }
         } else if (num_bitdepth > 1) {
             /* Warn if bitdepth is unset */
-            for (i = 0 ; i < filec ; i++) {
-                if (filev[i].is_raw) continue;
-                if (filev[i].bit_count < 0) {
-                    fprintf(stderr, _("%s: No bit-depth given\n"), filev[i].name);
+            for (i = 0 ; i < files.count ; i++) {
+                if (files.files[i].is_raw) continue;
+                if (files.files[i].bit_count < 0) {
+                    fprintf(stderr, _("%s: No bit-depth given\n"), files.files[i].name);
                 }
             }
         }
         if (hotspot_x_set == 1) {
             /* Change hotspot to the single value provided (for compatibility) */
-            for (i = 0 ; i < filec ; i++) {
-                filev[i].hotspot_x = hotspot_x;
+            for (i = 0 ; i < files.count ; i++) {
+                files.files[i].hotspot_x = hotspot_x;
             }
         }
         if (hotspot_y_set == 1) {
             /* Change hotspot to the single value provided (for compatibility) */
-            for (i = 0 ; i < filec ; i++) {
-                filev[i].hotspot_y = hotspot_y;
+            for (i = 0 ; i < files.count ; i++) {
+                files.files[i].hotspot_y = hotspot_y;
             }
         }
-        if (!create_icon(filec, filev, create_outfile_gen, (icon_only ? true : !cursor_only), alpha_threshold))
+        if (!create_icon(&files, create_outfile_gen, (icon_only ? true : !cursor_only), alpha_threshold))
             exit(1);
     }
 

@@ -49,5 +49,9 @@ typedef struct InputFile_s {
     int32_t hotspot_x;
     int32_t hotspot_y;
 } InputFile;
-bool create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon_mode, int32_t alpha_threshold);
+typedef struct InputFiles_s {
+    size_t count;
+    InputFile *files;
+} InputFiles;
+bool create_icon(InputFiles *files, CreateNameGen outfile_gen, bool icon_mode, int32_t alpha_threshold);
 #endif

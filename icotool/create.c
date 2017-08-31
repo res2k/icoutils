@@ -66,7 +66,7 @@ xfread(void *ptr, size_t size, FILE *stream)
 }
 
 bool
-create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon_mode, int32_t alpha_threshold)
+create_icon(InputFiles *files, CreateNameGen outfile_gen, bool icon_mode, int32_t alpha_threshold)
 {
     struct {
         FILE *in;
@@ -94,9 +94,9 @@ create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon
     uint32_t dib_start;
     png_byte ct;
 
-    img = xzalloc(filec * sizeof(*img));
+    img = xzalloc(files->count * sizeof(*img));
 
-    for (c = 0; c < filec; c++) {
+    for (c = 0; c < files->count; c++) {
         char header[8];
         uint32_t row_bytes;
         uint8_t transparency[256];
@@ -105,12 +105,12 @@ create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon
         const char* real_filev;
         int32_t bit_count = -1;
 
-        real_filev = filev[c].name;
-        if(!filev[c].is_raw) bit_count = filev[c].bit_count;
-        img[c].hotspot_x = filev[c].hotspot_x;
-        img[c].hotspot_y = filev[c].hotspot_y;
+        real_filev = files->files[c].name;
+        if(!files->files[c].is_raw) bit_count = files->files[c].bit_count;
+        img[c].hotspot_x = files->files[c].hotspot_x;
+        img[c].hotspot_y = files->files[c].hotspot_y;
 
-        img[c].store_raw = filev[c].is_raw;
+        img[c].store_raw = files->files[c].is_raw;
         set_message_header(real_filev);
 
         img[c].in = fopen(real_filev, "rb");
@@ -267,15 +267,15 @@ create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon
 
     dir.reserved = 0;
     dir.type = (icon_mode ? 1 : 2);
-    dir.count = filec;
+    dir.count = files->count;
     fix_win32_cursor_icon_file_dir_endian(&dir);
     if (fwrite(&dir, sizeof(Win32CursorIconFileDir), 1, out) != 1) {
         warn_errno(_("cannot write to file"));
         goto cleanup;
     }
 
-    dib_start = sizeof(Win32CursorIconFileDir) + filec * sizeof(Win32CursorIconFileDirEntry);
-    for (c = 0; c < filec; c++) {
+    dib_start = sizeof(Win32CursorIconFileDir) + files->count * sizeof(Win32CursorIconFileDirEntry);
+    for (c = 0; c < files->count; c++) {
         Win32CursorIconFileDirEntry entry;
 
         /* If one of the dimensions is larger or equal to 256, both icon dimensions have
@@ -318,7 +318,7 @@ create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon
 
     }
 
-    for (c = 0; c < filec; c++) {
+    for (c = 0; c < files->count; c++) {
         if (img[c].store_raw)
         {
             if (fwrite(img[c].image_data, img[c].image_size, 1, out) != 1) {
@@ -444,7 +444,7 @@ create_icon(size_t filec, InputFile *filev, CreateNameGen outfile_gen, bool icon
 cleanup:
 
     restore_message_header();
-    for (c = 0; c < filec; c++) {
+    for (c = 0; c < files->count; c++) {
         if (img[c].image_data != NULL)
             free(img[c].image_data);
         if (img[c].palette != NULL)
