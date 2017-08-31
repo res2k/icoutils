@@ -50,8 +50,8 @@ static int32_t bitdepth = -1;
 static int32_t palettesize = -1;
 static int32_t hotspot_x = 0;
 static int32_t hotspot_y = 0;
-static bool hotspot_x_set = false;
-static bool hotspot_y_set = false;
+static int hotspot_x_set = 0;
+static int hotspot_y_set = 0;
 static int32_t alpha_threshold = 127;
 static bool icon_only = false;	
 static bool cursor_only = false;
@@ -239,6 +239,8 @@ main(int argc, char **argv)
             filev = realloc (filev, (filec+1)*sizeof (InputFile));
             filev[filec].name = optarg;
             filev[filec].bit_count = bitdepth;
+            filev[filec].hotspot_x = hotspot_x;
+            filev[filec].hotspot_y = hotspot_y;
             filec++;
             break;
         case 'x':
@@ -287,12 +289,12 @@ main(int argc, char **argv)
         case 'X':
             if (!parse_int32(optarg, &hotspot_x) || hotspot_x < 0)
                 die(_("invalid hotspot-x value: %s"), optarg);
-            hotspot_x_set = true;
+            ++hotspot_x_set;
             break;
         case 'Y':
             if (!parse_int32(optarg, &hotspot_y) || hotspot_y < 0)
                 die(_("invalid hotspot-y value: %s"), optarg);
-            hotspot_y_set = true;
+            ++hotspot_y_set;
             break;
         case 't':
             if (!parse_int32(optarg, &alpha_threshold) || alpha_threshold < 0)
@@ -301,6 +303,8 @@ main(int argc, char **argv)
         case 'r':
             raw_filev = realloc (raw_filev, (raw_filec+1)*sizeof (RawInputFile));
             raw_filev[raw_filec].name = optarg;
+            raw_filev[raw_filec].hotspot_x = hotspot_x;
+            raw_filev[raw_filec].hotspot_y = hotspot_y;
             raw_filec++;
             break;
         case ICON_OPT:
@@ -319,6 +323,8 @@ main(int argc, char **argv)
     for (c = optind ; c < argc ; c++) {
         filev[filec].name = argv[c];
         filev[filec].bit_count = bitdepth;
+        filev[filec].hotspot_x = hotspot_x;
+        filev[filec].hotspot_y = hotspot_y;
         ++filec;
     }
 
@@ -380,7 +386,25 @@ main(int argc, char **argv)
                 }
             }
         }
-        if (!create_icon(filec, filev, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), hotspot_x, hotspot_y, alpha_threshold))
+        if (hotspot_x_set == 1) {
+            /* Change hotspot to the single value provided (for compatibility) */
+            for (i = 0 ; i < filec ; i++) {
+                filev[i].hotspot_x = hotspot_x;
+            }
+            for (i = 0 ; i < raw_filec ; i++) {
+                raw_filev[i].hotspot_x = hotspot_x;
+            }
+        }
+        if (hotspot_y_set == 1) {
+            /* Change hotspot to the single value provided (for compatibility) */
+            for (i = 0 ; i < filec ; i++) {
+                filev[i].hotspot_y = hotspot_y;
+            }
+            for (i = 0 ; i < raw_filec ; i++) {
+                raw_filev[i].hotspot_y = hotspot_y;
+            }
+        }
+        if (!create_icon(filec, filev, raw_filec, raw_filev, create_outfile_gen, (icon_only ? true : !cursor_only), alpha_threshold))
             exit(1);
     }
 
