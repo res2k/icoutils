@@ -217,7 +217,7 @@ main(int argc, char **argv)
     const char *inname;
     size_t i;
     size_t filec = 0;
-    char** filev = 0;
+    InputFile* filev = 0;
     size_t raw_filec = 0;
     char** raw_filev = 0;
 
@@ -235,8 +235,8 @@ main(int argc, char **argv)
     while ((c = getopt_long(argc, argv, short_opts, long_opts, NULL)) != -1) {
         switch (c) {
         case 1:
-            filev = realloc (filev, (filec+1)*sizeof (char*));
-            filev[filec] = optarg;
+            filev = realloc (filev, (filec+1)*sizeof (InputFile));
+            filev[filec].name = optarg;
             filec++;
             break;
         case 'x':
@@ -312,9 +312,9 @@ main(int argc, char **argv)
     }
 
     /* Handle options after '--' */
-    filev = realloc (filev, (filec+argc-optind)*sizeof (char*));
+    filev = realloc (filev, (filec+argc-optind)*sizeof (InputFile));
     for (c = optind ; c < argc ; c++) {
-        filev[filec++] = argv[c];
+        filev[filec++].name = argv[c];
     }
 
     if (extract_mode + create_mode + list_mode > 1)
@@ -331,7 +331,7 @@ main(int argc, char **argv)
         if (filec <= 0)
             die(_("missing file argument"));
         for (i = 0 ; i < filec ; i++) {
-            if (open_file_or_stdin(filev[i], &in, &inname)) {
+            if (open_file_or_stdin(filev[i].name, &in, &inname)) {
                 if (!extract_icons(in, inname, true, NULL, filter))
                     exit(1);
                 if (in != stdin)
@@ -347,7 +347,7 @@ main(int argc, char **argv)
         for (i = 0 ; i < filec ; i++) {
             int matched;
 
-            if (open_file_or_stdin(filev[i], &in, &inname)) {
+            if (open_file_or_stdin(filev[i].name, &in, &inname)) {
                 matched = extract_icons(in, inname, false, extract_outfile_gen, filter);
                 if (matched == -1)
                     exit(1);

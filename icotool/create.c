@@ -66,7 +66,7 @@ xfread(void *ptr, size_t size, FILE *stream)
 }
 
 bool
-create_icon(size_t filec, char **filev, size_t raw_filec, char** raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t hotspot_x, int32_t hotspot_y, int32_t alpha_threshold, int32_t bit_count)
+create_icon(size_t filec, InputFile *filev, size_t raw_filec, char** raw_filev, CreateNameGen outfile_gen, bool icon_mode, int32_t hotspot_x, int32_t hotspot_y, int32_t alpha_threshold, int32_t bit_count)
 {
     struct {
         FILE *in;
@@ -103,7 +103,11 @@ create_icon(size_t filec, char **filev, size_t raw_filec, char** raw_filev, Crea
         uint8_t transparency[256];
         uint16_t transparency_count;
         bool need_transparency;
-        const char* real_filev = (c >= org_filec) ? raw_filev[c-org_filec] : filev[c];
+        const char* real_filev;
+        if (c >= org_filec)
+            real_filev = raw_filev[c-org_filec];
+        else
+            real_filev = filev[c].name;
 
         img[c].store_raw = (c >= org_filec);
         set_message_header(real_filev);
