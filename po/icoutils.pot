@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: icoutils 0.31.3\n"
+"Project-Id-Version: icoutils 0.32.0\n"
 "Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
-"POT-Creation-Date: 2017-04-01 18:34+0200\n"
+"POT-Creation-Date: 2017-09-02 12:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -256,33 +256,33 @@ msgstr ""
 msgid "premature end"
 msgstr ""
 
-#: icotool/create.c:113
+#: icotool/create.c:118
 msgid "cannot open file"
 msgstr ""
 
-#: icotool/create.c:120
+#: icotool/create.c:125
 msgid "not a png file"
 msgstr ""
 
-#: icotool/create.c:126 icotool/extract.c:293 icotool/extract.c:468
+#: icotool/create.c:131 icotool/extract.c:293 icotool/extract.c:468
 msgid "cannot initialize PNG library"
 msgstr ""
 
-#: icotool/create.c:131 icotool/extract.c:298 icotool/extract.c:473
+#: icotool/create.c:136 icotool/extract.c:298 icotool/extract.c:473
 msgid "cannot create PNG info structure - out of memory"
 msgstr ""
 
-#: icotool/create.c:244
+#: icotool/create.c:249
 #, c-format
 msgid "cannot decrease bit depth from %d to %d, bit depth not changed"
 msgstr ""
 
-#: icotool/create.c:259 icotool/extract.c:199 icotool/extract.c:307
+#: icotool/create.c:264 icotool/extract.c:199 icotool/extract.c:307
 msgid "cannot create file"
 msgstr ""
 
-#: icotool/create.c:268 icotool/create.c:310 icotool/create.c:320
-#: icotool/create.c:394 icotool/extract.c:207
+#: icotool/create.c:273 icotool/create.c:315 icotool/create.c:325
+#: icotool/create.c:399 icotool/extract.c:207
 msgid "cannot write to file"
 msgstr ""
 
@@ -512,84 +512,89 @@ msgstr ""
 msgid "Report bugs to <%s>.\n"
 msgstr ""
 
-#: icotool/main.c:225 wrestool/main.c:216
+#: icotool/main.c:256 wrestool/main.c:216
 #, c-format
 msgid "%s: cannot set locale: %s"
 msgstr ""
 
-#: icotool/main.c:227 wrestool/main.c:218
+#: icotool/main.c:258 wrestool/main.c:218
 #, c-format
 msgid "%s: bindtextdomain failed: %s"
 msgstr ""
 
-#: icotool/main.c:229 wrestool/main.c:220
+#: icotool/main.c:260 wrestool/main.c:220
 #, c-format
 msgid "%s: cannot set message domain: %s"
 msgstr ""
 
-#: icotool/main.c:254
+#: icotool/main.c:288
 #, c-format
 msgid "invalid index value: %s"
 msgstr ""
 
-#: icotool/main.c:258
+#: icotool/main.c:292
 #, c-format
 msgid "invalid width value: %s"
 msgstr ""
 
-#: icotool/main.c:262
+#: icotool/main.c:296
 #, c-format
 msgid "invalid height value: %s"
 msgstr ""
 
-#: icotool/main.c:266
+#: icotool/main.c:300
 #, c-format
 msgid "invalid palette-size value: %s"
 msgstr ""
 
-#: icotool/main.c:270
+#: icotool/main.c:304
 #, c-format
 msgid "invalid bit-depth value: %s"
 msgstr ""
 
-#: icotool/main.c:278
+#: icotool/main.c:313
 #, c-format
 msgid "invalid hotspot-x value: %s"
 msgstr ""
 
-#: icotool/main.c:283
+#: icotool/main.c:318
 #, c-format
 msgid "invalid hotspot-y value: %s"
 msgstr ""
 
-#: icotool/main.c:288
+#: icotool/main.c:323
 #, c-format
 msgid "invalid alpha-threshold value: %s"
 msgstr ""
 
-#: icotool/main.c:307
+#: icotool/main.c:345
 msgid "multiple commands specified"
 msgstr ""
 
-#: icotool/main.c:309
+#: icotool/main.c:347
 msgid "missing argument"
 msgstr ""
 
-#: icotool/main.c:314
+#: icotool/main.c:352
 msgid "only one of --icon and --cursor may be specified"
 msgstr ""
 
-#: icotool/main.c:318
+#: icotool/main.c:356
 msgid "missing file argument"
 msgstr ""
 
-#: icotool/main.c:331 icotool/main.c:350
+#: icotool/main.c:369 icotool/main.c:388
 msgid "missing arguments"
 msgstr ""
 
-#: icotool/main.c:341
+#: icotool/main.c:379
 #, c-format
 msgid "%s: no images matched\n"
+msgstr ""
+
+#: icotool/main.c:399
+#, c-format
+msgid "%s: No bit-depth given\n"
 msgstr ""
 
 #: wrestool/extract.c:108
