@@ -258,7 +258,8 @@ static WinResource *
 list_pe_resources (WinLibrary *fi, Win32ImageResourceDirectory *pe_res, int level, int *count)
 {
 	WinResource *wr;
-	int out_c, dirent_c, rescnt;
+	unsigned int out_c;
+	int dirent_c, rescnt;
 	Win32ImageResourceDirectoryEntry *dirent
 	  = (Win32ImageResourceDirectoryEntry *) (pe_res + 1);
 
@@ -266,6 +267,7 @@ list_pe_resources (WinLibrary *fi, Win32ImageResourceDirectory *pe_res, int leve
 	RETURN_IF_BAD_POINTER(NULL, *dirent);
 	rescnt = pe_res->number_of_named_entries + pe_res->number_of_id_entries;
 	*count = 0;
+	if (rescnt == 0) return NULL;
 
 	/* allocate WinResource's */
 	wr = xmalloc(sizeof(WinResource) * rescnt);
@@ -289,6 +291,10 @@ list_pe_resources (WinLibrary *fi, Win32ImageResourceDirectory *pe_res, int leve
 		++out_c;
 		++(*count);
 	}
+	if (out_c == 0) {
+		free(wr);
+		return NULL;
+	}
 
 	return wr;
 }
@@ -304,6 +310,7 @@ list_ne_name_resources (WinLibrary *fi, WinResource *typeres, int *count)
 	/* count number of `type' resources */
 	RETURN_IF_BAD_POINTER(NULL, typeinfo->count);
 	*count = rescnt = typeinfo->count;
+	if (rescnt == 0) return NULL;
 
 	/* allocate WinResource's */
 	wr = xmalloc(sizeof(WinResource) * rescnt);
@@ -343,6 +350,7 @@ list_ne_type_resources (WinLibrary *fi, int *count)
 		RETURN_IF_BAD_POINTER(NULL, *typeinfo);
 	}
 	*count = rescnt;
+	if (rescnt == 0) return NULL;
 
 	/* allocate WinResource's */
 	wr = xmalloc(sizeof(WinResource) * rescnt);
