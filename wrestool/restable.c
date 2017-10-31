@@ -471,7 +471,7 @@ read_library (WinLibrary *fi)
     /* check for NT header signature `PE' */
     RETURN_IF_BAD_POINTER(false, PE_HEADER(fi->memory)->signature);
     if (PE_HEADER(fi->memory)->signature == IMAGE_NT_SIGNATURE) {
-        Win32ImageSectionHeader *pe_sec;
+        Win32ImageSectionHeader *pe_sections;
         Win32ImageDataDirectory *dir;
         Win32ImageNTHeaders *pe_header;
         int d;
@@ -486,18 +486,25 @@ read_library (WinLibrary *fi)
 
         /* relocate memory, start from last section */
         pe_header = PE_HEADER(fi->memory);
-        RETURN_IF_BAD_POINTER(false, pe_header->file_header.number_of_sections);
         RETURN_IF_BAD_PE_SECTIONS(false, fi->memory);
+        pe_sections = PE_SECTIONS(fi->memory);
 
         /* we don't need to do OFFSET checking for the sections.
          * calc_vma_size has already done that */
         for (d = pe_header->file_header.number_of_sections - 1; d >= 0 ; d--) {
-            pe_sec = PE_SECTIONS(fi->memory) + d;
+            Win32ImageSectionHeader *pe_sec = pe_sections + d;
 
             if (pe_sec->characteristics & IMAGE_SCN_CNT_UNINITIALIZED_DATA)
                 continue;
 
             //if (pe_sec->virtual_address + pe_sec->size_of_raw_data > fi->total_size)
+
+            /* Protect against memory moves overwriting the section table */
+            if ((uint8_t*)(fi->memory + pe_sec->virtual_address)
+                < (uint8_t*)(pe_sections + pe_header->file_header.number_of_sections)) {
+                warn(_("%s: invalid sections layout"), fi->name);
+                return false;
+            }
 
             RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->virtual_address, pe_sec->size_of_raw_data);
             RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->pointer_to_raw_data, pe_sec->size_of_raw_data);
