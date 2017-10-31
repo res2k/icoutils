@@ -261,11 +261,13 @@ extract_icons(FILE *in, const char *inname, bool listmode, ExtractNameGen outfil
                     image_size = height * ROW_BYTES(width * bitmap.bit_count);
                     mask_size = height * ROW_BYTES(width);
 
-                    if (entries[c].dib_size	!= bitmap.size + image_size + mask_size + palette_count * sizeof(Win32RGBQuad))
+                    if (entries[c].dib_size	!= bitmap.size + image_size + mask_size + palette_count * sizeof(Win32RGBQuad)) {
                         warn(_("incorrect total size of bitmap (%d specified; %d real)"),
                             entries[c].dib_size,
                             bitmap.size + image_size + mask_size + palette_count * sizeof(Win32RGBQuad)
                         );
+                        goto done;
+                    }
 
                     image_data = xmalloc(image_size);
                     if (!xfread(image_data, image_size, in))
