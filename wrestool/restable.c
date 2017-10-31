@@ -55,18 +55,18 @@ static bool compare_resource_id (WinResource *wr, const char *id);
 void
 do_resources (WinLibrary *fi, const char *type, const char *name, const char *lang, DoResourceCallback cb)
 {
-	WinResource *type_wr;
-	WinResource *name_wr;
-	WinResource *lang_wr;
+    WinResource *type_wr;
+    WinResource *name_wr;
+    WinResource *lang_wr;
 
-	type_wr = malloc(sizeof(WinResource)*3);
-	name_wr = type_wr + 1;
-	lang_wr = type_wr + 2;
-	memset(type_wr, 0, sizeof(WinResource)*3);
+    type_wr = malloc(sizeof(WinResource)*3);
+    name_wr = type_wr + 1;
+    lang_wr = type_wr + 2;
+    memset(type_wr, 0, sizeof(WinResource)*3);
 
-	do_resources_recurs(fi, NULL, type_wr, name_wr, lang_wr, type, name, lang, cb);
+    do_resources_recurs(fi, NULL, type_wr, name_wr, lang_wr, type, name, lang, cb);
 
-	free(type_wr);
+    free(type_wr);
 }
 
 /* what is each entry in this directory level for? type, name or language? */
@@ -80,301 +80,301 @@ do_resources_recurs (WinLibrary *fi, WinResource *base, WinResource *type_wr,
                      WinResource *name_wr, WinResource *lang_wr,
                      const char *type, const char *name, const char *lang, DoResourceCallback cb)
 {
-	int c, rescnt;
-	WinResource *wr;
+    int c, rescnt;
+    WinResource *wr;
 
-	/* get a list of all resources at this level */
-	wr = list_resources (fi, base, &rescnt);
-	if (wr == NULL)
-		return;
+    /* get a list of all resources at this level */
+    wr = list_resources (fi, base, &rescnt);
+    if (wr == NULL)
+        return;
 
-	/* process each resource listed */
-	for (c = 0 ; c < rescnt ; c++) {
-		/* (over)write the corresponding WinResource holder with the current */
-		memcpy(WINRESOURCE_BY_LEVEL(wr[c].level), wr+c, sizeof(WinResource));
-		if ((base && (wr[c].level <= base->level))
-			|| (wr[c].level >= 3))
-		{
-			warn(_("%s: resource structure malformed"), fi->name);
-			return;
-		}
+    /* process each resource listed */
+    for (c = 0 ; c < rescnt ; c++) {
+        /* (over)write the corresponding WinResource holder with the current */
+        memcpy(WINRESOURCE_BY_LEVEL(wr[c].level), wr+c, sizeof(WinResource));
+        if ((base && (wr[c].level <= base->level))
+            || (wr[c].level >= 3))
+        {
+            warn(_("%s: resource structure malformed"), fi->name);
+            return;
+        }
 
-		/* go deeper unless there is something that does NOT match */
-		if (LEVEL_MATCHES(type) && LEVEL_MATCHES(name) && LEVEL_MATCHES(lang)) {
-			if (wr->is_directory)
-				do_resources_recurs (fi, wr+c, type_wr, name_wr, lang_wr, type, name, lang, cb);
-			else
-				cb(fi, wr+c, type_wr, name_wr, lang_wr);
-		}
-	}
+        /* go deeper unless there is something that does NOT match */
+        if (LEVEL_MATCHES(type) && LEVEL_MATCHES(name) && LEVEL_MATCHES(lang)) {
+            if (wr->is_directory)
+                do_resources_recurs (fi, wr+c, type_wr, name_wr, lang_wr, type, name, lang, cb);
+            else
+                cb(fi, wr+c, type_wr, name_wr, lang_wr);
+        }
+    }
 
-	/* since we're moving back one level after this, unset the
-	 * WinResource holder used on this level */
-	memset(WINRESOURCE_BY_LEVEL(wr[0].level), 0, sizeof(WinResource));
+    /* since we're moving back one level after this, unset the
+     * WinResource holder used on this level */
+    memset(WINRESOURCE_BY_LEVEL(wr[0].level), 0, sizeof(WinResource));
 }
 
 void
 print_resources_callback (WinLibrary *fi, WinResource *wr,
                           WinResource *type_wr, WinResource *name_wr,
-						  WinResource *lang_wr)
+                          WinResource *lang_wr)
 {
-	const char *type, *offset;
-	int32_t id;
-	size_t size;
+    const char *type, *offset;
+    int32_t id;
+    size_t size;
 
-	/* get named resource type if possible */
-	type = NULL;
-	if (parse_int32(type_wr->id, &id))
-		type = res_type_id_to_string(id);
+    /* get named resource type if possible */
+    type = NULL;
+    if (parse_int32(type_wr->id, &id))
+        type = res_type_id_to_string(id);
 
-	/* get offset and size info on resource */
-	offset = get_resource_entry(fi, wr, &size);
-	if (offset == NULL)
-		return;
+    /* get offset and size info on resource */
+    offset = get_resource_entry(fi, wr, &size);
+    if (offset == NULL)
+        return;
 
-	printf(_("--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"),
-	  get_resource_id_quoted(type_wr),
-	  get_resource_id_quoted(name_wr),
-	  (lang_wr->id[0] != '\0' ? _(" --language=") : ""),
-	  get_resource_id_quoted(lang_wr),
-	  (type != NULL ? "type=" : ""),
-	  (type != NULL ? type : ""),
-	  (type != NULL ? " " : ""),
-	  (uint32_t) (offset - fi->memory), size);
+    printf(_("--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"),
+      get_resource_id_quoted(type_wr),
+      get_resource_id_quoted(name_wr),
+      (lang_wr->id[0] != '\0' ? _(" --language=") : ""),
+      get_resource_id_quoted(lang_wr),
+      (type != NULL ? "type=" : ""),
+      (type != NULL ? type : ""),
+      (type != NULL ? " " : ""),
+      (uint32_t) (offset - fi->memory), size);
 }
 
 /* return the resource id quoted if it's a string, otherwise just return it */
 static char *
 get_resource_id_quoted (WinResource *wr)
 {
-	static char tmp[WINRES_ID_MAXLEN+2];
+    static char tmp[WINRES_ID_MAXLEN+2];
 
-	if (wr->numeric_id || wr->id[0] == '\0')
-		return wr->id;
+    if (wr->numeric_id || wr->id[0] == '\0')
+        return wr->id;
 
-	sprintf(tmp, "'%s'", wr->id);
-	return tmp;
+    sprintf(tmp, "'%s'", wr->id);
+    return tmp;
 }
 
 static bool
 compare_resource_id (WinResource *wr, const char *id)
 {
-	if (wr->numeric_id) {
-		int32_t cmp1, cmp2;
-		if (id[0] == '+')
-			return false;
-		if (id[0] == '-')
-			id++;
-		if (!parse_int32(wr->id, &cmp1) || !parse_int32(id, &cmp2) || cmp1 != cmp2)
-			return false;
-	} else {
-		if (id[0] == '-')
-			return false;
-		if (id[0] == '+')
-			id++;
-		if (strcmp(wr->id, id))
-			return false;
-	}
+    if (wr->numeric_id) {
+        int32_t cmp1, cmp2;
+        if (id[0] == '+')
+            return false;
+        if (id[0] == '-')
+            id++;
+        if (!parse_int32(wr->id, &cmp1) || !parse_int32(id, &cmp2) || cmp1 != cmp2)
+            return false;
+    } else {
+        if (id[0] == '-')
+            return false;
+        if (id[0] == '+')
+            id++;
+        if (strcmp(wr->id, id))
+            return false;
+    }
 
-	return true;
+    return true;
 }
 
 static bool
 decode_pe_resource_id (WinLibrary *fi, WinResource *wr, uint32_t value)
 {
-	if (value & IMAGE_RESOURCE_NAME_IS_STRING) {	/* numeric id */
-		int c, len;
-		uint16_t *mem = (uint16_t *)
-		  (fi->first_resource + (value & ~IMAGE_RESOURCE_NAME_IS_STRING));
+    if (value & IMAGE_RESOURCE_NAME_IS_STRING) {	/* numeric id */
+        int c, len;
+        uint16_t *mem = (uint16_t *)
+          (fi->first_resource + (value & ~IMAGE_RESOURCE_NAME_IS_STRING));
 
-		/* copy each char of the string, and terminate it */
-		RETURN_IF_BAD_POINTER(false, *mem);
-		len = mem[0];
-		RETURN_IF_BAD_OFFSET(false, &mem[1], sizeof(uint16_t) * len);
+        /* copy each char of the string, and terminate it */
+        RETURN_IF_BAD_POINTER(false, *mem);
+        len = mem[0];
+        RETURN_IF_BAD_OFFSET(false, &mem[1], sizeof(uint16_t) * len);
 
-		len = MIN(mem[0], WINRES_ID_MAXLEN);
-		for (c = 0 ; c < len ; c++)
-			wr->id[c] = mem[c+1] & 0x00FF;
-		wr->id[len] = '\0';
-	} else {					/* Unicode string id */
-		/* translate id into a string */
-		snprintf(wr->id, WINRES_ID_MAXLEN, "%" PRIu32, value);
-	}
+        len = MIN(mem[0], WINRES_ID_MAXLEN);
+        for (c = 0 ; c < len ; c++)
+            wr->id[c] = mem[c+1] & 0x00FF;
+        wr->id[len] = '\0';
+    } else {					/* Unicode string id */
+        /* translate id into a string */
+        snprintf(wr->id, WINRES_ID_MAXLEN, "%" PRIu32, value);
+    }
 
-	wr->numeric_id = (value & IMAGE_RESOURCE_NAME_IS_STRING ? false:true);
-	return true;
+    wr->numeric_id = (value & IMAGE_RESOURCE_NAME_IS_STRING ? false:true);
+    return true;
 }
  
 void *
 get_resource_entry (WinLibrary *fi, WinResource *wr, size_t *size)
 {
-	if (fi->is_PE_binary) {
-		Win32ImageResourceDataEntry *dataent;
+    if (fi->is_PE_binary) {
+        Win32ImageResourceDataEntry *dataent;
 
-		dataent = (Win32ImageResourceDataEntry *) wr->children;
-		RETURN_IF_BAD_POINTER(NULL, *dataent);
-		*size = dataent->size;
-		RETURN_IF_BAD_OFFSET(NULL, fi->memory + dataent->offset_to_data, *size);
+        dataent = (Win32ImageResourceDataEntry *) wr->children;
+        RETURN_IF_BAD_POINTER(NULL, *dataent);
+        *size = dataent->size;
+        RETURN_IF_BAD_OFFSET(NULL, fi->memory + dataent->offset_to_data, *size);
 
-		return fi->memory + dataent->offset_to_data;
-	} else {
-		Win16NENameInfo *nameinfo;
-		int sizeshift;
+        return fi->memory + dataent->offset_to_data;
+    } else {
+        Win16NENameInfo *nameinfo;
+        int sizeshift;
 
-		nameinfo = (Win16NENameInfo *) wr->children;
-		sizeshift = *((uint16_t *) fi->first_resource - 1);
-		*size = nameinfo->length << sizeshift;
-		RETURN_IF_BAD_OFFSET(NULL, fi->memory + (nameinfo->offset << sizeshift), *size);
+        nameinfo = (Win16NENameInfo *) wr->children;
+        sizeshift = *((uint16_t *) fi->first_resource - 1);
+        *size = nameinfo->length << sizeshift;
+        RETURN_IF_BAD_OFFSET(NULL, fi->memory + (nameinfo->offset << sizeshift), *size);
 
-		return fi->memory + (nameinfo->offset << sizeshift);
-	}
+        return fi->memory + (nameinfo->offset << sizeshift);
+    }
 }
 
 static bool
 decode_ne_resource_id (WinLibrary *fi, WinResource *wr, uint16_t value)
 {
-	if (value & NE_RESOURCE_NAME_IS_NUMERIC) {		/* numeric id */
-		/* translate id into a string */
-		snprintf(wr->id, WINRES_ID_MAXLEN, "%d", value & ~NE_RESOURCE_NAME_IS_NUMERIC);
-	} else {					/* ASCII string id */
-		unsigned char len;
-		char *mem = (char *) NE_HEADER(fi->memory)
-		                     + NE_HEADER(fi->memory)->rsrctab
-		                     + value;
+    if (value & NE_RESOURCE_NAME_IS_NUMERIC) {		/* numeric id */
+        /* translate id into a string */
+        snprintf(wr->id, WINRES_ID_MAXLEN, "%d", value & ~NE_RESOURCE_NAME_IS_NUMERIC);
+    } else {					/* ASCII string id */
+        unsigned char len;
+        char *mem = (char *) NE_HEADER(fi->memory)
+                             + NE_HEADER(fi->memory)->rsrctab
+                             + value;
 
-		/* copy each char of the string, and terminate it */
-		RETURN_IF_BAD_POINTER(false, *mem);
-		len = mem[0];
-		RETURN_IF_BAD_OFFSET(false, &mem[1], sizeof(char) * len);
-		memcpy(wr->id, &mem[1], len);
-		wr->id[len] = '\0';
-	}
+        /* copy each char of the string, and terminate it */
+        RETURN_IF_BAD_POINTER(false, *mem);
+        len = mem[0];
+        RETURN_IF_BAD_OFFSET(false, &mem[1], sizeof(char) * len);
+        memcpy(wr->id, &mem[1], len);
+        wr->id[len] = '\0';
+    }
 
-	wr->numeric_id = (value & NE_RESOURCE_NAME_IS_NUMERIC ? true:false);
-	return true;
+    wr->numeric_id = (value & NE_RESOURCE_NAME_IS_NUMERIC ? true:false);
+    return true;
 }
 
 static WinResource *
 list_pe_resources (WinLibrary *fi, Win32ImageResourceDirectory *pe_res, int level, int *count)
 {
-	WinResource *wr;
-	unsigned int out_c;
-	int dirent_c, rescnt;
-	Win32ImageResourceDirectoryEntry *dirent
-	  = (Win32ImageResourceDirectoryEntry *) (pe_res + 1);
+    WinResource *wr;
+    unsigned int out_c;
+    int dirent_c, rescnt;
+    Win32ImageResourceDirectoryEntry *dirent
+      = (Win32ImageResourceDirectoryEntry *) (pe_res + 1);
 
-	/* count number of `type' resources */
-	RETURN_IF_BAD_POINTER(NULL, *dirent);
-	rescnt = pe_res->number_of_named_entries + pe_res->number_of_id_entries;
-	*count = 0;
-	if (rescnt == 0) return NULL;
+    /* count number of `type' resources */
+    RETURN_IF_BAD_POINTER(NULL, *dirent);
+    rescnt = pe_res->number_of_named_entries + pe_res->number_of_id_entries;
+    *count = 0;
+    if (rescnt == 0) return NULL;
 
-	/* allocate WinResource's */
-	wr = xmalloc(sizeof(WinResource) * rescnt);
+    /* allocate WinResource's */
+    wr = xmalloc(sizeof(WinResource) * rescnt);
 
-	/* fill in the WinResource's */
-	out_c = 0;
-	for (dirent_c = 0 ; dirent_c < rescnt ; dirent_c++) {
-		RETURN_IF_BAD_POINTER(NULL, dirent[dirent_c]);
-		wr[out_c].this = pe_res;
-		wr[out_c].level = level;
-		wr[out_c].is_directory = (dirent[dirent_c].u2.s.data_is_directory);
-		/* Require data to point somewhere after the directory */
-		if (dirent[dirent_c].u2.s.offset_to_directory < sizeof(Win32ImageResourceDirectory))
-			continue;
-		wr[out_c].children = fi->first_resource + dirent[dirent_c].u2.s.offset_to_directory;
+    /* fill in the WinResource's */
+    out_c = 0;
+    for (dirent_c = 0 ; dirent_c < rescnt ; dirent_c++) {
+        RETURN_IF_BAD_POINTER(NULL, dirent[dirent_c]);
+        wr[out_c].this = pe_res;
+        wr[out_c].level = level;
+        wr[out_c].is_directory = (dirent[dirent_c].u2.s.data_is_directory);
+        /* Require data to point somewhere after the directory */
+        if (dirent[dirent_c].u2.s.offset_to_directory < sizeof(Win32ImageResourceDirectory))
+            continue;
+        wr[out_c].children = fi->first_resource + dirent[dirent_c].u2.s.offset_to_directory;
 
-		/* fill in wr->id, wr->numeric_id */
-		if (!decode_pe_resource_id (fi, wr + out_c, dirent[dirent_c].u1.name))
-			continue;
+        /* fill in wr->id, wr->numeric_id */
+        if (!decode_pe_resource_id (fi, wr + out_c, dirent[dirent_c].u1.name))
+            continue;
 
-		++out_c;
-		++(*count);
-	}
-	if (out_c == 0) {
-		free(wr);
-		return NULL;
-	}
+        ++out_c;
+        ++(*count);
+    }
+    if (out_c == 0) {
+        free(wr);
+        return NULL;
+    }
 
-	return wr;
+    return wr;
 }
 
 static WinResource *
 list_ne_name_resources (WinLibrary *fi, WinResource *typeres, int *count)
 {
-	int c, rescnt;
-	WinResource *wr;
-	Win16NETypeInfo *typeinfo = (Win16NETypeInfo *) typeres->this;
-	Win16NENameInfo *nameinfo = (Win16NENameInfo *) typeres->children;
+    int c, rescnt;
+    WinResource *wr;
+    Win16NETypeInfo *typeinfo = (Win16NETypeInfo *) typeres->this;
+    Win16NENameInfo *nameinfo = (Win16NENameInfo *) typeres->children;
 
-	/* count number of `type' resources */
-	RETURN_IF_BAD_POINTER(NULL, typeinfo->count);
-	*count = rescnt = typeinfo->count;
-	if (rescnt == 0) return NULL;
+    /* count number of `type' resources */
+    RETURN_IF_BAD_POINTER(NULL, typeinfo->count);
+    *count = rescnt = typeinfo->count;
+    if (rescnt == 0) return NULL;
 
-	/* allocate WinResource's */
-	wr = xmalloc(sizeof(WinResource) * rescnt);
+    /* allocate WinResource's */
+    wr = xmalloc(sizeof(WinResource) * rescnt);
 
-	/* fill in the WinResource's */
-	for (c = 0 ; c < rescnt ; c++) {
-		RETURN_IF_BAD_POINTER(NULL, nameinfo[c]);
-		wr[c].this = nameinfo+c;
-		wr[c].is_directory = false;
-		wr[c].children = nameinfo+c;
-		wr[c].level = 1;
+    /* fill in the WinResource's */
+    for (c = 0 ; c < rescnt ; c++) {
+        RETURN_IF_BAD_POINTER(NULL, nameinfo[c]);
+        wr[c].this = nameinfo+c;
+        wr[c].is_directory = false;
+        wr[c].children = nameinfo+c;
+        wr[c].level = 1;
 
-		/* fill in wr->id, wr->numeric_id */
-		if (!decode_ne_resource_id (fi, wr + c, (nameinfo+c)->id)) {
-			free(wr);
-			return NULL;
-		}
-	}
+        /* fill in wr->id, wr->numeric_id */
+        if (!decode_ne_resource_id (fi, wr + c, (nameinfo+c)->id)) {
+            free(wr);
+            return NULL;
+        }
+    }
 
-	return wr;
+    return wr;
 }
 
 static WinResource *
 list_ne_type_resources (WinLibrary *fi, int *count)
 {
-	size_t c, rescnt;
-	WinResource *wr;
-	Win16NETypeInfo *typeinfo;
+    size_t c, rescnt;
+    WinResource *wr;
+    Win16NETypeInfo *typeinfo;
 
-	/* count number of `type' resources */
-	typeinfo = (Win16NETypeInfo *) fi->first_resource;
-	RETURN_IF_BAD_POINTER(NULL, *typeinfo);
-	for (rescnt = 0 ; typeinfo->type_id != 0 ; rescnt++) {
-		if (((char *) NE_TYPEINFO_NEXT(typeinfo))+sizeof(uint16_t) > fi->memory + fi->total_size) {
-		    warn(_("%s: resource table invalid, ignoring remaining entries"), fi->name);
-		    break;
-		}
-		typeinfo = NE_TYPEINFO_NEXT(typeinfo);
-		RETURN_IF_BAD_POINTER(NULL, *typeinfo);
-	}
-	*count = rescnt;
-	if (rescnt == 0) return NULL;
+    /* count number of `type' resources */
+    typeinfo = (Win16NETypeInfo *) fi->first_resource;
+    RETURN_IF_BAD_POINTER(NULL, *typeinfo);
+    for (rescnt = 0 ; typeinfo->type_id != 0 ; rescnt++) {
+        if (((char *) NE_TYPEINFO_NEXT(typeinfo))+sizeof(uint16_t) > fi->memory + fi->total_size) {
+            warn(_("%s: resource table invalid, ignoring remaining entries"), fi->name);
+            break;
+        }
+        typeinfo = NE_TYPEINFO_NEXT(typeinfo);
+        RETURN_IF_BAD_POINTER(NULL, *typeinfo);
+    }
+    *count = rescnt;
+    if (rescnt == 0) return NULL;
 
-	/* allocate WinResource's */
-	wr = xmalloc(sizeof(WinResource) * rescnt);
+    /* allocate WinResource's */
+    wr = xmalloc(sizeof(WinResource) * rescnt);
 
-	/* fill in the WinResource's */
-	typeinfo = (Win16NETypeInfo *) fi->first_resource;
-	for (c = 0 ; c < rescnt ; c++) {
-		wr[c].this = typeinfo;
-		wr[c].is_directory = (typeinfo->count != 0);
-		wr[c].children = typeinfo+1;
-		wr[c].level = 0;
+    /* fill in the WinResource's */
+    typeinfo = (Win16NETypeInfo *) fi->first_resource;
+    for (c = 0 ; c < rescnt ; c++) {
+        wr[c].this = typeinfo;
+        wr[c].is_directory = (typeinfo->count != 0);
+        wr[c].children = typeinfo+1;
+        wr[c].level = 0;
 
-		/* fill in wr->id, wr->numeric_id */
-		if (!decode_ne_resource_id (fi, wr + c, typeinfo->type_id)) {
-			free(wr);
-			return NULL;
-		}
+        /* fill in wr->id, wr->numeric_id */
+        if (!decode_ne_resource_id (fi, wr + c, typeinfo->type_id)) {
+            free(wr);
+            return NULL;
+        }
 
-		typeinfo = NE_TYPEINFO_NEXT(typeinfo);
-	}
+        typeinfo = NE_TYPEINFO_NEXT(typeinfo);
+    }
 
-	return wr;
+    return wr;
 }
 
 /* list_resources:
@@ -384,19 +384,19 @@ list_ne_type_resources (WinLibrary *fi, int *count)
 static WinResource *
 list_resources (WinLibrary *fi, WinResource *res, int *count)
 {
-	if (res != NULL && !res->is_directory)
-		return NULL;
+    if (res != NULL && !res->is_directory)
+        return NULL;
 
-	if (fi->is_PE_binary) {
-		return list_pe_resources(fi, (Win32ImageResourceDirectory *)
-				 (res == NULL ? fi->first_resource : res->children),
-				 (res == NULL ? 0 : res->level+1),
-				 count);
-	} else {
-		return (res == NULL
-				? list_ne_type_resources(fi, count)
-				: list_ne_name_resources(fi, res, count));
-	}
+    if (fi->is_PE_binary) {
+        return list_pe_resources(fi, (Win32ImageResourceDirectory *)
+                 (res == NULL ? fi->first_resource : res->children),
+                 (res == NULL ? 0 : res->level+1),
+                 count);
+    } else {
+        return (res == NULL
+                ? list_ne_type_resources(fi, count)
+                : list_ne_name_resources(fi, res, count));
+    }
 }
 
 /* read_library:
@@ -407,98 +407,98 @@ list_resources (WinLibrary *fi, WinResource *res, int *count)
 bool
 read_library (WinLibrary *fi)
 {
-	/* check for DOS header signature `MZ' */
-	RETURN_IF_BAD_POINTER(false, MZ_HEADER(fi->memory)->magic);
-	if (MZ_HEADER(fi->memory)->magic == IMAGE_DOS_SIGNATURE) {
-		DOSImageHeader *mz_header = MZ_HEADER(fi->memory);
+    /* check for DOS header signature `MZ' */
+    RETURN_IF_BAD_POINTER(false, MZ_HEADER(fi->memory)->magic);
+    if (MZ_HEADER(fi->memory)->magic == IMAGE_DOS_SIGNATURE) {
+        DOSImageHeader *mz_header = MZ_HEADER(fi->memory);
 
-		RETURN_IF_BAD_POINTER(false, mz_header->lfanew);
-		if (mz_header->lfanew < sizeof (DOSImageHeader)) {
-			warn(_("%s: not a PE or NE library"), fi->name);
-			return false;
-		}
+        RETURN_IF_BAD_POINTER(false, mz_header->lfanew);
+        if (mz_header->lfanew < sizeof (DOSImageHeader)) {
+            warn(_("%s: not a PE or NE library"), fi->name);
+            return false;
+        }
 
-		/* falls through */
-	}
+        /* falls through */
+    }
 
-	RETURN_IF_BAD_OFFSET(false, MZ_HEADER(fi->memory), sizeof(Win32ImageNTHeaders));
-	/* check for OS2 (Win16) header signature `NE' */
-	RETURN_IF_BAD_POINTER(false, NE_HEADER(fi->memory)->magic);
-	if (NE_HEADER(fi->memory)->magic == IMAGE_OS2_SIGNATURE) {
-		OS2ImageHeader *header = NE_HEADER(fi->memory);
-		uint16_t *alignshift;
+    RETURN_IF_BAD_OFFSET(false, MZ_HEADER(fi->memory), sizeof(Win32ImageNTHeaders));
+    /* check for OS2 (Win16) header signature `NE' */
+    RETURN_IF_BAD_POINTER(false, NE_HEADER(fi->memory)->magic);
+    if (NE_HEADER(fi->memory)->magic == IMAGE_OS2_SIGNATURE) {
+        OS2ImageHeader *header = NE_HEADER(fi->memory);
+        uint16_t *alignshift;
 
-		RETURN_IF_BAD_POINTER(false, header->rsrctab);
-		RETURN_IF_BAD_POINTER(false, header->restab);
-		if (header->rsrctab >= header->restab) {
-			warn(_("%s: no resource directory found"), fi->name);
-			return false;
-		}
+        RETURN_IF_BAD_POINTER(false, header->rsrctab);
+        RETURN_IF_BAD_POINTER(false, header->restab);
+        if (header->rsrctab >= header->restab) {
+            warn(_("%s: no resource directory found"), fi->name);
+            return false;
+        }
 
-		fi->is_PE_binary = false;
-		alignshift = (uint16_t *) ((uint8_t *) NE_HEADER(fi->memory) + header->rsrctab);
-		fi->first_resource = ((uint8_t *) alignshift) + sizeof(uint16_t);
-		RETURN_IF_BAD_POINTER(false, *(Win16NETypeInfo *) fi->first_resource);
+        fi->is_PE_binary = false;
+        alignshift = (uint16_t *) ((uint8_t *) NE_HEADER(fi->memory) + header->rsrctab);
+        fi->first_resource = ((uint8_t *) alignshift) + sizeof(uint16_t);
+        RETURN_IF_BAD_POINTER(false, *(Win16NETypeInfo *) fi->first_resource);
 
-		return true;
-	}
+        return true;
+    }
 
-	/* check for NT header signature `PE' */
-	RETURN_IF_BAD_POINTER(false, PE_HEADER(fi->memory)->signature);
-	if (PE_HEADER(fi->memory)->signature == IMAGE_NT_SIGNATURE) {
-		Win32ImageSectionHeader *pe_sec;
-		Win32ImageDataDirectory *dir;
-		Win32ImageNTHeaders *pe_header;
-		int d;
+    /* check for NT header signature `PE' */
+    RETURN_IF_BAD_POINTER(false, PE_HEADER(fi->memory)->signature);
+    if (PE_HEADER(fi->memory)->signature == IMAGE_NT_SIGNATURE) {
+        Win32ImageSectionHeader *pe_sec;
+        Win32ImageDataDirectory *dir;
+        Win32ImageNTHeaders *pe_header;
+        int d;
 
-		/* allocate new memory */
-		fi->total_size = calc_vma_size(fi);
-		if (fi->total_size <= 0) {
-			/* calc_vma_size has reported error */
-			return false;
-		}
-		fi->memory = xrealloc(fi->memory, fi->total_size);
+        /* allocate new memory */
+        fi->total_size = calc_vma_size(fi);
+        if (fi->total_size <= 0) {
+            /* calc_vma_size has reported error */
+            return false;
+        }
+        fi->memory = xrealloc(fi->memory, fi->total_size);
 
-		/* relocate memory, start from last section */
-		pe_header = PE_HEADER(fi->memory);
+        /* relocate memory, start from last section */
+        pe_header = PE_HEADER(fi->memory);
         RETURN_IF_BAD_POINTER(false, pe_header->file_header.number_of_sections);
         RETURN_IF_BAD_PE_SECTIONS(false, fi->memory);
 
-		/* we don't need to do OFFSET checking for the sections.
-		 * calc_vma_size has already done that */
-		for (d = pe_header->file_header.number_of_sections - 1; d >= 0 ; d--) {
-			pe_sec = PE_SECTIONS(fi->memory) + d;
+        /* we don't need to do OFFSET checking for the sections.
+         * calc_vma_size has already done that */
+        for (d = pe_header->file_header.number_of_sections - 1; d >= 0 ; d--) {
+            pe_sec = PE_SECTIONS(fi->memory) + d;
 
-	            	if (pe_sec->characteristics & IMAGE_SCN_CNT_UNINITIALIZED_DATA)
-			    continue;
+            if (pe_sec->characteristics & IMAGE_SCN_CNT_UNINITIALIZED_DATA)
+                continue;
 
-    	    	    	//if (pe_sec->virtual_address + pe_sec->size_of_raw_data > fi->total_size)
+            //if (pe_sec->virtual_address + pe_sec->size_of_raw_data > fi->total_size)
 
-    	    	    	RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->virtual_address, pe_sec->size_of_raw_data);
-    	    	    	RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->pointer_to_raw_data, pe_sec->size_of_raw_data);
-    	    	    	if (pe_sec->virtual_address != pe_sec->pointer_to_raw_data) {
-    	    	    	    memmove(fi->memory + pe_sec->virtual_address,
-				    fi->memory + pe_sec->pointer_to_raw_data,
-				    pe_sec->size_of_raw_data);
-			}
-		}
+            RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->virtual_address, pe_sec->size_of_raw_data);
+            RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->pointer_to_raw_data, pe_sec->size_of_raw_data);
+            if (pe_sec->virtual_address != pe_sec->pointer_to_raw_data) {
+                memmove(fi->memory + pe_sec->virtual_address,
+                fi->memory + pe_sec->pointer_to_raw_data,
+                pe_sec->size_of_raw_data);
+            }
+        }
 
-		/* find resource directory */
-		RETURN_IF_BAD_POINTER(false, pe_header->optional_header.data_directory[IMAGE_DIRECTORY_ENTRY_RESOURCE]);
-		dir = pe_header->optional_header.data_directory + IMAGE_DIRECTORY_ENTRY_RESOURCE;
-		if (dir->size == 0) {
-			warn(_("%s: file contains no resources"), fi->name);
-			return false;
-		}
+        /* find resource directory */
+        RETURN_IF_BAD_POINTER(false, pe_header->optional_header.data_directory[IMAGE_DIRECTORY_ENTRY_RESOURCE]);
+        dir = pe_header->optional_header.data_directory + IMAGE_DIRECTORY_ENTRY_RESOURCE;
+        if (dir->size == 0) {
+            warn(_("%s: file contains no resources"), fi->name);
+            return false;
+        }
 
-		fi->first_resource = ((uint8_t *) fi->memory) + dir->virtual_address;
-		fi->is_PE_binary = true;
-		return true;
-	}
+        fi->first_resource = ((uint8_t *) fi->memory) + dir->virtual_address;
+        fi->is_PE_binary = true;
+        return true;
+    }
 
-	/* other (unknown) header signature was found */
-	warn(_("%s: not a PE or NE library"), fi->name);
-	return false;
+    /* other (unknown) header signature was found */
+    warn(_("%s: not a PE or NE library"), fi->name);
+    return false;
 }
 
 /* calc_vma_size:
@@ -520,17 +520,17 @@ calc_vma_size (WinLibrary *fi)
      * will be delt with later anyway.
      */
     if (segcount == 0)
-    	return fi->total_size;
+        return fi->total_size;
 
     RETURN_IF_BAD_PE_SECTIONS(-1, fi->memory);
     seg = PE_SECTIONS(fi->memory);
     RETURN_IF_BAD_POINTER(-1, *seg);
     
     for (c = 0 ; c < segcount ; c++) {
-    	RETURN_IF_BAD_POINTER(0, *seg);
+        RETURN_IF_BAD_POINTER(0, *seg);
 
-    	size = MAX(size, seg->virtual_address + seg->size_of_raw_data);
-		/* I have no idea what misc.virtual_size is for... */
+        size = MAX(size, seg->virtual_address + seg->size_of_raw_data);
+        /* I have no idea what misc.virtual_size is for... */
         size = MAX(size, seg->virtual_address + seg->misc.virtual_size);
         seg++;
     }
@@ -541,50 +541,50 @@ calc_vma_size (WinLibrary *fi)
 static WinResource *
 find_with_resource_array(WinLibrary *fi, WinResource *wr, const char *id)
 {
-	int c, rescnt;
-	WinResource *return_wr;
+    int c, rescnt;
+    WinResource *return_wr;
 
-	wr = list_resources(fi, wr, &rescnt);
-	if (wr == NULL)
-		return NULL;
+    wr = list_resources(fi, wr, &rescnt);
+    if (wr == NULL)
+        return NULL;
 
-	for (c = 0 ; c < rescnt ; c++) {
-		if (compare_resource_id (&wr[c], id)) {
-			/* duplicate WinResource and return it */
-			return_wr = xmalloc(sizeof(WinResource));
-			memcpy(return_wr, &wr[c], sizeof(WinResource));
+    for (c = 0 ; c < rescnt ; c++) {
+        if (compare_resource_id (&wr[c], id)) {
+            /* duplicate WinResource and return it */
+            return_wr = xmalloc(sizeof(WinResource));
+            memcpy(return_wr, &wr[c], sizeof(WinResource));
 
-			/* free old WinResource */
-			free(wr);
-			return return_wr;
-		}
-	}
+            /* free old WinResource */
+            free(wr);
+            return return_wr;
+        }
+    }
 
-	return NULL;
+    return NULL;
 }
 
 WinResource *
 find_resource (WinLibrary *fi, const char *type, const char *name, const char *language, int *level)
 {
-	WinResource *wr;
+    WinResource *wr;
 
-	*level = 0;
-	if (type == NULL)
-		return NULL;
-	wr = find_with_resource_array(fi, NULL, type);
-	if (wr == NULL || !wr->is_directory)
-		return wr;
+    *level = 0;
+    if (type == NULL)
+        return NULL;
+    wr = find_with_resource_array(fi, NULL, type);
+    if (wr == NULL || !wr->is_directory)
+        return wr;
 
-	*level = 1;
-	if (name == NULL)
-		return wr;
-	wr = find_with_resource_array(fi, wr, name);
-	if (wr == NULL || !wr->is_directory)
-		return wr;
+    *level = 1;
+    if (name == NULL)
+        return wr;
+    wr = find_with_resource_array(fi, wr, name);
+    if (wr == NULL || !wr->is_directory)
+        return wr;
 
-	*level = 2;
-	if (language == NULL)
-		return wr;
-	wr = find_with_resource_array(fi, wr, language);
-	return wr;
+    *level = 2;
+    if (language == NULL)
+        return wr;
+    wr = find_with_resource_array(fi, wr, language);
+    return wr;
 }
