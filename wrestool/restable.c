@@ -510,8 +510,8 @@ read_library (WinLibrary *fi)
             RETURN_IF_BAD_OFFSET(0, fi->memory + pe_sec->pointer_to_raw_data, pe_sec->size_of_raw_data);
             if (pe_sec->virtual_address != pe_sec->pointer_to_raw_data) {
                 memmove(fi->memory + pe_sec->virtual_address,
-                fi->memory + pe_sec->pointer_to_raw_data,
-                pe_sec->size_of_raw_data);
+                    fi->memory + pe_sec->pointer_to_raw_data,
+                    pe_sec->size_of_raw_data);
             }
         }
 
