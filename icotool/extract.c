@@ -56,7 +56,7 @@
 #define FALSE	0
 #define TRUE	1
 
-static uint32_t simple_vec(uint8_t *data, uint32_t ofs, uint8_t size);
+static uint32_t simple_vec(uint8_t *data, uint32_t max_ofs, uint32_t ofs, uint8_t size);
 static int read_png(uint8_t *image_data, uint32_t image_size, uint32_t *bit_count, uint32_t *width, uint32_t *height);
 
 static bool
@@ -329,7 +329,7 @@ extract_icons(FILE *in, const char *inname, bool listmode, ExtractNameGen outfil
                         uint32_t mmod = y * (mask_size / height) * 8;
 
                         for (x = 0; x < (uint32_t) width; x++) {
-                            uint32_t color = simple_vec(image_data, x + imod, bitmap.bit_count);
+                            uint32_t color = simple_vec(image_data, image_size, x + imod, bitmap.bit_count);
 
                             if (bitmap.bit_count <= 16) {
                                 if (color >= palette_count) {
@@ -347,7 +347,7 @@ extract_icons(FILE *in, const char *inname, bool listmode, ExtractNameGen outfil
                             if (bitmap.bit_count == 32)
                                 row[4*x+3] = (color >> 24) & 0xFF;
                             else
-                                row[4*x+3] = simple_vec(mask_data, x + mmod, 1) ? 0 : 0xFF;
+                                row[4*x+3] = simple_vec(mask_data, mask_size, x + mmod, 1) ? 0 : 0xFF;
                         }
 
                         if (!listmode)
@@ -433,22 +433,29 @@ cleanup:
 }
 
 static uint32_t
-simple_vec(uint8_t *data, uint32_t ofs, uint8_t size)
+simple_vec(uint8_t *data, uint32_t max_ofs, uint32_t ofs, uint8_t size)
 {
     switch (size) {
     case 1:
+        if ((ofs / 8) >= max_ofs) return 0;
         return (data[ofs/8] >> (7 - ofs%8)) & 1;
     case 2:
+        if ((ofs / 4) >= max_ofs) return 0;
         return (data[ofs/4] >> ((3 - ofs%4) << 1)) & 3;
     case 4:
+        if ((ofs / 2) >= max_ofs) return 0;
         return (data[ofs/2] >> ((1 - ofs%2) << 2)) & 15;
     case 8:
+        if (ofs >= max_ofs) return 0;
         return data[ofs];
     case 16:
+        if ((2 * ofs + 1) >= max_ofs) return 0;
         return data[2*ofs] | data[2*ofs+1] << 8;
     case 24:
+        if ((3 * ofs + 2) >= max_ofs) return 0;
         return data[3*ofs] | data[3*ofs+1] << 8 | data[3*ofs+2] << 16;
     case 32:
+        if ((4 * ofs + 3) >= max_ofs) return 0;
         return data[4*ofs] | data[4*ofs+1] << 8 | data[4*ofs+2] << 16 | data[4*ofs+3] << 24;
     }
 
