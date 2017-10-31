@@ -1,3 +1,7 @@
+2017-10-31: icoutils 0.32.1 released.
+  Fixed multiple issues found by Hanno Böck <hanno@hboeck.de> via
+   fuzzing. (Savannah bugs 52307, 52308, 52313)
+
 2017-09-02: icoutils 0.32.0 released.
   Fixed issues found by Jerzy Kramarz:
    Invalid memory allocation in icotool with malformed input.
