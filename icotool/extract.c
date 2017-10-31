@@ -318,53 +318,53 @@ extract_icons(FILE *in, const char *inname, bool listmode, ExtractNameGen outfil
                                 PNG_COMPRESSION_TYPE_DEFAULT,
                                 PNG_FILTER_TYPE_DEFAULT);
                         png_write_info(png_ptr, info_ptr);
-                    }
 
-                    row = xmalloc(width * 4);
+                        row = xmalloc(width * 4);
 
-                    for (d = 0; d < (uint32_t) height; d++) {
-                        uint32_t x;
-                        uint32_t y = (bitmap.height < 0 ? d : height - d - 1);
-                        uint32_t imod = y * (image_size / height) * 8 / bitmap.bit_count;
-                        uint32_t mmod = y * (mask_size / height) * 8;
+                        for (d = 0; d < (uint32_t) height; d++) {
+                            uint32_t x;
+                            uint32_t y = (bitmap.height < 0 ? d : height - d - 1);
+                            uint32_t imod = y * (image_size / height) * 8 / bitmap.bit_count;
+                            uint32_t mmod = y * (mask_size / height) * 8;
 
-                        for (x = 0; x < (uint32_t) width; x++) {
-                            uint32_t color = simple_vec(image_data, image_size, x + imod, bitmap.bit_count);
+                            for (x = 0; x < (uint32_t) width; x++) {
+                                uint32_t color = simple_vec(image_data, image_size, x + imod, bitmap.bit_count);
 
-                            if (bitmap.bit_count <= 16) {
-                                if (color >= palette_count) {
-                                    warn("color out of range in image data");
-                                    goto done;
+                                if (bitmap.bit_count <= 16) {
+                                    if (color >= palette_count) {
+                                        warn("color out of range in image data");
+                                        goto done;
+                                    }
+                                    row[4*x+0] = palette[color].red;
+                                    row[4*x+1] = palette[color].green;
+                                    row[4*x+2] = palette[color].blue;
+                                } else {
+                                    row[4*x+0] = (color >> 16) & 0xFF;
+                                    row[4*x+1] = (color >>  8) & 0xFF;
+                                    row[4*x+2] = (color >>  0) & 0xFF;
                                 }
-                                row[4*x+0] = palette[color].red;
-                                row[4*x+1] = palette[color].green;
-                                row[4*x+2] = palette[color].blue;
-                            } else {
-                                row[4*x+0] = (color >> 16) & 0xFF;
-                                row[4*x+1] = (color >>  8) & 0xFF;
-                                row[4*x+2] = (color >>  0) & 0xFF;
+                                if (bitmap.bit_count == 32)
+                                    row[4*x+3] = (color >> 24) & 0xFF;
+                                else
+                                    row[4*x+3] = simple_vec(mask_data, mask_size, x + mmod, 1) ? 0 : 0xFF;
                             }
-                            if (bitmap.bit_count == 32)
-                                row[4*x+3] = (color >> 24) & 0xFF;
-                            else
-                                row[4*x+3] = simple_vec(mask_data, mask_size, x + mmod, 1) ? 0 : 0xFF;
-                        }
 
-                        if (!listmode)
                             png_write_row(png_ptr, row);
-                    }
+                        }
+                        png_write_end(png_ptr, info_ptr);
+                        png_destroy_write_struct(&png_ptr, &info_ptr);
 
-                    if (listmode) {
+                        free(row);
+                        row = NULL;
+
+                        /*restore_message_header();*/
+                    } else {
                         printf(_("--%s --index=%d --width=%d --height=%d --bit-depth=%" PRIu32 " --palette-size=%" PRIu32),
                                 (dir.type == 1 ? "icon" : "cursor"), completed, width, height,
                                 bitmap.bit_count, palette_count);
                         if (dir.type == 2)
                             printf(_(" --hotspot-x=%d --hotspot-y=%d"), entries[c].hotspot_x, entries[c].hotspot_y);
                         printf("\n");
-                    } else {
-                        png_write_end(png_ptr, info_ptr);
-                        png_destroy_write_struct(&png_ptr, &info_ptr);
-                        /*restore_message_header();*/
                     }
                 }
                 
