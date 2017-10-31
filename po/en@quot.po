@@ -27,10 +27,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: icoutils 0.32.1\n"
+"Project-Id-Version: icoutils 0.32.2\n"
 "Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
-"POT-Creation-Date: 2017-10-31 17:08+0100\n"
-"PO-Revision-Date: 2017-10-31 17:08+0100\n"
+"POT-Creation-Date: 2017-10-31 19:27+0100\n"
+"PO-Revision-Date: 2017-10-31 19:27+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en@quot\n"
@@ -812,36 +812,41 @@ msgstr "%s: file has a size of 0"
 msgid "%s: --language has no effect because file is 16-bit binary"
 msgstr "%s: --language has no effect because file is 16-bit binary"
 
-#: wrestool/restable.c:100
+#: wrestool/restable.c:102
 #, c-format
 msgid "%s: resource structure malformed"
 msgstr "%s: resource structure malformed"
 
-#: wrestool/restable.c:137
+#: wrestool/restable.c:139
 #, c-format
 msgid "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
 msgstr "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
 
-#: wrestool/restable.c:140
+#: wrestool/restable.c:142
 msgid " --language="
 msgstr " --language="
 
-#: wrestool/restable.c:350
+#: wrestool/restable.c:352
 #, c-format
 msgid "%s: resource table invalid, ignoring remaining entries"
 msgstr "%s: resource table invalid, ignoring remaining entries"
 
-#: wrestool/restable.c:419 wrestool/restable.c:502
+#: wrestool/restable.c:442 wrestool/restable.c:532
 #, c-format
 msgid "%s: not a PE or NE library"
 msgstr "%s: not a PE or NE library"
 
-#: wrestool/restable.c:436
+#: wrestool/restable.c:459
 #, c-format
 msgid "%s: no resource directory found"
 msgstr "%s: no resource directory found"
 
-#: wrestool/restable.c:492
+#: wrestool/restable.c:505
+#, c-format
+msgid "%s: invalid sections layout"
+msgstr "%s: invalid sections layout"
+
+#: wrestool/restable.c:522
 #, c-format
 msgid "%s: file contains no resources"
 msgstr "%s: file contains no resources"

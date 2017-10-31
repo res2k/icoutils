@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: icoutils 0.32.1\n"
+"Project-Id-Version: icoutils 0.32.2\n"
 "Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
-"POT-Creation-Date: 2017-10-31 17:08+0100\n"
+"POT-Creation-Date: 2017-10-31 19:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -735,36 +735,41 @@ msgstr ""
 msgid "%s: --language has no effect because file is 16-bit binary"
 msgstr ""
 
-#: wrestool/restable.c:100
+#: wrestool/restable.c:102
 #, c-format
 msgid "%s: resource structure malformed"
 msgstr ""
 
-#: wrestool/restable.c:137
+#: wrestool/restable.c:139
 #, c-format
 msgid "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
 msgstr ""
 
-#: wrestool/restable.c:140
+#: wrestool/restable.c:142
 msgid " --language="
 msgstr ""
 
-#: wrestool/restable.c:350
+#: wrestool/restable.c:352
 #, c-format
 msgid "%s: resource table invalid, ignoring remaining entries"
 msgstr ""
 
-#: wrestool/restable.c:419 wrestool/restable.c:502
+#: wrestool/restable.c:442 wrestool/restable.c:532
 #, c-format
 msgid "%s: not a PE or NE library"
 msgstr ""
 
-#: wrestool/restable.c:436
+#: wrestool/restable.c:459
 #, c-format
 msgid "%s: no resource directory found"
 msgstr ""
 
-#: wrestool/restable.c:492
+#: wrestool/restable.c:505
+#, c-format
+msgid "%s: invalid sections layout"
+msgstr ""
+
+#: wrestool/restable.c:522
 #, c-format
 msgid "%s: file contains no resources"
 msgstr ""
