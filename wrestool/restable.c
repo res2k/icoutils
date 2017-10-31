@@ -44,8 +44,10 @@ static bool compare_resource_id (WinResource *wr, const char *id);
 /* Check whether access to a PE_SECTIONS is allowed */
 #define RETURN_IF_BAD_PE_SECTIONS(ret, module)                                              \
     do {                                                                                    \
+        void* pe_sec_;                                                                      \
         RETURN_IF_BAD_POINTER(ret, PE_HEADER(module)->optional_header);                     \
-        RETURN_IF_BAD_POINTER(ret, PE_HEADER(module)->file_header.size_of_optional_header); \
+        pe_sec_ = PE_SECTIONS(module);                                                      \
+        RETURN_IF_BAD_POINTER(ret, pe_sec_);                                                \
     } while(0)
 
 /* do_resources:
