@@ -46,8 +46,10 @@ static bool compare_resource_id (WinResource *wr, const char *id);
     do {                                                                                    \
         void* pe_sec_;                                                                      \
         RETURN_IF_BAD_POINTER(ret, PE_HEADER(module)->optional_header);                     \
+        RETURN_IF_BAD_POINTER(ret, PE_HEADER(module)->file_header.number_of_sections);      \
         pe_sec_ = PE_SECTIONS(module);                                                      \
-        RETURN_IF_BAD_OFFSET(ret, pe_sec_, sizeof(Win32ImageSectionHeader));                \
+        RETURN_IF_BAD_OFFSET(ret, pe_sec_, sizeof(Win32ImageSectionHeader)                  \
+            * PE_HEADER(module)->file_header.number_of_sections);                           \
     } while(0)
 
 /* do_resources:
