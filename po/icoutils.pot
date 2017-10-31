@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: icoutils 0.32.0\n"
+"Project-Id-Version: icoutils 0.32.1\n"
 "Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
-"POT-Creation-Date: 2017-09-02 12:59+0200\n"
+"POT-Creation-Date: 2017-10-31 17:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -264,11 +264,11 @@ msgstr ""
 msgid "not a png file"
 msgstr ""
 
-#: icotool/create.c:131 icotool/extract.c:293 icotool/extract.c:468
+#: icotool/create.c:131 icotool/extract.c:295 icotool/extract.c:477
 msgid "cannot initialize PNG library"
 msgstr ""
 
-#: icotool/create.c:136 icotool/extract.c:298 icotool/extract.c:473
+#: icotool/create.c:136 icotool/extract.c:300 icotool/extract.c:482
 msgid "cannot create PNG info structure - out of memory"
 msgstr ""
 
@@ -277,7 +277,7 @@ msgstr ""
 msgid "cannot decrease bit depth from %d to %d, bit depth not changed"
 msgstr ""
 
-#: icotool/create.c:264 icotool/extract.c:199 icotool/extract.c:307
+#: icotool/create.c:264 icotool/extract.c:199 icotool/extract.c:309
 msgid "cannot create file"
 msgstr ""
 
@@ -306,14 +306,14 @@ msgstr ""
 msgid "PNG too large"
 msgstr ""
 
-#: icotool/extract.c:187 icotool/extract.c:358
+#: icotool/extract.c:187 icotool/extract.c:364
 #, c-format
 msgid ""
 "--%s --index=%d --width=%d --height=%d --bit-depth=%<PRIu32> --palette-size="
 "%<PRIu32>"
 msgstr ""
 
-#: icotool/extract.c:191 icotool/extract.c:362
+#: icotool/extract.c:191 icotool/extract.c:368
 #, c-format
 msgid " --hotspot-x=%d --hotspot-y=%d"
 msgstr ""
@@ -364,15 +364,15 @@ msgstr ""
 msgid "incorrect total size of bitmap (%d specified; %d real)"
 msgstr ""
 
-#: icotool/extract.c:411
+#: icotool/extract.c:413
 msgid "offset of bitmap header incorrect (too low)"
 msgstr ""
 
-#: icotool/extract.c:415
+#: icotool/extract.c:417
 msgid "invalid data at expected offset (unrecoverable)"
 msgstr ""
 
-#: icotool/extract.c:418
+#: icotool/extract.c:420
 #, c-format
 msgid "skipping %u bytes of garbage at %u"
 msgstr ""
@@ -735,36 +735,36 @@ msgstr ""
 msgid "%s: --language has no effect because file is 16-bit binary"
 msgstr ""
 
-#: wrestool/restable.c:98
+#: wrestool/restable.c:100
 #, c-format
 msgid "%s: resource structure malformed"
 msgstr ""
 
-#: wrestool/restable.c:135
+#: wrestool/restable.c:137
 #, c-format
 msgid "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
 msgstr ""
 
-#: wrestool/restable.c:138
+#: wrestool/restable.c:140
 msgid " --language="
 msgstr ""
 
-#: wrestool/restable.c:339
+#: wrestool/restable.c:350
 #, c-format
 msgid "%s: resource table invalid, ignoring remaining entries"
 msgstr ""
 
-#: wrestool/restable.c:405 wrestool/restable.c:488
+#: wrestool/restable.c:419 wrestool/restable.c:502
 #, c-format
 msgid "%s: not a PE or NE library"
 msgstr ""
 
-#: wrestool/restable.c:422
+#: wrestool/restable.c:436
 #, c-format
 msgid "%s: no resource directory found"
 msgstr ""
 
-#: wrestool/restable.c:478
+#: wrestool/restable.c:492
 #, c-format
 msgid "%s: file contains no resources"
 msgstr ""
