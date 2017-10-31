@@ -1,3 +1,8 @@
+2017-10-31: icoutils 0.32.2 released.
+  Corrected fix for savannah bug 52308 (caused wrestool to always
+   fail).
+  Added support for PE32+ binaries.
+
 2017-10-31: icoutils 0.32.1 released.
   Fixed multiple issues found by Hanno Böck <hanno@hboeck.de> via
    fuzzing. (Savannah bugs 52307, 52308, 52313)
