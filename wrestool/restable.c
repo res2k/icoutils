@@ -403,6 +403,27 @@ list_resources (WinLibrary *fi, WinResource *res, int *count)
     }
 }
 
+static Win32ImageDataDirectory *
+get_data_directory_entry (WinLibrary *fi, unsigned int entry)
+{
+    Win32ImageNTHeaders *pe_header;
+    pe_header = PE_HEADER(fi->memory);
+    RETURN_IF_BAD_POINTER(NULL, pe_header->optional_header.magic);
+
+    if (pe_header->optional_header.magic == OPTIONAL_MAGIC_PE32) {
+        Win32ImageOptionalHeader *optional_header = &(pe_header->optional_header);
+        RETURN_IF_BAD_POINTER(false, optional_header->data_directory[entry]);
+        return optional_header->data_directory + entry;
+    } else if (pe_header->optional_header.magic == OPTIONAL_MAGIC_PE32_64) {
+        Win32ImageOptionalHeader64 *optional_header =
+            (Win32ImageOptionalHeader64*)&(pe_header->optional_header);
+        RETURN_IF_BAD_POINTER(false, optional_header->data_directory[entry]);
+        return optional_header->data_directory + entry;
+    } else {
+        return NULL;
+    }
+}
+
 /* read_library:
  *
  * Read header and get resource directory offset in a Windows library
@@ -488,8 +509,8 @@ read_library (WinLibrary *fi)
         }
 
         /* find resource directory */
-        RETURN_IF_BAD_POINTER(false, pe_header->optional_header.data_directory[IMAGE_DIRECTORY_ENTRY_RESOURCE]);
-        dir = pe_header->optional_header.data_directory + IMAGE_DIRECTORY_ENTRY_RESOURCE;
+        dir = get_data_directory_entry (fi, IMAGE_DIRECTORY_ENTRY_RESOURCE);
+        if (dir == NULL) return false;
         if (dir->size == 0) {
             warn(_("%s: file contains no resources"), fi->name);
             return false;

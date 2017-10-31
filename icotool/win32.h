@@ -114,6 +114,9 @@ typedef struct {
 #define IMAGE_VXD_SIGNATURE    0x454C     /* LE */
 #define IMAGE_NT_SIGNATURE     0x00004550 /* PE00 */
 
+#define OPTIONAL_MAGIC_PE32    0x010b
+#define OPTIONAL_MAGIC_PE32_64 0x020b
+
 #define IMAGE_SCN_CNT_CODE			0x00000020
 #define IMAGE_SCN_CNT_INITIALIZED_DATA		0x00000040
 #define IMAGE_SCN_CNT_UNINITIALIZED_DATA	0x00000080
@@ -269,6 +272,7 @@ typedef struct {
     uint32_t size;
 } Win32ImageDataDirectory;
 
+/* PE32, magic value = 0x10b */
 typedef struct {
     uint16_t magic;
     uint8_t major_linker_version;
@@ -302,6 +306,40 @@ typedef struct {
     uint32_t number_of_rva_and_sizes;
     Win32ImageDataDirectory data_directory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
 } Win32ImageOptionalHeader;
+
+/* PE32+, magic value = 0x20b */
+typedef struct {
+    uint16_t magic;
+    uint8_t major_linker_version;
+    uint8_t minor_linker_version;
+    uint32_t size_of_code;
+    uint32_t size_of_initialized_data;
+    uint32_t size_of_uninitialized_data;
+    uint32_t address_of_entry_point;
+    uint32_t base_of_code;
+    uint64_t image_base;
+    uint32_t section_alignment;
+    uint32_t file_alignment;
+    uint16_t  major_operating_system_version;
+    uint16_t  minor_operating_system_version;
+    uint16_t  major_image_version;
+    uint16_t  minor_image_version;
+    uint16_t  major_subsystem_version;
+    uint16_t  minor_subsystem_version;
+    uint32_t win32_version_value;
+    uint32_t size_of_image;
+    uint32_t size_of_headers;
+    uint32_t checksum;
+    uint16_t subsystem;
+    uint16_t dll_characteristics;
+    uint64_t size_of_stack_reserve;
+    uint64_t size_of_stack_commit;
+    uint64_t size_of_heap_reserve;
+    uint64_t size_of_heap_commit;
+    uint32_t loader_flags;
+    uint32_t number_of_rva_and_sizes;
+    Win32ImageDataDirectory data_directory[IMAGE_NUMBEROF_DIRECTORY_ENTRIES];
+} Win32ImageOptionalHeader64;
 
 typedef struct {
     uint32_t signature;
