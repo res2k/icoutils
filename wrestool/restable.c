@@ -324,8 +324,10 @@ list_ne_name_resources (WinLibrary *fi, WinResource *typeres, int *count)
 		wr[c].level = 1;
 
 		/* fill in wr->id, wr->numeric_id */
-		if (!decode_ne_resource_id (fi, wr + c, (nameinfo+c)->id))
+		if (!decode_ne_resource_id (fi, wr + c, (nameinfo+c)->id)) {
+			free(wr);
 			return NULL;
+		}
 	}
 
 	return wr;
@@ -364,8 +366,10 @@ list_ne_type_resources (WinLibrary *fi, int *count)
 		wr[c].level = 0;
 
 		/* fill in wr->id, wr->numeric_id */
-		if (!decode_ne_resource_id (fi, wr + c, typeinfo->type_id))
+		if (!decode_ne_resource_id (fi, wr + c, typeinfo->type_id)) {
+			free(wr);
 			return NULL;
+		}
 
 		typeinfo = NE_TYPEINFO_NEXT(typeinfo);
 	}
