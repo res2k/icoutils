@@ -275,6 +275,8 @@ extract_bitmap_resource(WinLibrary *fi, WinResource *wr, size_t *ressize)
     size_t size;
 
     resentry=(uint8_t *)(get_resource_entry(fi,wr,&size));
+    if (!resentry)
+        return NULL;
 
     /* Bitmap file consists of:
      * 1) File header (14 bytes)
