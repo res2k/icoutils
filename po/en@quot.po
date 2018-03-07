@@ -1,7 +1,7 @@
 # English translations for icoutils package.
-# Copyright (C) 2017 Oskar Liljeblad
+# Copyright (C) 2018 Oskar Liljeblad
 # This file is distributed under the same license as the icoutils package.
-# Automatically generated, 2017.
+# Automatically generated, 2018.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation
@@ -27,10 +27,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: icoutils 0.32.2\n"
+"Project-Id-Version: icoutils 0.32.3\n"
 "Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
-"POT-Creation-Date: 2017-10-31 19:27+0100\n"
-"PO-Revision-Date: 2017-10-31 19:27+0100\n"
+"POT-Creation-Date: 2018-03-07 13:04+0100\n"
+"PO-Revision-Date: 2018-03-07 13:04+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en@quot\n"
@@ -39,69 +39,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/error.c:191
+#: lib/error.c:195
 msgid "Unknown system error"
 msgstr "Unknown system error"
 
-#: lib/getopt.c:575 lib/getopt.c:604
+#: lib/getopt.c:278
 #, c-format
-msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: option ‘%s’ is ambiguous; possibilities:"
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: option ‘%s%s’ is ambiguous\n"
 
-#: lib/getopt.c:619
+#: lib/getopt.c:284
 #, c-format
-msgid "%s: option '%s' is ambiguous\n"
-msgstr "%s: option ‘%s’ is ambiguous\n"
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: option ‘%s%s’ is ambiguous; possibilities:"
 
-#: lib/getopt.c:654 lib/getopt.c:658
+#: lib/getopt.c:319
 #, c-format
-msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: option ‘--%s’ doesn't allow an argument\n"
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: unrecognized option ‘%s%s’\n"
 
-#: lib/getopt.c:667 lib/getopt.c:672
+#: lib/getopt.c:345
 #, c-format
-msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: option ‘%c%s’ doesn't allow an argument\n"
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: option ‘%s%s’ doesn't allow an argument\n"
 
-#: lib/getopt.c:715 lib/getopt.c:734
+#: lib/getopt.c:360
 #, c-format
-msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: option ‘--%s’ requires an argument\n"
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: option ‘%s%s’ requires an argument\n"
 
-#: lib/getopt.c:772 lib/getopt.c:775
-#, c-format
-msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: unrecognized option ‘--%s’\n"
-
-#: lib/getopt.c:783 lib/getopt.c:786
-#, c-format
-msgid "%s: unrecognized option '%c%s'\n"
-msgstr "%s: unrecognized option ‘%c%s’\n"
-
-#: lib/getopt.c:835 lib/getopt.c:838
+#: lib/getopt.c:621
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: invalid option -- ‘%c’\n"
 
-#: lib/getopt.c:891 lib/getopt.c:908 lib/getopt.c:1118 lib/getopt.c:1136
+#: lib/getopt.c:636 lib/getopt.c:682
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: option requires an argument -- ‘%c’\n"
-
-#: lib/getopt.c:964 lib/getopt.c:980
-#, c-format
-msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: option ‘-W %s’ is ambiguous\n"
-
-#: lib/getopt.c:1004 lib/getopt.c:1022
-#, c-format
-msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: option ‘-W %s’ doesn't allow an argument\n"
-
-#: lib/getopt.c:1043 lib/getopt.c:1061
-#, c-format
-msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: option ‘-W %s’ requires an argument\n"
 
 #: lib/version-etc.c:74
 #, c-format
@@ -123,14 +98,14 @@ msgstr "(C)"
 #: lib/version-etc.c:86
 msgid ""
 "\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl."
 "html>.\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 "\n"
 msgstr ""
 "\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl."
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl."
 "html>.\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
@@ -269,12 +244,12 @@ msgstr "%s home page: <%s>\n"
 
 #: lib/version-etc.c:253
 #, c-format
-msgid "%s home page: <http://www.gnu.org/software/%s/>\n"
-msgstr "%s home page: <http://www.gnu.org/software/%s/>\n"
+msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
+msgstr "%s home page: <https://www.gnu.org/software/%s/>\n"
 
 #: lib/version-etc.c:256
-msgid "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
-msgstr "General help using GNU software: <http://www.gnu.org/gethelp/>\n"
+msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgstr "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
 
 #: lib/xalloc-die.c:34
 msgid "memory exhausted"
