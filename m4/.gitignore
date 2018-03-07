@@ -100,3 +100,10 @@
 /builtin-expect.m4
 /getprogname.m4
 /limits-h.m4
+/asm-underscore.m4
+/eealloc.m4
+/host-cpu-c-abi.m4
+/localtime-buffer.m4
+/malloca.m4
+/manywarnings-c++.m4
+/stat-time.m4
