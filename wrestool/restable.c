@@ -23,6 +23,7 @@
 #define N_(s) gettext_noop(s)
 #include "common/intutil.h"
 #include "xalloc.h"		/* Gnulib */
+#include "xvasprintf.h"	/* Gnulib */
 #include "minmax.h"		/* Gnulib */
 #include "common/error.h"
 #include "wrestool.h"
@@ -125,6 +126,7 @@ print_resources_callback (WinLibrary *fi, WinResource *wr,
     const char *type, *offset;
     int32_t id;
     size_t size;
+    char *type_quoted, *name_quoted, *lang_quoted;
 
     /* get named resource type if possible */
     type = NULL;
@@ -136,28 +138,31 @@ print_resources_callback (WinLibrary *fi, WinResource *wr,
     if (offset == NULL)
         return;
 
+    type_quoted = get_resource_id_quoted(type_wr);
+    name_quoted = get_resource_id_quoted(name_wr);
+    lang_quoted = get_resource_id_quoted(lang_wr);
     printf(_("--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"),
-      get_resource_id_quoted(type_wr),
-      get_resource_id_quoted(name_wr),
+      type_quoted,
+      name_quoted,
       (lang_wr->id[0] != '\0' ? _(" --language=") : ""),
-      get_resource_id_quoted(lang_wr),
+      lang_quoted,
       (type != NULL ? "type=" : ""),
       (type != NULL ? type : ""),
       (type != NULL ? " " : ""),
       (uint32_t) (offset - fi->memory), size);
+    free(type_quoted);
+    free(name_quoted);
+    free(lang_quoted);
 }
 
 /* return the resource id quoted if it's a string, otherwise just return it */
 static char *
 get_resource_id_quoted (WinResource *wr)
 {
-    static char tmp[WINRES_ID_MAXLEN+2];
-
     if (wr->numeric_id || wr->id[0] == '\0')
-        return wr->id;
+        return xstrdup(wr->id);
 
-    sprintf(tmp, "'%s'", wr->id);
-    return tmp;
+    return xasprintf("'%s'", wr->id);
 }
 
 static bool
