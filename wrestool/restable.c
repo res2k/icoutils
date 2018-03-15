@@ -489,8 +489,11 @@ read_library (WinLibrary *fi)
         }
         fi->memory = xrealloc(fi->memory, fi->total_size);
 
-        /* relocate memory, start from last section */
+        /* recheck header pointers as a bogus vma size may result in memory being underallocated */
+        RETURN_IF_BAD_POINTER(false, MZ_HEADER(fi->memory)->lfanew);
         pe_header = PE_HEADER(fi->memory);
+        RETURN_IF_BAD_POINTER(false, pe_header);
+        /* relocate memory, start from last section */
         RETURN_IF_BAD_PE_SECTIONS(false, fi->memory);
         pe_sections = PE_SECTIONS(fi->memory);
 
