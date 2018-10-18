@@ -36,18 +36,18 @@ bool
 check_offset(const char *memory, size_t total_size,
              const char *name, const void *offset, size_t size)
 {
-	const char* memory_end = memory + total_size;
-	const char* block = (const char*) offset;
-	const char* block_end = block + size;
+    const char* memory_end = memory + total_size;
+    const char* block = (const char*) offset;
+    const char* block_end = block + size;
 
-	/*debug("check_offset: size=%x vs %x offset=%x size=%x\n",
-		need_size, total_size, (char *) offset - memory, size);*/
+    /*debug("check_offset: size=%x vs %x offset=%x size=%x\n",
+        need_size, total_size, (char *) offset - memory, size);*/
 
-	if (((memory > memory_end) || (block > block_end))
-		|| (block < memory) || (block >= memory_end) || (block_end > memory_end)) {
-		warn(_("%s: premature end"), name);
-		return false;
-	}
+    if (((memory > memory_end) || (block > block_end))
+        || (block < memory) || (block >= memory_end) || (block_end > memory_end)) {
+        warn(_("%s: premature end"), name);
+        return false;
+    }
 
-	return true;
+    return true;
 }

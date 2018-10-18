@@ -36,39 +36,39 @@ extract_resources_callback (WinLibrary *fi, WinResource *wr,
                             WinResource *type_wr, WinResource *name_wr,
                             WinResource *lang_wr)
 {
-	size_t size;
-	bool free_it;
-	void *memory;
-	const char *outname;
-	FILE *out;
+    size_t size;
+    bool free_it;
+    void *memory;
+    const char *outname;
+    FILE *out;
 
-	memory = extract_resource(fi, wr, &size, &free_it, type_wr->id, (lang_wr == NULL ? NULL : lang_wr->id), arg_raw);
-	free_it = false;
-	if (memory == NULL) {
-		/* extract resource has printed error */
-		return;
-	}
+    memory = extract_resource(fi, wr, &size, &free_it, type_wr->id, (lang_wr == NULL ? NULL : lang_wr->id), arg_raw);
+    free_it = false;
+    if (memory == NULL) {
+        /* extract resource has printed error */
+        return;
+    }
 
-	/* determine where to extract to */
-	outname = get_destination_name(fi, type_wr->id, name_wr->id, (lang_wr == NULL ? NULL : lang_wr->id));
-	if (outname == NULL) {
-		out = stdout;
-	} else {
-		out = fopen(outname, "wb");
-		if (out == NULL) {
-			warn_errno("%s", outname);
-			goto cleanup;
-		}
-	}
+    /* determine where to extract to */
+    outname = get_destination_name(fi, type_wr->id, name_wr->id, (lang_wr == NULL ? NULL : lang_wr->id));
+    if (outname == NULL) {
+        out = stdout;
+    } else {
+        out = fopen(outname, "wb");
+        if (out == NULL) {
+            warn_errno("%s", outname);
+            goto cleanup;
+        }
+    }
 
-	/* write the actual data */
-	fwrite(memory, size, 1, out);
-	
-	cleanup:
-	if (free_it)
-		free(memory);
-	if (out != NULL && out != stdout)
-		fclose(out);
+    /* write the actual data */
+    fwrite(memory, size, 1, out);
+
+    cleanup:
+    if (free_it)
+        free(memory);
+    if (out != NULL && out != stdout)
+        fclose(out);
 }
 
 /* extract_resource:
@@ -78,35 +78,35 @@ void *
 extract_resource (WinLibrary *fi, WinResource *wr, size_t *size,
                   bool *free_it, char *type, char *lang, bool raw)
 {
-	char *str;
-	int32_t intval;
-	
-	/* just return pointer to data if raw */
-	if (raw) {
-		*free_it = false;
-		/* get_resource_entry will print possible error */
-		return get_resource_entry(fi, wr, size);
-	}
+    char *str;
+    int32_t intval;
 
-	/* find out how to extract */
-	str = type;
-	if (str != NULL && parse_int32(STRIP_RES_ID_FORMAT(str), &intval)) {
-		if (intval == (int) RT_BITMAP) {
-			*free_it = true;
-			return extract_bitmap_resource(fi, wr, size);
-		}
-		if (intval == (int) RT_GROUP_ICON) {
-			*free_it = true;
-			return extract_group_icon_cursor_resource(fi, wr, lang, size, true);
-		}
-		if (intval == (int) RT_GROUP_CURSOR) {
-			*free_it = true;
-			return extract_group_icon_cursor_resource(fi, wr, lang, size, false);
-		}
-	}
+    /* just return pointer to data if raw */
+    if (raw) {
+        *free_it = false;
+        /* get_resource_entry will print possible error */
+        return get_resource_entry(fi, wr, size);
+    }
 
-	warn(_("%s: don't know how to extract resource, try `--raw'"), fi->name);
-	return NULL;
+    /* find out how to extract */
+    str = type;
+    if (str != NULL && parse_int32(STRIP_RES_ID_FORMAT(str), &intval)) {
+        if (intval == (int) RT_BITMAP) {
+            *free_it = true;
+            return extract_bitmap_resource(fi, wr, size);
+        }
+        if (intval == (int) RT_GROUP_ICON) {
+            *free_it = true;
+            return extract_group_icon_cursor_resource(fi, wr, lang, size, true);
+        }
+        if (intval == (int) RT_GROUP_CURSOR) {
+            *free_it = true;
+            return extract_group_icon_cursor_resource(fi, wr, lang, size, false);
+        }
+    }
+
+    warn(_("%s: don't know how to extract resource, try `--raw'"), fi->name);
+    return NULL;
 }
 
 /* extract_group_icon_resource:
@@ -125,144 +125,144 @@ static void *
 extract_group_icon_cursor_resource(WinLibrary *fi, WinResource *wr, char *lang,
                                    size_t *ressize, bool is_icon)
 {
-	Win32CursorIconDir *icondir;
-	Win32CursorIconFileDir *fileicondir;
-	char *memory;
-	int c, offset, skipped;
-	size_t size;
+    Win32CursorIconDir *icondir;
+    Win32CursorIconFileDir *fileicondir;
+    char *memory;
+    int c, offset, skipped;
+    size_t size;
 
-	/* get resource data and size */
-	icondir = (Win32CursorIconDir *) get_resource_entry(fi, wr, &size);
-	if (icondir == NULL) {
-		/* get_resource_entry will print error */
-		return NULL;
-	}
+    /* get resource data and size */
+    icondir = (Win32CursorIconDir *) get_resource_entry(fi, wr, &size);
+    if (icondir == NULL) {
+        /* get_resource_entry will print error */
+        return NULL;
+    }
 
-	/* calculate total size of output file */
-	RETURN_IF_BAD_POINTER(NULL, icondir->count);
-	skipped = 0;
-	for (c = 0 ; c < icondir->count ; c++) {
-		int level;
-		size_t iconsize;
-		char name[14];
-		WinResource *fwr;
+    /* calculate total size of output file */
+    RETURN_IF_BAD_POINTER(NULL, icondir->count);
+    skipped = 0;
+    for (c = 0 ; c < icondir->count ; c++) {
+        int level;
+        size_t iconsize;
+        char name[14];
+        WinResource *fwr;
 
-		RETURN_IF_BAD_POINTER(NULL, icondir->entries[c]);
-		/*printf("%d. bytes_in_res=%d width=%d height=%d planes=%d bit_count=%d\n", c,
-			icondir->entries[c].bytes_in_res,
-			(is_icon ? icondir->entries[c].res_info.icon.width : icondir->entries[c].res_info.cursor.width),
-			(is_icon ? icondir->entries[c].res_info.icon.height : icondir->entries[c].res_info.cursor.height),
-			icondir->entries[c].plane_count,
-			icondir->entries[c].bit_count);*/
+        RETURN_IF_BAD_POINTER(NULL, icondir->entries[c]);
+        /*printf("%d. bytes_in_res=%d width=%d height=%d planes=%d bit_count=%d\n", c,
+            icondir->entries[c].bytes_in_res,
+            (is_icon ? icondir->entries[c].res_info.icon.width : icondir->entries[c].res_info.cursor.width),
+            (is_icon ? icondir->entries[c].res_info.icon.height : icondir->entries[c].res_info.cursor.height),
+            icondir->entries[c].plane_count,
+            icondir->entries[c].bit_count);*/
 
-		/* find the corresponding icon resource */
-		snprintf(name, sizeof(name)/sizeof(char), "-%d", icondir->entries[c].res_id);
-		fwr = find_resource(fi, (is_icon ? "-3" : "-1"), name, lang, &level);
-		if (fwr == NULL) {
-			warn(_("%s: could not find `%s' in `%s' resource."),
-			 	fi->name, &name[1], (is_icon ? "group_icon" : "group_cursor"));
-			return NULL;
-		}
+        /* find the corresponding icon resource */
+        snprintf(name, sizeof(name)/sizeof(char), "-%d", icondir->entries[c].res_id);
+        fwr = find_resource(fi, (is_icon ? "-3" : "-1"), name, lang, &level);
+        if (fwr == NULL) {
+            warn(_("%s: could not find `%s' in `%s' resource."),
+                 fi->name, &name[1], (is_icon ? "group_icon" : "group_cursor"));
+            return NULL;
+        }
 
-		if (get_resource_entry(fi, fwr, &iconsize) != NULL) {
-			size_t entry_size = icondir->entries[c].bytes_in_res;
-			if (iconsize == 0) {
-				warn(_("%s: icon resource `%s' is empty, skipping"), fi->name, name);
-				skipped++;
-				continue;
-			}
-			if (iconsize != entry_size) {
-				warn(_("%s: mismatch of size in icon resource `%s' and group (%zu vs %zu)"), fi->name, name, iconsize, entry_size);
-			}
-			if (iconsize > entry_size)
-				iconsize = entry_size;
-			if (iconsize <= 0) {
-				warn(_("%s: icon resource `%s' is corrupted, skipping"), fi->name, name);
-				skipped++;
-				continue;
-			}
-			size += iconsize;
+        if (get_resource_entry(fi, fwr, &iconsize) != NULL) {
+            size_t entry_size = icondir->entries[c].bytes_in_res;
+            if (iconsize == 0) {
+                warn(_("%s: icon resource `%s' is empty, skipping"), fi->name, name);
+                skipped++;
+                continue;
+            }
+            if (iconsize != entry_size) {
+                warn(_("%s: mismatch of size in icon resource `%s' and group (%zu vs %zu)"), fi->name, name, iconsize, entry_size);
+            }
+            if (iconsize > entry_size)
+                iconsize = entry_size;
+            if (iconsize <= 0) {
+                warn(_("%s: icon resource `%s' is corrupted, skipping"), fi->name, name);
+                skipped++;
+                continue;
+            }
+            size += iconsize;
 
-			/* cursor resources have two additional WORDs that contain
-			 * hotspot info */
-			if (!is_icon)
-				size -= sizeof(uint16_t)*2;
-		}
-	}
-	offset = sizeof(Win32CursorIconFileDir) + (icondir->count-skipped) * sizeof(Win32CursorIconFileDirEntry);
-	size += offset;
-	*ressize = size;
+            /* cursor resources have two additional WORDs that contain
+             * hotspot info */
+            if (!is_icon)
+                size -= sizeof(uint16_t)*2;
+        }
+    }
+    offset = sizeof(Win32CursorIconFileDir) + (icondir->count-skipped) * sizeof(Win32CursorIconFileDirEntry);
+    size += offset;
+    *ressize = size;
 
-	/* allocate that much memory */
-	memory = xmalloc(size);
-	fileicondir = (Win32CursorIconFileDir *) memory;
+    /* allocate that much memory */
+    memory = xmalloc(size);
+    fileicondir = (Win32CursorIconFileDir *) memory;
 
-	/* transfer Win32CursorIconDir structure members */
-	fileicondir->reserved = icondir->reserved;
-	fileicondir->type = icondir->type;
-	fileicondir->count = icondir->count - skipped;
+    /* transfer Win32CursorIconDir structure members */
+    fileicondir->reserved = icondir->reserved;
+    fileicondir->type = icondir->type;
+    fileicondir->count = icondir->count - skipped;
 
-	/* transfer each cursor/icon: Win32CursorIconDirEntry and data */
-	skipped = 0;
-	for (c = 0 ; c < icondir->count ; c++) {
-		int level;
-		char name[14];
-		WinResource *fwr;
-		char *data;
-	
-		/* find the corresponding icon resource */
-		snprintf(name, sizeof(name)/sizeof(char), "-%d", icondir->entries[c].res_id);
-		fwr = find_resource(fi, (is_icon ? "-3" : "-1"), name, lang, &level);
-		if (fwr == NULL) {
-			warn(_("%s: could not find `%s' in `%s' resource."),
-			 	fi->name, &name[1], (is_icon ? "group_icon" : "group_cursor"));
-			return NULL;
-		}
+    /* transfer each cursor/icon: Win32CursorIconDirEntry and data */
+    skipped = 0;
+    for (c = 0 ; c < icondir->count ; c++) {
+        int level;
+        char name[14];
+        WinResource *fwr;
+        char *data;
+    
+        /* find the corresponding icon resource */
+        snprintf(name, sizeof(name)/sizeof(char), "-%d", icondir->entries[c].res_id);
+        fwr = find_resource(fi, (is_icon ? "-3" : "-1"), name, lang, &level);
+        if (fwr == NULL) {
+            warn(_("%s: could not find `%s' in `%s' resource."),
+                 fi->name, &name[1], (is_icon ? "group_icon" : "group_cursor"));
+            return NULL;
+        }
 
-		/* get data and size of that resource */
-		data = get_resource_entry(fi, fwr, &size);
-		if (data == NULL) {
-			/* get_resource_entry has printed error */
-			return NULL;
-		}
-		if (size > icondir->entries[c-skipped].bytes_in_res)
-			size = icondir->entries[c-skipped].bytes_in_res;
-		if (size <= 0) {
-			skipped++;
-			continue;
-		}
+        /* get data and size of that resource */
+        data = get_resource_entry(fi, fwr, &size);
+        if (data == NULL) {
+            /* get_resource_entry has printed error */
+            return NULL;
+        }
+        if (size > icondir->entries[c-skipped].bytes_in_res)
+            size = icondir->entries[c-skipped].bytes_in_res;
+        if (size <= 0) {
+            skipped++;
+            continue;
+        }
 
-		/* copy ICONDIRENTRY (not including last dwImageOffset) */
-		memcpy(&fileicondir->entries[c-skipped], &icondir->entries[c],
-			sizeof(Win32CursorIconFileDirEntry)-sizeof(uint32_t));
+        /* copy ICONDIRENTRY (not including last dwImageOffset) */
+        memcpy(&fileicondir->entries[c-skipped], &icondir->entries[c],
+            sizeof(Win32CursorIconFileDirEntry)-sizeof(uint32_t));
 
-		/* special treatment for cursors */
-		if (!is_icon) {
-			fileicondir->entries[c-skipped].width = icondir->entries[c].res_info.cursor.width;
-			fileicondir->entries[c-skipped].height = icondir->entries[c].res_info.cursor.height / 2;
-			fileicondir->entries[c-skipped].color_count = 0;
-			fileicondir->entries[c-skipped].reserved = 0;
-		}
+        /* special treatment for cursors */
+        if (!is_icon) {
+            fileicondir->entries[c-skipped].width = icondir->entries[c].res_info.cursor.width;
+            fileicondir->entries[c-skipped].height = icondir->entries[c].res_info.cursor.height / 2;
+            fileicondir->entries[c-skipped].color_count = 0;
+            fileicondir->entries[c-skipped].reserved = 0;
+        }
 
-		/* set image offset and increase it */
-		fileicondir->entries[c-skipped].dib_offset = offset;
+        /* set image offset and increase it */
+        fileicondir->entries[c-skipped].dib_offset = offset;
 
-		/* transfer resource into file memory */
-		if (is_icon) {
-			memcpy(&memory[offset], data, size);
-		} else if (size >= sizeof(uint16_t)*2) {
-			fileicondir->entries[c-skipped].hotspot_x = ((uint16_t *) data)[0];
-			fileicondir->entries[c-skipped].hotspot_y = ((uint16_t *) data)[1];
-			memcpy(&memory[offset], data+sizeof(uint16_t)*2,
-				   size-sizeof(uint16_t)*2);
-			offset -= sizeof(uint16_t)*2;
-		}
+        /* transfer resource into file memory */
+        if (is_icon) {
+            memcpy(&memory[offset], data, size);
+        } else if (size >= sizeof(uint16_t)*2) {
+            fileicondir->entries[c-skipped].hotspot_x = ((uint16_t *) data)[0];
+            fileicondir->entries[c-skipped].hotspot_y = ((uint16_t *) data)[1];
+            memcpy(&memory[offset], data+sizeof(uint16_t)*2,
+                   size-sizeof(uint16_t)*2);
+            offset -= sizeof(uint16_t)*2;
+        }
 
-		/* increase the offset pointer */
-		offset += size < icondir->entries[c].bytes_in_res ? size : icondir->entries[c].bytes_in_res;
-	}
+        /* increase the offset pointer */
+        offset += size < icondir->entries[c].bytes_in_res ? size : icondir->entries[c].bytes_in_res;
+    }
 
-	return (void *) memory;
+    return (void *) memory;
 }
 
 /* extract_bitmap_resource:

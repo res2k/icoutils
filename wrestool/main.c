@@ -75,9 +75,9 @@ const char *
 res_type_id_to_string (int id)
 {
     if (id == 241)
-	return "toolbar";
+        return "toolbar";
     if (id > 0 && id <= RES_TYPE_COUNT)
-	return res_types[id-1];
+        return res_types[id-1];
     return NULL;
 }
 
@@ -89,18 +89,18 @@ static const char *
 res_type_string_to_id (const char *type)
 {
     static const char *res_type_ids[] = {
-	"-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10",
-	"-11", "-12", NULL, "-14", NULL, "-16", "-17", NULL, "-19",
-	"-20", "-21", "-22"
+        "-1", "-2", "-3", "-4", "-5", "-6", "-7", "-8", "-9", "-10",
+        "-11", "-12", NULL, "-14", NULL, "-16", "-17", NULL, "-19",
+        "-20", "-21", "-22"
     };
     int c;
 
     if (type == NULL)
-	return NULL;
+        return NULL;
 
     for (c = 0 ; c < RES_TYPE_COUNT ; c++) {
-	if (res_types[c] != NULL && !strcasecmp(type, res_types[c]))
-	    return res_type_ids[c];
+        if (res_types[c] != NULL && !strcasecmp(type, res_types[c]))
+            return res_type_ids[c];
     }
 
     return type;
@@ -118,12 +118,12 @@ get_extract_extension (const char *type)
     type = res_type_string_to_id(type);
     STRIP_RES_ID_FORMAT(type);
     if (parse_uint16(type, &value)) {
-	if (value == 2)
-	    return ".bmp";
-	if (value == 14)
-	    return ".ico";
-	if (value == 12)
-	    return ".cur";
+        if (value == 2)
+            return ".bmp";
+        if (value == 14)
+            return ".ico";
+        if (value == 12)
+            return ".cur";
     }
 
     return "";
@@ -143,7 +143,7 @@ get_destination_name (WinLibrary *fi, const char *type, const char *name, const 
     SET_IF_NULL(type, "");
     SET_IF_NULL(name, "");
     if (!strcmp(lang, "1033"))
-	lang = NULL;
+        lang = NULL;
     STRIP_RES_ID_FORMAT(type);
     STRIP_RES_ID_FORMAT(name);
     STRIP_RES_ID_FORMAT(lang);
@@ -152,25 +152,25 @@ get_destination_name (WinLibrary *fi, const char *type, const char *name, const 
 
     /* if --output not specified, write to STDOUT */
     if (arg_output == NULL)
-	return NULL;
+        return NULL;
 
     /* if --output'ing to a directory, make filename */
     if (is_directory(arg_output) || ends_with(arg_output, "/")) {
-	/* char *tmp = strdup(fi->name);
-	if (tmp == NULL)
-	    malloc_failure(); */
+    /* char *tmp = strdup(fi->name);
+    if (tmp == NULL)
+        malloc_failure(); */
 
-	snprintf (filename, 1024, "%s%s%s_%s_%s%s%s%s",
-			  arg_output,
-		      (ends_with(arg_output, "/") ? "" : "/"),
-			  base_name(fi->name),
-			  type,
-			  name,
-			  (lang != NULL && fi->is_PE_binary ? "_" : ""),
-			  (lang != NULL && fi->is_PE_binary ? lang : ""),
-			  get_extract_extension(type));
-	/* free(tmp); */
-	return filename;
+        snprintf (filename, 1024, "%s%s%s_%s_%s%s%s%s",
+                  arg_output,
+                  (ends_with(arg_output, "/") ? "" : "/"),
+                  base_name(fi->name),
+                  type,
+                  name,
+                  (lang != NULL && fi->is_PE_binary ? "_" : ""),
+                  (lang != NULL && fi->is_PE_binary ? lang : ""),
+                  get_extract_extension(type));
+        /* free(tmp); */
+        return filename;
     }
 
     /* otherwise, just return the --output argument */
@@ -213,140 +213,140 @@ main (int argc, char **argv)
 
 #ifdef ENABLE_NLS
     if (setlocale(LC_ALL, "") == NULL)
-	warn(_("%s: cannot set locale: %s"), program_name, errstr);
+        warn(_("%s: cannot set locale: %s"), program_name, errstr);
     if (bindtextdomain(PACKAGE, LOCALEDIR) == NULL)
-	warn(_("%s: bindtextdomain failed: %s"), program_name, errstr);
+        warn(_("%s: bindtextdomain failed: %s"), program_name, errstr);
     if (textdomain(PACKAGE) == NULL)
-	warn(_("%s: cannot set message domain: %s"), program_name, errstr);
+        warn(_("%s: cannot set message domain: %s"), program_name, errstr);
 #endif
 
     set_program_name(argv[0]);
 
     /* analyse arguments */
     while (true) {
-	int option_index = 0;
-	static struct option long_options[] = {
-	    { "type",		required_argument,	NULL, 't' },
-	    { "name", 		required_argument,	NULL, 'n' },
-	    { "language",	required_argument,	NULL, 'L' },
-	    { "output",     required_argument,  NULL, 'o' },
-	    { "all",		no_argument,		NULL, 'a' },
-	    { "raw",        no_argument,        NULL, 'R' },
-	    { "extract",	no_argument,		NULL, 'x' },
-	    { "list",		no_argument,		NULL, 'l' },
-	    { "verbose",	no_argument,		NULL, 'v' },
-	    { "version",	no_argument,		NULL, OPT_VERSION },
-	    { "help",		no_argument,		NULL, OPT_HELP },
-	    { 0, 0, 0, 0 }
-	};
-	c = getopt_long (argc, argv, "t:n:L:o:aRxlv", long_options, &option_index);
-	if (c == EOF)
-	    break;
+        int option_index = 0;
+        static struct option long_options[] = {
+            { "type",		required_argument,	NULL, 't' },
+            { "name", 		required_argument,	NULL, 'n' },
+            { "language",	required_argument,	NULL, 'L' },
+            { "output",     required_argument,  NULL, 'o' },
+            { "all",		no_argument,		NULL, 'a' },
+            { "raw",        no_argument,        NULL, 'R' },
+            { "extract",	no_argument,		NULL, 'x' },
+            { "list",		no_argument,		NULL, 'l' },
+            { "verbose",	no_argument,		NULL, 'v' },
+            { "version",	no_argument,		NULL, OPT_VERSION },
+            { "help",		no_argument,		NULL, OPT_HELP },
+            { 0, 0, 0, 0 }
+        };
+        c = getopt_long (argc, argv, "t:n:L:o:aRxlv", long_options, &option_index);
+        if (c == EOF)
+            break;
 
-	switch (c) {
-	    case 't': arg_type = optarg; break;
-	    case 'n': arg_name = optarg; break;
-	    case 'L': arg_language = optarg; break;
-	    case 'a': arg_type = arg_name = arg_language = NULL; break;
-	    case 'R': arg_raw = true; break;
-	    case 'x': arg_action = ACTION_EXTRACT; break;
-	    case 'l': arg_action = ACTION_LIST; break;
-	    case 'v': arg_verbosity++; break;
-	    case 'o': arg_output = optarg; break;
-	    case OPT_VERSION:
-		version_etc(stdout, PROGRAM, PACKAGE, VERSION, "Oskar Liljeblad", NULL);
-		return 0;
-	    case OPT_HELP:
-	    	display_help();
-		return 0;
-	    case '?':
-	    default:
-		return 1;
-	    }
-	}
+        switch (c) {
+            case 't': arg_type = optarg; break;
+            case 'n': arg_name = optarg; break;
+            case 'L': arg_language = optarg; break;
+            case 'a': arg_type = arg_name = arg_language = NULL; break;
+            case 'R': arg_raw = true; break;
+            case 'x': arg_action = ACTION_EXTRACT; break;
+            case 'l': arg_action = ACTION_LIST; break;
+            case 'v': arg_verbosity++; break;
+            case 'o': arg_output = optarg; break;
+            case OPT_VERSION:
+                version_etc(stdout, PROGRAM, PACKAGE, VERSION, "Oskar Liljeblad", NULL);
+                return 0;
+            case OPT_HELP:
+                display_help();
+                return 0;
+            case '?':
+            default:
+                return 1;
+        }
+    }
 
-	verbose_file = (arg_output == NULL) ? stderr : stdin;
+    verbose_file = (arg_output == NULL) ? stderr : stdin;
 
-	/* warn about unnecessary options */
-	if (arg_action == ACTION_LIST) {
-	    if (arg_language != NULL && (arg_name == NULL || arg_type == NULL))
-		warn(_("--language has no effect without --name and --type"));
-	    if (arg_name != NULL && arg_type == NULL)
-		warn(_("--name has no effect without --type"));
-	}
+    /* warn about unnecessary options */
+    if (arg_action == ACTION_LIST) {
+        if (arg_language != NULL && (arg_name == NULL || arg_type == NULL))
+            warn(_("--language has no effect without --name and --type"));
+        if (arg_name != NULL && arg_type == NULL)
+            warn(_("--name has no effect without --type"));
+    }
 
-	/* translate --type option from resource type string to integer */
-	arg_type = res_type_string_to_id(arg_type);
+    /* translate --type option from resource type string to integer */
+    arg_type = res_type_string_to_id(arg_type);
 
-	/* make sure at least one file has been specified */
-	if (optind >= argc) {
-		warn(_("missing file argument\nTry `%s --help' for more information."), program_name);
-		return 1;
-	}
+    /* make sure at least one file has been specified */
+    if (optind >= argc) {
+        warn(_("missing file argument\nTry `%s --help' for more information."), program_name);
+            return 1;
+    }
 
-	/* for each file */
-	for (c = optind ; c < argc ; c++) {
-		WinLibrary fi;
-		
-		/* initiate stuff */
-		fi.file = NULL;
-		fi.memory = NULL;
+    /* for each file */
+    for (c = optind ; c < argc ; c++) {
+        WinLibrary fi;
+        
+        /* initiate stuff */
+        fi.file = NULL;
+        fi.memory = NULL;
 
-		/* get file size */
-		fi.name = argv[c];
-		fi.total_size = file_size(fi.name);
-		if (fi.total_size == -1) {
-			die_errno("%s", fi.name);
-			goto cleanup;
-		}
-		if (fi.total_size == 0) {
-			warn(_("%s: file has a size of 0"), fi.name);
-			goto cleanup;
-		}
+        /* get file size */
+        fi.name = argv[c];
+        fi.total_size = file_size(fi.name);
+        if (fi.total_size == -1) {
+            die_errno("%s", fi.name);
+            goto cleanup;
+        }
+        if (fi.total_size == 0) {
+            warn(_("%s: file has a size of 0"), fi.name);
+            goto cleanup;
+        }
 
-		/* open file */
-		fi.file = fopen(fi.name, "rb");
-		if (fi.file == NULL) {
-			die_errno("%s", fi.name);
-			goto cleanup;
-		}
-		
-		/* read all of file */
-		fi.memory = xmalloc(fi.total_size);
-		if (fread(fi.memory, fi.total_size, 1, fi.file) != 1) {
-			die_errno("%s", fi.name);
-			goto cleanup;
-		}
+        /* open file */
+        fi.file = fopen(fi.name, "rb");
+        if (fi.file == NULL) {
+            die_errno("%s", fi.name);
+            goto cleanup;
+        }
+        
+        /* read all of file */
+        fi.memory = xmalloc(fi.total_size);
+        if (fread(fi.memory, fi.total_size, 1, fi.file) != 1) {
+            die_errno("%s", fi.name);
+            goto cleanup;
+        }
 
-		/* identify file and find resource table */
-		if (!read_library (&fi)) {
-			/* error reported by read_library */
-			goto cleanup;
-		}
+        /* identify file and find resource table */
+        if (!read_library (&fi)) {
+            /* error reported by read_library */
+            goto cleanup;
+        }
 
-	//	verbose_printf("file is a %s\n",
-	//		fi.is_PE_binary ? "Windows NT `PE' binary" : "Windows 3.1 `NE' binary");
+    //	verbose_printf("file is a %s\n",
+    //		fi.is_PE_binary ? "Windows NT `PE' binary" : "Windows 3.1 `NE' binary");
 
-		/* warn about more unnecessary options */
-		if (!fi.is_PE_binary && arg_language != NULL)
-			warn(_("%s: --language has no effect because file is 16-bit binary"), fi.name);
+        /* warn about more unnecessary options */
+        if (!fi.is_PE_binary && arg_language != NULL)
+            warn(_("%s: --language has no effect because file is 16-bit binary"), fi.name);
 
-		/* do the specified command */
-		if (arg_action == ACTION_LIST) {
-			do_resources (&fi, arg_type, arg_name, arg_language, print_resources_callback);
-			/* errors will be printed by the callback */
-		} else if (arg_action == ACTION_EXTRACT) {
-			do_resources (&fi, arg_type, arg_name, arg_language, extract_resources_callback);
-			/* errors will be printed by the callback */
-		}
+        /* do the specified command */
+        if (arg_action == ACTION_LIST) {
+            do_resources (&fi, arg_type, arg_name, arg_language, print_resources_callback);
+            /* errors will be printed by the callback */
+        } else if (arg_action == ACTION_EXTRACT) {
+            do_resources (&fi, arg_type, arg_name, arg_language, extract_resources_callback);
+            /* errors will be printed by the callback */
+        }
 
-		/* free stuff and close file */
-		cleanup:
-		if (fi.file != NULL)
-			fclose(fi.file);
-		if (fi.memory != NULL)
-			free(fi.memory);
-	}
+        /* free stuff and close file */
+    cleanup:
+        if (fi.file != NULL)
+            fclose(fi.file);
+        if (fi.memory != NULL)
+            free(fi.memory);
+    }
 
-	return 0;
+    return 0;
 }
