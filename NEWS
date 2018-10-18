@@ -2,6 +2,8 @@
   wrestool: Fix get_resource_id_quoted() to return heap-allocated string.
    Found by Jonathan Liu.
   wrestool: Fixed Savannah bug 53323, reported by Hanno Böck <hanno@hboeck.de>.
+  wrestool: Make icon & cursor extraction more robust against corrupted sizes.
+   Issue reported by Jaeseung Choi.
 
 2018-03-07: icoutils 0.32.3 released.
   Fixed a segfault. (Martin Gieseking, Savannah bug 52319)

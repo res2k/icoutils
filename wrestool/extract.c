@@ -165,20 +165,28 @@ extract_group_icon_cursor_resource(WinLibrary *fi, WinResource *wr, char *lang,
 		}
 
 		if (get_resource_entry(fi, fwr, &iconsize) != NULL) {
-		    if (iconsize == 0) {
-			warn(_("%s: icon resource `%s' is empty, skipping"), fi->name, name);
-			skipped++;
-			continue;
-		    }
-		    if (iconsize != icondir->entries[c].bytes_in_res) {
-			warn(_("%s: mismatch of size in icon resource `%s' and group (%d vs %d)"), fi->name, name, iconsize, icondir->entries[c].bytes_in_res);
-		    }
-		    size += iconsize < icondir->entries[c].bytes_in_res ? icondir->entries[c].bytes_in_res : iconsize;
+			size_t entry_size = icondir->entries[c].bytes_in_res;
+			if (iconsize == 0) {
+				warn(_("%s: icon resource `%s' is empty, skipping"), fi->name, name);
+				skipped++;
+				continue;
+			}
+			if (iconsize != entry_size) {
+				warn(_("%s: mismatch of size in icon resource `%s' and group (%zu vs %zu)"), fi->name, name, iconsize, entry_size);
+			}
+			if (iconsize > entry_size)
+				iconsize = entry_size;
+			if (iconsize <= 0) {
+				warn(_("%s: icon resource `%s' is corrupted, skipping"), fi->name, name);
+				skipped++;
+				continue;
+			}
+			size += iconsize;
 
-		    /* cursor resources have two additional WORDs that contain
-		     * hotspot info */
-		    if (!is_icon)
-			size -= sizeof(uint16_t)*2;
+			/* cursor resources have two additional WORDs that contain
+			 * hotspot info */
+			if (!is_icon)
+				size -= sizeof(uint16_t)*2;
 		}
 	}
 	offset = sizeof(Win32CursorIconFileDir) + (icondir->count-skipped) * sizeof(Win32CursorIconFileDirEntry);
@@ -217,9 +225,11 @@ extract_group_icon_cursor_resource(WinLibrary *fi, WinResource *wr, char *lang,
 			/* get_resource_entry has printed error */
 			return NULL;
 		}
-    	    	if (size == 0) {
-		    skipped++;
-		    continue;
+		if (size > icondir->entries[c-skipped].bytes_in_res)
+			size = icondir->entries[c-skipped].bytes_in_res;
+		if (size <= 0) {
+			skipped++;
+			continue;
 		}
 
 		/* copy ICONDIRENTRY (not including last dwImageOffset) */
@@ -238,8 +248,6 @@ extract_group_icon_cursor_resource(WinLibrary *fi, WinResource *wr, char *lang,
 		fileicondir->entries[c-skipped].dib_offset = offset;
 
 		/* transfer resource into file memory */
-		if (size > icondir->entries[c-skipped].bytes_in_res)
-			size = icondir->entries[c-skipped].bytes_in_res;
 		if (is_icon) {
 			memcpy(&memory[offset], data, size);
 		} else if (size >= sizeof(uint16_t)*2) {
@@ -251,7 +259,7 @@ extract_group_icon_cursor_resource(WinLibrary *fi, WinResource *wr, char *lang,
 		}
 
 		/* increase the offset pointer */
-		offset += icondir->entries[c].bytes_in_res;
+		offset += size < icondir->entries[c].bytes_in_res ? size : icondir->entries[c].bytes_in_res;
 	}
 
 	return (void *) memory;
