@@ -39,7 +39,6 @@
 /lib-link.m4
 /lib-prefix.m4
 /lock.m4
-/longlong.m4
 /lstat.m4
 /malloc.m4
 /math_h.m4
@@ -52,7 +51,6 @@
 /nls.m4
 /nocrash.m4
 /off_t.m4
-/onceonly.m4
 /pathmax.m4
 /po.m4
 /printf-posix.m4
@@ -107,3 +105,6 @@
 /malloca.m4
 /manywarnings-c++.m4
 /stat-time.m4
+/intl-thread-locale.m4
+/inttypes.m4
+/zzgnulib.m4

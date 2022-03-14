@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2018 Free Software Foundation, Inc.
+# Copyright (C) 2002-2020 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -27,7 +27,42 @@
 
 
 # Specification in the form of a command-line invocation:
-#   gnulib-tool --import --lib=libgnu --source-base=lib --m4-base=m4 --doc-base=. --tests-base=test --aux-dir=build-aux --no-conditional-dependencies --no-libtool --macro-prefix=gl byteswap configmake dirname dup2 getline getopt-gnu gettext gettimeofday lstat malloc-gnu manywarnings memchr minmax progname stdbool stdint strcase strdup-posix strerror strndup strstr vasprintf version-etc xalloc xalloc-die xvasprintf
+# gnulib-tool --import \
+#  --lib=libgnu \
+#  --source-base=lib \
+#  --m4-base=m4 \
+#  --doc-base=. \
+#  --tests-base=test \
+#  --aux-dir=build-aux \
+#  --no-conditional-dependencies \
+#  --no-libtool \
+#  --macro-prefix=gl \
+#  byteswap \
+#  configmake \
+#  dirname \
+#  dup2 \
+#  getline \
+#  getopt-gnu \
+#  gettext \
+#  gettimeofday \
+#  lstat \
+#  malloc-gnu \
+#  manywarnings \
+#  memchr \
+#  minmax \
+#  progname \
+#  stdbool \
+#  stdint \
+#  strcase \
+#  strdup-posix \
+#  strerror \
+#  strndup \
+#  strstr \
+#  vasprintf \
+#  version-etc \
+#  xalloc \
+#  xalloc-die \
+#  xvasprintf
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])

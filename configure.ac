@@ -1,6 +1,6 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ(2.59)
+AC_PREREQ([2.62])
 AC_INIT(icoutils, 0.32.3, frank.richter@gmail.com)
 AC_CONFIG_MACRO_DIR([m4]) # doesn't seem to have any effect at the moment
 AC_CONFIG_SRCDIR([icotool/icotool.h])

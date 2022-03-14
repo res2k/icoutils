@@ -1,5 +1,5 @@
 # DO NOT EDIT! GENERATED AUTOMATICALLY!
-# Copyright (C) 2002-2018 Free Software Foundation, Inc.
+# Copyright (C) 2002-2020 Free Software Foundation, Inc.
 #
 # This file is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -68,9 +68,9 @@ AC_DEFUN([gl_EARLY],
   # Code from module gettext-h:
   # Code from module gettimeofday:
   # Code from module havelib:
-  # Code from module host-cpu-c-abi:
   # Code from module include_next:
   # Code from module intprops:
+  # Code from module inttypes-incomplete:
   # Code from module largefile:
   AC_REQUIRE([AC_SYS_LARGEFILE])
   # Code from module limits-h:
@@ -98,9 +98,7 @@ AC_DEFUN([gl_EARLY],
   # Code from module stat-time:
   # Code from module stdarg:
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
-  dnl for the builtin va_copy to work.  With Autoconf 2.60 or later,
-  dnl gl_PROG_CC_C99 arranges for this.  With older Autoconf gl_PROG_CC_C99
-  dnl shouldn't hurt, though installers are on their own to set c99 mode.
+  dnl for the builtin va_copy to work.  gl_PROG_CC_C99 arranges for this.
   gl_PROG_CC_C99
   # Code from module stdbool:
   # Code from module stddef:
@@ -207,9 +205,10 @@ AC_DEFUN([gl_INIT],
     GNULIB_GL_UNISTD_H_GETOPT=1
   fi
   AC_SUBST([GNULIB_GL_UNISTD_H_GETOPT])
+  gl_UNISTD_MODULE_INDICATOR([getopt-posix])
   gl_FUNC_GETPROGNAME
   dnl you must add AM_GNU_GETTEXT([external]) or similar to configure.ac.
-  AM_GNU_GETTEXT_VERSION([0.18.1])
+  AM_GNU_GETTEXT_VERSION([0.19.8])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
   gl_FUNC_GETTIMEOFDAY
@@ -218,7 +217,7 @@ AC_DEFUN([gl_INIT],
     gl_PREREQ_GETTIMEOFDAY
   fi
   gl_SYS_TIME_MODULE_INDICATOR([gettimeofday])
-  AC_REQUIRE([gl_HOST_CPU_C_ABI])
+  gl_INTTYPES_INCOMPLETE
   AC_REQUIRE([gl_LARGEFILE])
   gl_LIMITS_H
   AC_REQUIRE([gl_LOCALTIME_BUFFER_DEFAULTS])
@@ -532,6 +531,7 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/gettext.h
   lib/gettimeofday.c
   lib/intprops.h
+  lib/inttypes.in.h
   lib/itold.c
   lib/limits.in.h
   lib/localtime-buffer.c
@@ -607,10 +607,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/00gnulib.m4
   m4/absolute-header.m4
   m4/alloca.m4
-  m4/asm-underscore.m4
   m4/builtin-expect.m4
   m4/byteswap.m4
-  m4/codeset.m4
   m4/configmake.m4
   m4/dirname.m4
   m4/double-slash-root.m4
@@ -621,7 +619,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/exponentd.m4
   m4/extensions.m4
   m4/extern-inline.m4
-  m4/fcntl-o.m4
   m4/float_h.m4
   m4/getdelim.m4
   m4/getline.m4
@@ -629,29 +626,21 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getprogname.m4
   m4/gettext.m4
   m4/gettimeofday.m4
-  m4/glibc2.m4
-  m4/glibc21.m4
   m4/gnulib-common.m4
   m4/host-cpu-c-abi.m4
   m4/iconv.m4
   m4/include_next.m4
-  m4/intdiv0.m4
-  m4/intl.m4
-  m4/intldir.m4
+  m4/intl-thread-locale.m4
   m4/intlmacosx.m4
-  m4/intmax.m4
   m4/intmax_t.m4
-  m4/inttypes-pri.m4
+  m4/inttypes.m4
   m4/inttypes_h.m4
   m4/largefile.m4
-  m4/lcmessage.m4
   m4/lib-ld.m4
   m4/lib-link.m4
   m4/lib-prefix.m4
   m4/limits-h.m4
   m4/localtime-buffer.m4
-  m4/lock.m4
-  m4/longlong.m4
   m4/lstat.m4
   m4/malloc.m4
   m4/malloca.m4
@@ -667,10 +656,8 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/nls.m4
   m4/nocrash.m4
   m4/off_t.m4
-  m4/onceonly.m4
   m4/pathmax.m4
   m4/po.m4
-  m4/printf-posix.m4
   m4/printf.m4
   m4/progtest.m4
   m4/size_max.m4
@@ -696,14 +683,11 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/sys_stat_h.m4
   m4/sys_time_h.m4
   m4/sys_types_h.m4
-  m4/threadlib.m4
   m4/time_h.m4
-  m4/uintmax_t.m4
   m4/unistd_h.m4
   m4/vasnprintf.m4
   m4/vasprintf.m4
   m4/version-etc.m4
-  m4/visibility.m4
   m4/warn-on-use.m4
   m4/warnings.m4
   m4/wchar_h.m4
@@ -713,4 +697,5 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/xsize.m4
   m4/xstrndup.m4
   m4/xvasprintf.m4
+  m4/zzgnulib.m4
 ])
