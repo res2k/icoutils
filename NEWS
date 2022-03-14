@@ -1,4 +1,4 @@
-2018-??-??:
+2022-03-14:  icoutils 0.33.0 released.
   wrestool: Fix get_resource_id_quoted() to return heap-allocated string.
    Found by Jonathan Liu.
   wrestool: Fixed Savannah bug 53323, reported by Hanno Böck <hanno@hboeck.de>.
