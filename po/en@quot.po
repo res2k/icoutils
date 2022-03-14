@@ -1,7 +1,7 @@
 # English translations for icoutils package.
-# Copyright (C) 2018 Oskar Liljeblad
+# Copyright (C) 2022 Oskar Liljeblad
 # This file is distributed under the same license as the icoutils package.
-# Automatically generated, 2018.
+# Automatically generated, 2022.
 #
 # All this catalog "translates" are quotation characters.
 # The msgids must be ASCII and therefore cannot contain real quotation
@@ -27,10 +27,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: icoutils 0.32.3\n"
+"Project-Id-Version: icoutils 0.33.0\n"
 "Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
-"POT-Creation-Date: 2018-03-07 13:04+0100\n"
-"PO-Revision-Date: 2018-03-07 13:04+0100\n"
+"POT-Creation-Date: 2022-03-14 09:59+0100\n"
+"PO-Revision-Date: 2022-03-14 09:59+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: en@quot\n"
@@ -78,12 +78,12 @@ msgstr "%s: invalid option -- ‘%c’\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: option requires an argument -- ‘%c’\n"
 
-#: lib/version-etc.c:74
+#: lib/version-etc.c:73
 #, c-format
 msgid "Packaged by %s (%s)\n"
 msgstr "Packaged by %s (%s)\n"
 
-#: lib/version-etc.c:77
+#: lib/version-etc.c:76
 #, c-format
 msgid "Packaged by %s\n"
 msgstr "Packaged by %s\n"
@@ -91,40 +91,36 @@ msgstr "Packaged by %s\n"
 #. TRANSLATORS: Translate "(C)" to the copyright symbol
 #. (C-in-a-circle), if this symbol is available in the user's
 #. locale.  Otherwise, do not translate "(C)"; leave it as-is.
-#: lib/version-etc.c:84
+#: lib/version-etc.c:83
 msgid "(C)"
 msgstr "(C)"
 
-#: lib/version-etc.c:86
+#. TRANSLATORS: The %s placeholder is the web address of the GPL license.
+#: lib/version-etc.c:88
+#, c-format
 msgid ""
-"\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl."
-"html>.\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>.\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
-"\n"
 msgstr ""
-"\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl."
-"html>.\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>.\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
-"\n"
 
 #. TRANSLATORS: %s denotes an author name.
-#: lib/version-etc.c:102
+#: lib/version-etc.c:105
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Written by %s.\n"
 
 #. TRANSLATORS: Each %s denotes an author name.
-#: lib/version-etc.c:106
+#: lib/version-etc.c:109
 #, c-format
 msgid "Written by %s and %s.\n"
 msgstr "Written by %s and %s.\n"
 
 #. TRANSLATORS: Each %s denotes an author name.
-#: lib/version-etc.c:110
+#: lib/version-etc.c:113
 #, c-format
 msgid "Written by %s, %s, and %s.\n"
 msgstr "Written by %s, %s, and %s.\n"
@@ -132,7 +128,7 @@ msgstr "Written by %s, %s, and %s.\n"
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:117
+#: lib/version-etc.c:120
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -144,7 +140,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:124
+#: lib/version-etc.c:127
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -156,7 +152,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:131
+#: lib/version-etc.c:134
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -168,7 +164,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:139
+#: lib/version-etc.c:142
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -180,7 +176,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:147
+#: lib/version-etc.c:150
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -194,7 +190,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:156
+#: lib/version-etc.c:159
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -208,7 +204,7 @@ msgstr ""
 #. TRANSLATORS: Each %s denotes an author name.
 #. You can use line breaks, estimating that each author name occupies
 #. ca. 16 screen columns and that a screen line has ca. 80 columns.
-#: lib/version-etc.c:167
+#: lib/version-etc.c:170
 #, c-format
 msgid ""
 "Written by %s, %s, %s,\n"
@@ -223,33 +219,25 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: lib/version-etc.c:245
+#: lib/version-etc.c:249
 #, c-format
-msgid ""
-"\n"
-"Report bugs to: %s\n"
-msgstr ""
-"\n"
-"Report bugs to: %s\n"
+msgid "Report bugs to: %s\n"
+msgstr "Report bugs to: %s\n"
 
-#: lib/version-etc.c:247
+#: lib/version-etc.c:251
 #, c-format
 msgid "Report %s bugs to: %s\n"
 msgstr "Report %s bugs to: %s\n"
 
-#: lib/version-etc.c:251
+#: lib/version-etc.c:255 lib/version-etc.c:257
 #, c-format
 msgid "%s home page: <%s>\n"
 msgstr "%s home page: <%s>\n"
 
-#: lib/version-etc.c:253
+#: lib/version-etc.c:260
 #, c-format
-msgid "%s home page: <https://www.gnu.org/software/%s/>\n"
-msgstr "%s home page: <https://www.gnu.org/software/%s/>\n"
-
-#: lib/version-etc.c:256
-msgid "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
-msgstr "General help using GNU software: <https://www.gnu.org/gethelp/>\n"
+msgid "General help using GNU software: <%s>\n"
+msgstr "General help using GNU software: <%s>\n"
 
 #: lib/xalloc-die.c:34
 msgid "memory exhausted"
@@ -643,20 +631,25 @@ msgstr "%s: No bit-depth given\n"
 msgid "%s: don't know how to extract resource, try `--raw'"
 msgstr "%s: don't know how to extract resource, try ‘--raw’"
 
-#: wrestool/extract.c:162 wrestool/extract.c:209
+#: wrestool/extract.c:162 wrestool/extract.c:217
 #, c-format
 msgid "%s: could not find `%s' in `%s' resource."
 msgstr "%s: could not find ‘%s’ in ‘%s’ resource."
 
-#: wrestool/extract.c:169
+#: wrestool/extract.c:170
 #, c-format
 msgid "%s: icon resource `%s' is empty, skipping"
 msgstr "%s: icon resource ‘%s’ is empty, skipping"
 
-#: wrestool/extract.c:174
+#: wrestool/extract.c:175
 #, c-format
-msgid "%s: mismatch of size in icon resource `%s' and group (%d vs %d)"
-msgstr "%s: mismatch of size in icon resource ‘%s’ and group (%d vs %d)"
+msgid "%s: mismatch of size in icon resource `%s' and group (%zu vs %zu)"
+msgstr "%s: mismatch of size in icon resource ‘%s’ and group (%zu vs %zu)"
+
+#: wrestool/extract.c:180
+#, c-format
+msgid "%s: icon resource `%s' is corrupted, skipping"
+msgstr "%s: icon resource ‘%s’ is corrupted, skipping"
 
 #: wrestool/fileread.c:48
 #, c-format
@@ -787,41 +780,41 @@ msgstr "%s: file has a size of 0"
 msgid "%s: --language has no effect because file is 16-bit binary"
 msgstr "%s: --language has no effect because file is 16-bit binary"
 
-#: wrestool/restable.c:102
+#: wrestool/restable.c:103
 #, c-format
 msgid "%s: resource structure malformed"
 msgstr "%s: resource structure malformed"
 
-#: wrestool/restable.c:139
+#: wrestool/restable.c:144
 #, c-format
 msgid "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
 msgstr "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
 
-#: wrestool/restable.c:142
+#: wrestool/restable.c:147
 msgid " --language="
 msgstr " --language="
 
-#: wrestool/restable.c:352
+#: wrestool/restable.c:357
 #, c-format
 msgid "%s: resource table invalid, ignoring remaining entries"
 msgstr "%s: resource table invalid, ignoring remaining entries"
 
-#: wrestool/restable.c:442 wrestool/restable.c:532
+#: wrestool/restable.c:447 wrestool/restable.c:539
 #, c-format
 msgid "%s: not a PE or NE library"
 msgstr "%s: not a PE or NE library"
 
-#: wrestool/restable.c:459
+#: wrestool/restable.c:464
 #, c-format
 msgid "%s: no resource directory found"
 msgstr "%s: no resource directory found"
 
-#: wrestool/restable.c:505
+#: wrestool/restable.c:512
 #, c-format
 msgid "%s: invalid sections layout"
 msgstr "%s: invalid sections layout"
 
-#: wrestool/restable.c:522
+#: wrestool/restable.c:529
 #, c-format
 msgid "%s: file contains no resources"
 msgstr "%s: file contains no resources"
