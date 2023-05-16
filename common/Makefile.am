@@ -20,7 +20,7 @@ libcommon_a_SOURCES = \
 	tmap.c \
 	tmap.h
 
-libcommon_a_LIBADD = \
+libcommon_la_LIBADD = \
 	../lib/libgnu.a
 
 AM_CPPFLAGS = \
