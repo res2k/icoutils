@@ -1,16 +1,16 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ([2.64])
+AC_PREREQ([2.71])
 AC_INIT(icoutils, 0.33.0, frank.richter@gmail.com)
 AC_CONFIG_MACRO_DIR([m4]) # doesn't seem to have any effect at the moment
 AC_CONFIG_SRCDIR([icotool/icotool.h])
-AC_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
 # Stuff for the config.h.in file
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 #AH_TEMPLATE([PKGUSERDIR], [User directory for program files])
 
 # Checks for programs.
@@ -74,10 +74,8 @@ AM_GNU_GETTEXT([external])
 # AM_GNU_GETTEXT_VERSION(0.14.1)
 
 # Checks for header files.
-AC_HEADER_STDC
 AC_HEADER_DIRENT
 AC_HEADER_SYS_WAIT
-AC_HEADER_TIME
 #AC_CHECK_HEADERS([byteswap.h errno.h fcntl.h getopt.h limits.h sys/stat.h sys/time.h sys/types.h unistd.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
