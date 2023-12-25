@@ -47,7 +47,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module assert-h:
   # Code from module attribute:
   # Code from module basename-lgpl:
-  # Code from module builtin-expect:
   # Code from module byteswap:
   # Code from module c99:
   # Code from module calloc-gnu:
@@ -137,8 +136,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module strings:
   # Code from module strndup:
   # Code from module strnlen:
-  # Code from module strstr:
-  # Code from module strstr-simple:
   # Code from module sys_stat:
   # Code from module sys_time:
   # Code from module sys_types:
@@ -182,7 +179,6 @@ AC_DEFUN([gl_INIT],
   gl_ASSERT_H
   gl_CONDITIONAL_HEADER([assert.h])
   AC_PROG_MKDIR_P
-  gl___BUILTIN_EXPECT
   gl_BYTESWAP
   gl_CONDITIONAL_HEADER([byteswap.h])
   AC_PROG_MKDIR_P
@@ -488,15 +484,6 @@ AC_DEFUN([gl_INIT],
     gl_PREREQ_STRNLEN
   ])
   gl_STRING_MODULE_INDICATOR([strnlen])
-  gl_FUNC_STRSTR
-  if test $REPLACE_STRSTR = 1; then
-    AC_LIBOBJ([strstr])
-  fi
-  gl_FUNC_STRSTR_SIMPLE
-  if test $REPLACE_STRSTR = 1; then
-    AC_LIBOBJ([strstr])
-  fi
-  gl_STRING_MODULE_INDICATOR([strstr])
   gl_SYS_STAT_H
   gl_SYS_STAT_H_REQUIRE_DEFAULTS
   AC_PROG_MKDIR_P
@@ -799,7 +786,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/stdio-write.c
   lib/stdio.in.h
   lib/stdlib.in.h
-  lib/str-two-way.h
   lib/strcasecmp.c
   lib/strdup.c
   lib/strerror-override.c
@@ -811,7 +797,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strncasecmp.c
   lib/strndup.c
   lib/strnlen.c
-  lib/strstr.c
   lib/sys_stat.in.h
   lib/sys_time.in.h
   lib/sys_types.in.h
@@ -840,7 +825,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/alloca.m4
   m4/assert_h.m4
   m4/build-to-host.m4
-  m4/builtin-expect.m4
   m4/byteswap.m4
   m4/c-bool.m4
   m4/calloc.m4
@@ -933,7 +917,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strings_h.m4
   m4/strndup.m4
   m4/strnlen.m4
-  m4/strstr.m4
   m4/sys_socket_h.m4
   m4/sys_stat_h.m4
   m4/sys_time_h.m4

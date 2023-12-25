@@ -71,7 +71,6 @@
 /strings_h.m4
 /strndup.m4
 /strnlen.m4
-/strstr.m4
 /sys_socket_h.m4
 /sys_stat_h.m4
 /sys_time_h.m4
@@ -92,7 +91,6 @@
 /xsize.m4
 /xvasprintf.m4
 /absolute-header.m4
-/builtin-expect.m4
 /getprogname.m4
 /limits-h.m4
 /asm-underscore.m4
