@@ -50,7 +50,6 @@
 #  strdup-posix \
 #  strerror \
 #  strndup \
-#  strstr \
 #  vasprintf \
 #  version-etc \
 #  xalloc \
@@ -1862,24 +1861,6 @@ libgnu_a_SOURCES += strnlen.c
 endif
 
 ## end   gnulib module strnlen
-
-## begin gnulib module strstr
-
-
-EXTRA_DIST += strstr.c
-
-EXTRA_libgnu_a_SOURCES += strstr.c
-
-## end   gnulib module strstr
-
-## begin gnulib module strstr-simple
-
-
-EXTRA_DIST += str-two-way.h strstr.c
-
-EXTRA_libgnu_a_SOURCES += strstr.c
-
-## end   gnulib module strstr-simple
 
 ## begin gnulib module sys_stat-h
 

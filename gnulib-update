@@ -37,7 +37,6 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         strdup-posix \
         strerror \
         strndup \
-        strstr \
         vasprintf \
         version-etc \
         xalloc \

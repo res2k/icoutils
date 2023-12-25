@@ -55,7 +55,6 @@
 #  strdup-posix \
 #  strerror \
 #  strndup \
-#  strstr \
 #  vasprintf \
 #  version-etc \
 #  xalloc \
@@ -82,7 +81,6 @@ gl_MODULES([
   strdup-posix
   strerror
   strndup
-  strstr
   vasprintf
   version-etc
   xalloc
