@@ -44,7 +44,6 @@
 #  lstat \
 #  malloc-gnu \
 #  manywarnings \
-#  memchr \
 #  minmax \
 #  progname \
 #  stdbool \

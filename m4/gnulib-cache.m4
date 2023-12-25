@@ -49,7 +49,6 @@
 #  lstat \
 #  malloc-gnu \
 #  manywarnings \
-#  memchr \
 #  minmax \
 #  progname \
 #  stdbool \
@@ -79,7 +78,6 @@ gl_MODULES([
   lstat
   malloc-gnu
   manywarnings
-  memchr
   minmax
   progname
   stdbool
