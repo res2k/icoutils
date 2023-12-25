@@ -76,8 +76,10 @@ void
 free_error(void)
 {
 	struct MessageHeader *hdr;
+	struct MessageHeader *old_hdr;
 
-	for (hdr = message_header; hdr != NULL; hdr = hdr->old) {
+	for (hdr = message_header; hdr != NULL; hdr = old_hdr) {
+		old_hdr = hdr->old;
 		free(hdr->message);
 		free(hdr);
 	}
