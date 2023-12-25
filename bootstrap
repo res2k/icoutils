@@ -26,7 +26,6 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         getline \
         getopt-gnu \
         gettext \
-        gettimeofday \
         lstat \
         malloc-gnu \
         manywarnings \

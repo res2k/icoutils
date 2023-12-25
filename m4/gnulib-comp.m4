@@ -80,7 +80,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module getprogname:
   # Code from module gettext:
   # Code from module gettext-h:
-  # Code from module gettimeofday:
   # Code from module havelib:
   # Code from module ialloc:
   # Code from module idx:
@@ -137,7 +136,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module strndup:
   # Code from module strnlen:
   # Code from module sys_stat:
-  # Code from module sys_time:
   # Code from module sys_types:
   # Code from module time-h:
   # Code from module unistd:
@@ -296,13 +294,6 @@ AC_DEFUN([gl_INIT],
   AM_GNU_GETTEXT_VERSION([0.22])
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
-  gl_FUNC_GETTIMEOFDAY
-  gl_CONDITIONAL([GL_COND_OBJ_GETTIMEOFDAY],
-                 [test $HAVE_GETTIMEOFDAY = 0 || test $REPLACE_GETTIMEOFDAY = 1])
-  AM_COND_IF([GL_COND_OBJ_GETTIMEOFDAY], [
-    gl_PREREQ_GETTIMEOFDAY
-  ])
-  gl_SYS_TIME_MODULE_INDICATOR([gettimeofday])
   AC_DEFUN([gl_HAVE_MODULE_HAVELIB])
   gl_INTTYPES_INCOMPLETE
   gl_INTTYPES_H_REQUIRE_DEFAULTS
@@ -486,9 +477,6 @@ AC_DEFUN([gl_INIT],
   gl_STRING_MODULE_INDICATOR([strnlen])
   gl_SYS_STAT_H
   gl_SYS_STAT_H_REQUIRE_DEFAULTS
-  AC_PROG_MKDIR_P
-  gl_SYS_TIME_H
-  gl_SYS_TIME_H_REQUIRE_DEFAULTS
   AC_PROG_MKDIR_P
   gl_SYS_TYPES_H
   gl_SYS_TYPES_H_REQUIRE_DEFAULTS
@@ -741,7 +729,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/getprogname.c
   lib/getprogname.h
   lib/gettext.h
-  lib/gettimeofday.c
   lib/ialloc.c
   lib/ialloc.h
   lib/idx.h
@@ -798,7 +785,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/strndup.c
   lib/strnlen.c
   lib/sys_stat.in.h
-  lib/sys_time.in.h
   lib/sys_types.in.h
   lib/time.in.h
   lib/unistd.c
@@ -852,7 +838,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/getopt.m4
   m4/getprogname.m4
   m4/gettext.m4
-  m4/gettimeofday.m4
   m4/gnulib-common.m4
   m4/host-cpu-c-abi.m4
   m4/iconv.m4
@@ -919,7 +904,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/strnlen.m4
   m4/sys_socket_h.m4
   m4/sys_stat_h.m4
-  m4/sys_time_h.m4
   m4/sys_types_h.m4
   m4/time_h.m4
   m4/unistd_h.m4

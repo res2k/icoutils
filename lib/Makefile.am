@@ -39,7 +39,6 @@
 #  getline \
 #  getopt-gnu \
 #  gettext \
-#  gettimeofday \
 #  lstat \
 #  malloc-gnu \
 #  manywarnings \
@@ -580,14 +579,6 @@ EXTRA_DIST += $(top_srcdir)/build-aux/config.rpath
 libgnu_a_SOURCES += gettext.h
 
 ## end   gnulib module gettext-h
-
-## begin gnulib module gettimeofday
-
-if GL_COND_OBJ_GETTIMEOFDAY
-libgnu_a_SOURCES += gettimeofday.c
-endif
-
-## end   gnulib module gettimeofday
 
 ## begin gnulib module havelib
 
@@ -1595,38 +1586,6 @@ MOSTLYCLEANDIRS += sys
 EXTRA_DIST += sys_stat.in.h
 
 ## end   gnulib module sys_stat
-
-## begin gnulib module sys_time
-
-BUILT_SOURCES += sys/time.h
-
-# We need the following in order to create <sys/time.h> when the system
-# doesn't have one that works with the given compiler.
-sys/time.h: sys_time.in.h $(top_builddir)/config.status $(CXXDEFS_H) $(ARG_NONNULL_H) $(WARN_ON_USE_H)
-	$(AM_V_GEN)$(MKDIR_P) '%reldir%/sys'
-	$(AM_V_at)$(SED_HEADER_STDOUT) \
-	      -e 's|@''GUARD_PREFIX''@|GL|g' \
-	      -e 's/@''HAVE_SYS_TIME_H''@/$(HAVE_SYS_TIME_H)/g' \
-	      -e 's|@''INCLUDE_NEXT''@|$(INCLUDE_NEXT)|g' \
-	      -e 's|@''PRAGMA_SYSTEM_HEADER''@|@PRAGMA_SYSTEM_HEADER@|g' \
-	      -e 's|@''PRAGMA_COLUMNS''@|@PRAGMA_COLUMNS@|g' \
-	      -e 's|@''NEXT_SYS_TIME_H''@|$(NEXT_SYS_TIME_H)|g' \
-	      -e 's/@''GNULIB_GETTIMEOFDAY''@/$(GL_GNULIB_GETTIMEOFDAY)/g' \
-	      -e 's|@''HAVE_WINSOCK2_H''@|$(HAVE_WINSOCK2_H)|g' \
-	      -e 's/@''HAVE_GETTIMEOFDAY''@/$(HAVE_GETTIMEOFDAY)/g' \
-	      -e 's/@''HAVE_STRUCT_TIMEVAL''@/$(HAVE_STRUCT_TIMEVAL)/g' \
-	      -e 's/@''REPLACE_GETTIMEOFDAY''@/$(REPLACE_GETTIMEOFDAY)/g' \
-	      -e 's/@''REPLACE_STRUCT_TIMEVAL''@/$(REPLACE_STRUCT_TIMEVAL)/g' \
-	      -e '/definitions of _GL_FUNCDECL_RPL/r $(CXXDEFS_H)' \
-	      -e '/definition of _GL_ARG_NONNULL/r $(ARG_NONNULL_H)' \
-	      -e '/definition of _GL_WARN_ON_USE/r $(WARN_ON_USE_H)' \
-	      $(srcdir)/sys_time.in.h > $@-t
-	$(AM_V_at)mv $@-t $@
-MOSTLYCLEANFILES += sys/time.h sys/time.h-t
-
-EXTRA_DIST += sys_time.in.h
-
-## end   gnulib module sys_time
 
 ## begin gnulib module sys_types
 

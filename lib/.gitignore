@@ -35,7 +35,6 @@
 /getprogname.c
 /getprogname.h
 /gettext.h
-/gettimeofday.c
 /intprops.h
 /inttypes.in.h
 /itold.c
@@ -83,7 +82,6 @@
 /strndup.c
 /strnlen.c
 /sys_stat.in.h
-/sys_time.in.h
 /sys_types.in.h
 /time.in.h
 /unistd.c
