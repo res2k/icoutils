@@ -157,7 +157,6 @@ AC_DEFUN([gl_EARLY],
   dnl Some compilers (e.g., AIX 5.3 cc) need to be in c99 mode
   dnl for the builtin va_copy to work.  gl_PROG_CC_C99 arranges for this.
   gl_PROG_CC_C99
-  # Code from module stdbool:
   # Code from module stdckdint-h:
   # Code from module stddef-h:
   # Code from module stdint:
