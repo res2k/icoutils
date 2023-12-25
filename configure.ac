@@ -15,6 +15,9 @@ AC_USE_SYSTEM_EXTENSIONS
 
 # Checks for programs.
 AC_PROG_CC
+if test x"$ac_cv_prog_cc_c99" = x"no"; then
+    AC_MSG_FAILURE([C99 support is mandatory!])
+fi
 gl_EARLY
 AC_PROG_LN_S
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
