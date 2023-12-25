@@ -45,7 +45,6 @@
 #  getline \
 #  getopt-gnu \
 #  gettext \
-#  gettimeofday \
 #  lstat \
 #  malloc-gnu \
 #  manywarnings \
@@ -70,7 +69,6 @@ gl_MODULES([
   getline
   getopt-gnu
   gettext
-  gettimeofday
   lstat
   malloc-gnu
   manywarnings
