@@ -1,15 +1,15 @@
-# intlmacosx.m4 serial 7 (gettext-0.20.2)
-dnl Copyright (C) 2004-2014, 2016, 2019-2020 Free Software Foundation, Inc.
+# intlmacosx.m4 serial 9 (gettext-0.22.3)
+dnl Copyright (C) 2004-2014, 2016, 2019-2023 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
 dnl
 dnl This file can be used in projects which are not available under
-dnl the GNU General Public License or the GNU Library General Public
+dnl the GNU General Public License or the GNU Lesser General Public
 dnl License but which still want to provide support for the GNU gettext
 dnl functionality.
 dnl Please note that the actual code of the GNU gettext library is covered
-dnl by the GNU Library General Public License, and the rest of the GNU
+dnl by the GNU Lesser General Public License, and the rest of the GNU
 dnl gettext package is covered by the GNU General Public License.
 dnl They are *not* in the public domain.
 
@@ -59,7 +59,11 @@ AC_DEFUN([gt_INTL_MACOSX],
   INTL_MACOSX_LIBS=
   if test $gt_cv_func_CFPreferencesCopyAppValue = yes \
      || test $gt_cv_func_CFLocaleCopyPreferredLanguages = yes; then
-    INTL_MACOSX_LIBS="-Wl,-framework -Wl,CoreFoundation"
+    dnl Starting with macOS version 14, CoreFoundation relies on CoreServices,
+    dnl and we have to link it in explicitly, otherwise an exception
+    dnl NSInvalidArgumentException "unrecognized selector sent to instance"
+    dnl occurs.
+    INTL_MACOSX_LIBS="-Wl,-framework -Wl,CoreFoundation -Wl,-framework -Wl,CoreServices"
   fi
   AC_SUBST([INTL_MACOSX_LIBS])
 ])
