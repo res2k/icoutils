@@ -34,7 +34,6 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         progname \
         strcase \
         strdup-posix \
-        strerror \
         strndup \
         vasprintf \
         version-etc \

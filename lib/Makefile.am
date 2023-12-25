@@ -47,7 +47,6 @@
 #  progname \
 #  strcase \
 #  strdup-posix \
-#  strerror \
 #  strndup \
 #  vasprintf \
 #  version-etc \

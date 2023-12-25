@@ -52,7 +52,6 @@
 #  progname \
 #  strcase \
 #  strdup-posix \
-#  strerror \
 #  strndup \
 #  vasprintf \
 #  version-etc \
@@ -78,7 +77,6 @@ gl_MODULES([
   progname
   strcase
   strdup-posix
-  strerror
   strndup
   vasprintf
   version-etc
