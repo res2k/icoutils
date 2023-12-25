@@ -50,7 +50,6 @@
 #  manywarnings \
 #  minmax \
 #  progname \
-#  stdbool \
 #  stdint \
 #  strcase \
 #  strdup-posix \
@@ -79,7 +78,6 @@ gl_MODULES([
   manywarnings
   minmax
   progname
-  stdbool
   stdint
   strcase
   strdup-posix
