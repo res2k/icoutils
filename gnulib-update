@@ -33,7 +33,6 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         manywarnings \
         minmax \
         progname \
-        stdint \
         strcase \
         strdup-posix \
         strerror \

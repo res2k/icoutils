@@ -46,7 +46,6 @@
 #  manywarnings \
 #  minmax \
 #  progname \
-#  stdint \
 #  strcase \
 #  strdup-posix \
 #  strerror \

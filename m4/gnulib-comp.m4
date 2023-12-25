@@ -159,7 +159,6 @@ AC_DEFUN([gl_EARLY],
   gl_PROG_CC_C99
   # Code from module stdckdint-h:
   # Code from module stddef-h:
-  # Code from module stdint:
   # Code from module stdint-h:
   # Code from module stdio-h:
   gl_STDIO_H_EARLY
