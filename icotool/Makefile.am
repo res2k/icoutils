@@ -14,7 +14,7 @@ icotool_SOURCES = \
 icotool_LDADD = \
   @PNG_LIBS@ \
   ../common/libcommon.a \
-  ../lib/libgnu.a \
+  ../compat-lib/src/libgnu.a \
   @LIBINTL@
 
 man_MANS = \
@@ -24,8 +24,8 @@ EXTRA_DIST = \
   $(man_MANS)
 
 AM_CPPFLAGS = \
-  -I$(top_builddir)/lib \
-  -I$(top_srcdir)/lib \
+  -I$(top_builddir)/compat-lib/src \
+  -I$(top_srcdir)/compat-lib/src \
   -I$(top_srcdir)
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)

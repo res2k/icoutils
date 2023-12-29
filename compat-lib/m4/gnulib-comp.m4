@@ -165,7 +165,7 @@ AC_DEFUN([gl_INIT],
   gl_cond_libtool=false
   gl_libdeps=
   gl_ltlibdeps=
-  gl_m4_base='m4'
+  gl_m4_base='compat-lib/m4'
   m4_pushdef([AC_LIBOBJ], m4_defn([gl_LIBOBJ]))
   m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gl_REPLACE_FUNCS]))
   m4_pushdef([AC_LIBSOURCES], m4_defn([gl_LIBSOURCES]))
@@ -174,7 +174,7 @@ AC_DEFUN([gl_INIT],
   m4_pushdef([GL_MACRO_PREFIX], [gl])
   m4_pushdef([GL_MODULE_INDICATOR_PREFIX], [GL])
   gl_COMMON
-  gl_source_base='lib'
+  gl_source_base='compat-lib/src'
   gl_source_base_prefix=
   gl_FUNC_ALLOCA
   gl_CONDITIONAL_HEADER([alloca.h])
@@ -667,7 +667,7 @@ AC_DEFUN([gl_REPLACE_FUNCS], [
 AC_DEFUN([gl_LIBSOURCES], [
   m4_foreach([_gl_NAME], [$1], [
     m4_if(_gl_NAME, [alloca.c], [], [
-      m4_define([gl_LIBSOURCES_DIR], [lib])
+      m4_define([gl_LIBSOURCES_DIR], [compat-lib/src])
       m4_append([gl_LIBSOURCES_LIST], _gl_NAME, [ ])
     ])
   ])

@@ -2,7 +2,6 @@
 # Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.64])
 AC_INIT(icoutils, 0.33.0, frank.richter@gmail.com)
-AC_CONFIG_MACRO_DIR([m4]) # doesn't seem to have any effect at the moment
 AC_CONFIG_SRCDIR([icotool/icotool.h])
 AC_CONFIG_HEADER([config.h])
 AC_CONFIG_AUX_DIR([build-aux])
@@ -112,7 +111,7 @@ AC_CHECK_HEADERS([png.h libpng/png.h libpng10/png.h libpng12/png.h locale.h])
 AC_CONFIG_FILES([Makefile
 		 icoutils.spec
 		 po/Makefile.in
-		 lib/Makefile
+		 compat-lib/src/Makefile
 		 common/Makefile
 		 icotool/Makefile
 		 wrestool/Makefile

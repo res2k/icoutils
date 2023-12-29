@@ -29,8 +29,8 @@
 # Specification in the form of a command-line invocation:
 # gnulib-tool --import \
 #  --lib=libgnu \
-#  --source-base=lib \
-#  --m4-base=m4 \
+#  --source-base=compat-lib/src \
+#  --m4-base=compat-lib/m4 \
 #  --doc-base=. \
 #  --tests-base=test \
 #  --aux-dir=build-aux \
@@ -95,8 +95,8 @@ gl_MODULES([
   xvasprintf
 ])
 gl_AVOID([])
-gl_SOURCE_BASE([lib])
-gl_M4_BASE([m4])
+gl_SOURCE_BASE([compat-lib/src])
+gl_M4_BASE([compat-lib/m4])
 gl_PO_BASE([])
 gl_DOC_BASE([.])
 gl_TESTS_BASE([test])

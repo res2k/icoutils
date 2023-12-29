@@ -24,8 +24,8 @@
 # Reproduce by:
 # gnulib-tool --import \
 #  --lib=libgnu \
-#  --source-base=lib \
-#  --m4-base=m4 \
+#  --source-base=compat-lib/src \
+#  --m4-base=compat-lib/m4 \
 #  --doc-base=. \
 #  --tests-base=test \
 #  --aux-dir=build-aux \

@@ -21,10 +21,10 @@ libcommon_a_SOURCES = \
 	tmap.h
 
 libcommon_la_LIBADD = \
-	../lib/libgnu.a
+	../compat-lib/src/libgnu.a
 
 AM_CPPFLAGS = \
-	-I$(top_builddir)/lib \
-	-I$(top_srcdir)/lib
+	-I$(top_builddir)/compat-lib/src \
+	-I$(top_srcdir)/compat-lib/src
 
 AM_CFLAGS = $(WARN_CFLAGS) $(WERROR_CFLAGS)
