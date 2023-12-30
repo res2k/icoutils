@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -e
+
+GNULIB_SRCDIR=${GNULIB_SRCDIR:-../gnulib}
+gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
+
+if $gnulib_tool --version >/dev/null 2>&1; then
+    echo "Updating gnulib files from $GNULIB_SRCDIR"
+
+    $gnulib_tool \
+        --import \
+        --lib=libgnu \
+        --source-base=compat-lib/src \
+        --m4-base=compat-lib/m4 \
+        --doc-base=. \
+        --tests-base=test \
+        --aux-dir=build-aux \
+        --no-conditional-dependencies \
+        --no-libtool \
+        --macro-prefix=gl \
+        byteswap \
+        configmake \
+        dirname \
+        dup2 \
+        getline \
+        getopt-gnu \
+        gettext \
+        gettimeofday \
+        lstat \
+        malloc-gnu \
+        manywarnings \
+        memchr \
+        minmax \
+        progname \
+        stdbool \
+        stdint \
+        strcase \
+        strdup-posix \
+        strerror \
+        strndup \
+        strstr \
+        vasprintf \
+        version-etc \
+        xalloc \
+        xalloc-die \
+        xvasprintf
+else
+    echo "***"
+    echo "*** Not updating gnulib files"
+    echo "***"
+    exit 1
+fi
