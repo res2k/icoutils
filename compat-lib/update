@@ -19,6 +19,7 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         --no-conditional-dependencies \
         --no-libtool \
         --macro-prefix=gl \
+        --no-vc-files \
         byteswap \
         configmake \
         dirname \
