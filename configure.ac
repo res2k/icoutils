@@ -118,4 +118,5 @@ AC_CONFIG_FILES([Makefile
 		 extresso/Makefile])
 AC_CONFIG_FILES([extresso/extresso], [chmod +x extresso/extresso])
 AC_CONFIG_FILES([extresso/genresscript], [chmod +x extresso/genresscript])
+AC_CONFIG_SUBDIRS([compat-lib])
 AC_OUTPUT

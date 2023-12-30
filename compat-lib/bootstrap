@@ -2,12 +2,8 @@
 
 set -e
 
-aclocal -I m4 -I compat-lib/m4
+aclocal -I m4
 autoheader
 libtoolize --force -c
 automake -a -c
 autoconf
-
-pushd compat-lib
-./bootstrap
-popd
