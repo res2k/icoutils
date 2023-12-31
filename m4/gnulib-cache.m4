@@ -29,79 +29,35 @@
 # Specification in the form of a command-line invocation:
 # gnulib-tool --import \
 #  --lib=libgnu \
-#  --source-base=compat-lib/src \
-#  --m4-base=compat-lib/m4 \
+#  --source-base=lib \
+#  --m4-base=m4 \
 #  --doc-base=. \
 #  --tests-base=test \
 #  --aux-dir=build-aux \
 #  --no-conditional-dependencies \
 #  --no-libtool \
-#  --macro-prefix=iucl_gl \
+#  --macro-prefix=gl \
 #  --no-vc-files \
-#  byteswap \
 #  configmake \
-#  dirname \
-#  dup2 \
-#  getline \
-#  getopt-gnu \
-#  gettext \
-#  gettimeofday \
-#  lstat \
-#  malloc-gnu \
 #  manywarnings \
-#  memchr \
-#  minmax \
-#  progname \
-#  stdbool \
-#  stdint \
-#  strcase \
-#  strdup-posix \
-#  strerror \
-#  strndup \
-#  strstr \
-#  vasprintf \
-#  xalloc \
-#  xalloc-die \
-#  xvasprintf
+#  version-etc
 
 # Specification in the form of a few gnulib-tool.m4 macro invocations:
 gl_LOCAL_DIR([])
 gl_MODULES([
-  byteswap
   configmake
-  dirname
-  dup2
-  getline
-  getopt-gnu
-  gettext
-  gettimeofday
-  lstat
-  malloc-gnu
   manywarnings
-  memchr
-  minmax
-  progname
-  stdbool
-  stdint
-  strcase
-  strdup-posix
-  strerror
-  strndup
-  strstr
-  vasprintf
-  xalloc
-  xalloc-die
-  xvasprintf
+  version-etc
 ])
 gl_AVOID([])
-gl_SOURCE_BASE([compat-lib/src])
-gl_M4_BASE([compat-lib/m4])
+gl_SOURCE_BASE([lib])
+gl_M4_BASE([m4])
 gl_PO_BASE([])
 gl_DOC_BASE([.])
 gl_TESTS_BASE([test])
 gl_LIB([libgnu])
 gl_MAKEFILE_NAME([])
-gl_MACRO_PREFIX([iucl_gl])
+gl_MACRO_PREFIX([gl])
 gl_PO_DOMAIN([])
 gl_WITNESS_C_MACRO([])
 gl_VC_FILES([false])

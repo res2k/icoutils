@@ -31,7 +31,7 @@
 # This macro should be invoked from ./configure.ac, in the section
 # "Checks for programs", right after AC_PROG_CC, and certainly before
 # any checks for libraries, header files, types and library functions.
-AC_DEFUN([gl_EARLY],
+AC_DEFUN([iucl_gl_EARLY],
 [
   m4_pattern_forbid([^gl_[A-Z]])dnl the gnulib macro namespace
   m4_pattern_allow([^gl_ES$])dnl a valid locale name
@@ -147,7 +147,6 @@ AC_DEFUN([gl_EARLY],
   # Code from module vararrays:
   # Code from module vasnprintf:
   # Code from module vasprintf:
-  # Code from module version-etc:
   # Code from module warnings:
   # Code from module wchar:
   # Code from module xalloc:
@@ -159,20 +158,20 @@ AC_DEFUN([gl_EARLY],
 
 # This macro should be invoked from ./configure.ac, in the section
 # "Check for header files, types and library functions".
-AC_DEFUN([gl_INIT],
+AC_DEFUN([iucl_gl_INIT],
 [
   AM_CONDITIONAL([GL_COND_LIBTOOL], [false])
   gl_cond_libtool=false
   gl_libdeps=
   gl_ltlibdeps=
   gl_m4_base='compat-lib/m4'
-  m4_pushdef([AC_LIBOBJ], m4_defn([gl_LIBOBJ]))
-  m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gl_REPLACE_FUNCS]))
-  m4_pushdef([AC_LIBSOURCES], m4_defn([gl_LIBSOURCES]))
-  m4_pushdef([gl_LIBSOURCES_LIST], [])
-  m4_pushdef([gl_LIBSOURCES_DIR], [])
-  m4_pushdef([GL_MACRO_PREFIX], [gl])
-  m4_pushdef([GL_MODULE_INDICATOR_PREFIX], [GL])
+  m4_pushdef([AC_LIBOBJ], m4_defn([iucl_gl_LIBOBJ]))
+  m4_pushdef([AC_REPLACE_FUNCS], m4_defn([iucl_gl_REPLACE_FUNCS]))
+  m4_pushdef([AC_LIBSOURCES], m4_defn([iucl_gl_LIBSOURCES]))
+  m4_pushdef([iucl_gl_LIBSOURCES_LIST], [])
+  m4_pushdef([iucl_gl_LIBSOURCES_DIR], [])
+  m4_pushdef([GL_MACRO_PREFIX], [iucl_gl])
+  m4_pushdef([GL_MODULE_INDICATOR_PREFIX], [GL_IUCL_GL])
   gl_COMMON
   gl_source_base='compat-lib/src'
   gl_source_base_prefix=
@@ -520,7 +519,6 @@ AC_DEFUN([gl_INIT],
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_][XGETTEXT_OPTION([--flag=asprintf:2:c-format])
      AM_][XGETTEXT_OPTION([--flag=vasprintf:2:c-format])])
-  gl_VERSION_ETC
   gl_WCHAR_H
   gl_WCHAR_H_REQUIRE_DEFAULTS
   AC_PROG_MKDIR_P
@@ -532,11 +530,11 @@ AC_DEFUN([gl_INIT],
   m4_ifdef([AM_XGETTEXT_OPTION],
     [AM_][XGETTEXT_OPTION([--flag=xasprintf:1:c-format])])
   # End of code from modules
-  m4_ifval(gl_LIBSOURCES_LIST, [
-    m4_syscmd([test ! -d ]m4_defn([gl_LIBSOURCES_DIR])[ ||
-      for gl_file in ]gl_LIBSOURCES_LIST[ ; do
-        if test ! -r ]m4_defn([gl_LIBSOURCES_DIR])[/$gl_file ; then
-          echo "missing file ]m4_defn([gl_LIBSOURCES_DIR])[/$gl_file" >&2
+  m4_ifval(iucl_gl_LIBSOURCES_LIST, [
+    m4_syscmd([test ! -d ]m4_defn([iucl_gl_LIBSOURCES_DIR])[ ||
+      for gl_file in ]iucl_gl_LIBSOURCES_LIST[ ; do
+        if test ! -r ]m4_defn([iucl_gl_LIBSOURCES_DIR])[/$gl_file ; then
+          echo "missing file ]m4_defn([iucl_gl_LIBSOURCES_DIR])[/$gl_file" >&2
           exit 1
         fi
       done])dnl
@@ -545,16 +543,16 @@ AC_DEFUN([gl_INIT],
   ])
   m4_popdef([GL_MODULE_INDICATOR_PREFIX])
   m4_popdef([GL_MACRO_PREFIX])
-  m4_popdef([gl_LIBSOURCES_DIR])
-  m4_popdef([gl_LIBSOURCES_LIST])
+  m4_popdef([iucl_gl_LIBSOURCES_DIR])
+  m4_popdef([iucl_gl_LIBSOURCES_LIST])
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
   m4_popdef([AC_LIBOBJ])
   AC_CONFIG_COMMANDS_PRE([
-    gl_libobjs=
-    gl_ltlibobjs=
-    gl_libobjdeps=
-    if test -n "$gl_LIBOBJS"; then
+    iucl_gl_libobjs=
+    iucl_gl_ltlibobjs=
+    iucl_gl_libobjdeps=
+    if test -n "$iucl_gl_LIBOBJS"; then
       # Remove the extension.
 changequote(,)dnl
       sed_drop_objext='s/\.o$//;s/\.obj$//'
@@ -564,42 +562,42 @@ changequote(,)dnl
       sed_dirname4='s,\(.\)/[^/]*$,\1,'
       sed_basename1='s,.*/,,'
 changequote([, ])dnl
-      for i in `for i in $gl_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
-        gl_libobjs="$gl_libobjs $i.$ac_objext"
-        gl_ltlibobjs="$gl_ltlibobjs $i.lo"
+      for i in `for i in $iucl_gl_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
+        iucl_gl_libobjs="$iucl_gl_libobjs $i.$ac_objext"
+        iucl_gl_ltlibobjs="$iucl_gl_ltlibobjs $i.lo"
         i_dir=`echo "$i" | sed -e "$sed_dirname1" -e "$sed_dirname2" -e "$sed_dirname3" -e "$sed_dirname4"`
         i_base=`echo "$i" | sed -e "$sed_basename1"`
-        gl_libobjdeps="$gl_libobjdeps $i_dir/\$(DEPDIR)/$i_base.Po"
+        iucl_gl_libobjdeps="$iucl_gl_libobjdeps $i_dir/\$(DEPDIR)/$i_base.Po"
       done
     fi
-    AC_SUBST([gl_LIBOBJS], [$gl_libobjs])
-    AC_SUBST([gl_LTLIBOBJS], [$gl_ltlibobjs])
-    AC_SUBST([gl_LIBOBJDEPS], [$gl_libobjdeps])
+    AC_SUBST([iucl_gl_LIBOBJS], [$iucl_gl_libobjs])
+    AC_SUBST([iucl_gl_LTLIBOBJS], [$iucl_gl_ltlibobjs])
+    AC_SUBST([iucl_gl_LIBOBJDEPS], [$iucl_gl_libobjdeps])
   ])
   gltests_libdeps=
   gltests_ltlibdeps=
-  m4_pushdef([AC_LIBOBJ], m4_defn([gltests_LIBOBJ]))
-  m4_pushdef([AC_REPLACE_FUNCS], m4_defn([gltests_REPLACE_FUNCS]))
-  m4_pushdef([AC_LIBSOURCES], m4_defn([gltests_LIBSOURCES]))
-  m4_pushdef([gltests_LIBSOURCES_LIST], [])
-  m4_pushdef([gltests_LIBSOURCES_DIR], [])
-  m4_pushdef([GL_MACRO_PREFIX], [gltests])
-  m4_pushdef([GL_MODULE_INDICATOR_PREFIX], [GL])
+  m4_pushdef([AC_LIBOBJ], m4_defn([iucl_gltests_LIBOBJ]))
+  m4_pushdef([AC_REPLACE_FUNCS], m4_defn([iucl_gltests_REPLACE_FUNCS]))
+  m4_pushdef([AC_LIBSOURCES], m4_defn([iucl_gltests_LIBSOURCES]))
+  m4_pushdef([iucl_gltests_LIBSOURCES_LIST], [])
+  m4_pushdef([iucl_gltests_LIBSOURCES_DIR], [])
+  m4_pushdef([GL_MACRO_PREFIX], [iucl_gltests])
+  m4_pushdef([GL_MODULE_INDICATOR_PREFIX], [GL_IUCL_GL])
   gl_COMMON
   gl_source_base='test'
   gl_source_base_prefix=
 changequote(,)dnl
-  gltests_WITNESS=IN_`echo "${PACKAGE-$PACKAGE_TARNAME}" | LC_ALL=C tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ | LC_ALL=C sed -e 's/[^A-Z0-9_]/_/g'`_GNULIB_TESTS
+  iucl_gltests_WITNESS=IN_`echo "${PACKAGE-$PACKAGE_TARNAME}" | LC_ALL=C tr abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ | LC_ALL=C sed -e 's/[^A-Z0-9_]/_/g'`_GNULIB_TESTS
 changequote([, ])dnl
-  AC_SUBST([gltests_WITNESS])
-  gl_module_indicator_condition=$gltests_WITNESS
+  AC_SUBST([iucl_gltests_WITNESS])
+  gl_module_indicator_condition=$iucl_gltests_WITNESS
   m4_pushdef([gl_MODULE_INDICATOR_CONDITION], [$gl_module_indicator_condition])
   m4_popdef([gl_MODULE_INDICATOR_CONDITION])
-  m4_ifval(gltests_LIBSOURCES_LIST, [
-    m4_syscmd([test ! -d ]m4_defn([gltests_LIBSOURCES_DIR])[ ||
-      for gl_file in ]gltests_LIBSOURCES_LIST[ ; do
-        if test ! -r ]m4_defn([gltests_LIBSOURCES_DIR])[/$gl_file ; then
-          echo "missing file ]m4_defn([gltests_LIBSOURCES_DIR])[/$gl_file" >&2
+  m4_ifval(iucl_gltests_LIBSOURCES_LIST, [
+    m4_syscmd([test ! -d ]m4_defn([iucl_gltests_LIBSOURCES_DIR])[ ||
+      for gl_file in ]iucl_gltests_LIBSOURCES_LIST[ ; do
+        if test ! -r ]m4_defn([iucl_gltests_LIBSOURCES_DIR])[/$gl_file ; then
+          echo "missing file ]m4_defn([iucl_gltests_LIBSOURCES_DIR])[/$gl_file" >&2
           exit 1
         fi
       done])dnl
@@ -608,16 +606,16 @@ changequote([, ])dnl
   ])
   m4_popdef([GL_MODULE_INDICATOR_PREFIX])
   m4_popdef([GL_MACRO_PREFIX])
-  m4_popdef([gltests_LIBSOURCES_DIR])
-  m4_popdef([gltests_LIBSOURCES_LIST])
+  m4_popdef([iucl_gltests_LIBSOURCES_DIR])
+  m4_popdef([iucl_gltests_LIBSOURCES_LIST])
   m4_popdef([AC_LIBSOURCES])
   m4_popdef([AC_REPLACE_FUNCS])
   m4_popdef([AC_LIBOBJ])
   AC_CONFIG_COMMANDS_PRE([
-    gltests_libobjs=
-    gltests_ltlibobjs=
-    gltests_libobjdeps=
-    if test -n "$gltests_LIBOBJS"; then
+    iucl_gltests_libobjs=
+    iucl_gltests_ltlibobjs=
+    iucl_gltests_libobjdeps=
+    if test -n "$iucl_gltests_LIBOBJS"; then
       # Remove the extension.
 changequote(,)dnl
       sed_drop_objext='s/\.o$//;s/\.obj$//'
@@ -627,17 +625,17 @@ changequote(,)dnl
       sed_dirname4='s,\(.\)/[^/]*$,\1,'
       sed_basename1='s,.*/,,'
 changequote([, ])dnl
-      for i in `for i in $gltests_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
-        gltests_libobjs="$gltests_libobjs $i.$ac_objext"
-        gltests_ltlibobjs="$gltests_ltlibobjs $i.lo"
+      for i in `for i in $iucl_gltests_LIBOBJS; do echo "$i"; done | sed -e "$sed_drop_objext" | sort | uniq`; do
+        iucl_gltests_libobjs="$iucl_gltests_libobjs $i.$ac_objext"
+        iucl_gltests_ltlibobjs="$iucl_gltests_ltlibobjs $i.lo"
         i_dir=`echo "$i" | sed -e "$sed_dirname1" -e "$sed_dirname2" -e "$sed_dirname3" -e "$sed_dirname4"`
         i_base=`echo "$i" | sed -e "$sed_basename1"`
-        gltests_libobjdeps="$gltests_libobjdeps $i_dir/\$(DEPDIR)/$i_base.Po"
+        iucl_gltests_libobjdeps="$iucl_gltests_libobjdeps $i_dir/\$(DEPDIR)/$i_base.Po"
       done
     fi
-    AC_SUBST([gltests_LIBOBJS], [$gltests_libobjs])
-    AC_SUBST([gltests_LTLIBOBJS], [$gltests_ltlibobjs])
-    AC_SUBST([gltests_LIBOBJDEPS], [$gltests_libobjdeps])
+    AC_SUBST([iucl_gltests_LIBOBJS], [$iucl_gltests_libobjs])
+    AC_SUBST([iucl_gltests_LTLIBOBJS], [$iucl_gltests_ltlibobjs])
+    AC_SUBST([iucl_gltests_LIBOBJDEPS], [$iucl_gltests_libobjdeps])
   ])
   AC_REQUIRE([gl_CC_GNULIB_WARNINGS])
   LIBGNU_LIBDEPS="$gl_libdeps"
@@ -647,62 +645,62 @@ changequote([, ])dnl
 ])
 
 # Like AC_LIBOBJ, except that the module name goes
-# into gl_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gl_LIBOBJ], [
-  AS_LITERAL_IF([$1], [gl_LIBSOURCES([$1.c])])dnl
-  gl_LIBOBJS="$gl_LIBOBJS $1.$ac_objext"
+# into iucl_gl_LIBOBJS instead of into LIBOBJS.
+AC_DEFUN([iucl_gl_LIBOBJ], [
+  AS_LITERAL_IF([$1], [iucl_gl_LIBSOURCES([$1.c])])dnl
+  iucl_gl_LIBOBJS="$iucl_gl_LIBOBJS $1.$ac_objext"
 ])
 
 # Like AC_REPLACE_FUNCS, except that the module name goes
-# into gl_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gl_REPLACE_FUNCS], [
+# into iucl_gl_LIBOBJS instead of into LIBOBJS.
+AC_DEFUN([iucl_gl_REPLACE_FUNCS], [
   m4_foreach_w([gl_NAME], [$1], [AC_LIBSOURCES(gl_NAME[.c])])dnl
-  AC_CHECK_FUNCS([$1], , [gl_LIBOBJ($ac_func)])
+  AC_CHECK_FUNCS([$1], , [iucl_gl_LIBOBJ($ac_func)])
 ])
 
 # Like AC_LIBSOURCES, except the directory where the source file is
 # expected is derived from the gnulib-tool parameterization,
 # and alloca is special cased (for the alloca-opt module).
 # We could also entirely rely on EXTRA_lib..._SOURCES.
-AC_DEFUN([gl_LIBSOURCES], [
+AC_DEFUN([iucl_gl_LIBSOURCES], [
   m4_foreach([_gl_NAME], [$1], [
     m4_if(_gl_NAME, [alloca.c], [], [
-      m4_define([gl_LIBSOURCES_DIR], [compat-lib/src])
-      m4_append([gl_LIBSOURCES_LIST], _gl_NAME, [ ])
+      m4_define([iucl_gl_LIBSOURCES_DIR], [compat-lib/src])
+      m4_append([iucl_gl_LIBSOURCES_LIST], _gl_NAME, [ ])
     ])
   ])
 ])
 
 # Like AC_LIBOBJ, except that the module name goes
-# into gltests_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gltests_LIBOBJ], [
-  AS_LITERAL_IF([$1], [gltests_LIBSOURCES([$1.c])])dnl
-  gltests_LIBOBJS="$gltests_LIBOBJS $1.$ac_objext"
+# into iucl_gltests_LIBOBJS instead of into LIBOBJS.
+AC_DEFUN([iucl_gltests_LIBOBJ], [
+  AS_LITERAL_IF([$1], [iucl_gltests_LIBSOURCES([$1.c])])dnl
+  iucl_gltests_LIBOBJS="$iucl_gltests_LIBOBJS $1.$ac_objext"
 ])
 
 # Like AC_REPLACE_FUNCS, except that the module name goes
-# into gltests_LIBOBJS instead of into LIBOBJS.
-AC_DEFUN([gltests_REPLACE_FUNCS], [
+# into iucl_gltests_LIBOBJS instead of into LIBOBJS.
+AC_DEFUN([iucl_gltests_REPLACE_FUNCS], [
   m4_foreach_w([gl_NAME], [$1], [AC_LIBSOURCES(gl_NAME[.c])])dnl
-  AC_CHECK_FUNCS([$1], , [gltests_LIBOBJ($ac_func)])
+  AC_CHECK_FUNCS([$1], , [iucl_gltests_LIBOBJ($ac_func)])
 ])
 
 # Like AC_LIBSOURCES, except the directory where the source file is
 # expected is derived from the gnulib-tool parameterization,
 # and alloca is special cased (for the alloca-opt module).
 # We could also entirely rely on EXTRA_lib..._SOURCES.
-AC_DEFUN([gltests_LIBSOURCES], [
+AC_DEFUN([iucl_gltests_LIBSOURCES], [
   m4_foreach([_gl_NAME], [$1], [
     m4_if(_gl_NAME, [alloca.c], [], [
-      m4_define([gltests_LIBSOURCES_DIR], [test])
-      m4_append([gltests_LIBSOURCES_LIST], _gl_NAME, [ ])
+      m4_define([iucl_gltests_LIBSOURCES_DIR], [test])
+      m4_append([iucl_gltests_LIBSOURCES_LIST], _gl_NAME, [ ])
     ])
   ])
 ])
 
 # This macro records the list of files which have been installed by
 # gnulib-tool and may be removed by future gnulib-tool invocations.
-AC_DEFUN([gl_FILE_LIST], [
+AC_DEFUN([iucl_gl_FILE_LIST], [
   build-aux/config.rpath
   lib/_Noreturn.h
   lib/alloca.in.h
@@ -822,8 +820,6 @@ AC_DEFUN([gl_FILE_LIST], [
   lib/vasnprintf.h
   lib/vasprintf.c
   lib/verify.h
-  lib/version-etc.c
-  lib/version-etc.h
   lib/warn-on-use.h
   lib/wchar.in.h
   lib/xalloc-die.c
@@ -943,7 +939,6 @@ AC_DEFUN([gl_FILE_LIST], [
   m4/vararrays.m4
   m4/vasnprintf.m4
   m4/vasprintf.m4
-  m4/version-etc.m4
   m4/warn-on-use.m4
   m4/warnings.m4
   m4/wchar_h.m4

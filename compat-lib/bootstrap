@@ -4,6 +4,9 @@ set -e
 
 aclocal -I m4
 autoheader
+# Don't want PACKAGE_ macros, remove them
+cat src/config.h.in | grep -v "#undef PACKAGE" > /tmp/config.h.in.tmp
+mv /tmp/config.h.in.tmp src/config.h.in
 libtoolize --force -c
 automake -a -c
 autoconf

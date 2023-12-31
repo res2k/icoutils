@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS = -I m4 -I compat-lib/m4
 
-SUBDIRS = po compat-lib/src common icotool wrestool extresso
+SUBDIRS = po compat-lib/src common lib icotool wrestool extresso
 
 .PHONY: rpm
 

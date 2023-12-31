@@ -2,6 +2,32 @@
 
 set -e
 
+GNULIB_SRCDIR=${GNULIB_SRCDIR:-../gnulib}
+gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
+
+if $gnulib_tool --version >/dev/null 2>&1; then
+    echo "Updating gnulib files from $GNULIB_SRCDIR"
+
+    $gnulib_tool \
+        --import \
+        --source-base=lib \
+        --m4-base=m4 \
+        --doc-base=. \
+        --tests-base=test \
+        --aux-dir=build-aux \
+        --no-conditional-dependencies \
+        --no-libtool \
+        --macro-prefix=gl \
+        --no-vc-files \
+        configmake \
+        manywarnings \
+        version-etc
+else
+    echo "***"
+    echo "Warning: Not updating gnulib files"
+    echo "***"
+fi
+
 aclocal -I m4 -I compat-lib/m4
 autoheader
 libtoolize --force -c

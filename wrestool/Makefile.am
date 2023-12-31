@@ -13,6 +13,7 @@ wrestool_SOURCES = \
 wrestool_LDADD = \
   ../common/libcommon.a \
   ../compat-lib/src/libgnu.a \
+  ../lib/libgnu.a \
   @LIBINTL@
 
 man_MANS = \
@@ -22,6 +23,7 @@ EXTRA_DIST = \
   $(man_MANS)
 
 AM_CPPFLAGS = \
+  -I$(top_srcdir)/lib \
   -I$(top_builddir)/compat-lib/src \
   -I$(top_srcdir)/compat-lib/src \
   -I$(top_srcdir) \

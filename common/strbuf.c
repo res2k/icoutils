@@ -17,9 +17,9 @@
  */
 
 /* Depends on
- * gl_MODULES([strnlen vasprintf xalloc minmax])
+ * iucl_gl_MODULES([strnlen vasprintf xalloc minmax])
  * Optionally
- * gl_MODULES([stdint])
+ * iucl_gl_MODULES([stdint])
  */
 
 #ifdef HAVE_CONFIG_H

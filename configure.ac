@@ -11,6 +11,8 @@ AM_MAINTAINER_MODE
 # Stuff for the config.h.in file
 AC_GNU_SOURCE
 #AH_TEMPLATE([PKGUSERDIR], [User directory for program files])
+# Always include compat-lib config as well
+AH_BOTTOM([#include <compat-lib/src/config.h>])
 
 # Checks for programs.
 AC_PROG_CC
@@ -111,8 +113,8 @@ AC_CHECK_HEADERS([png.h libpng/png.h libpng10/png.h libpng12/png.h locale.h])
 AC_CONFIG_FILES([Makefile
 		 icoutils.spec
 		 po/Makefile.in
-		 compat-lib/src/Makefile
 		 common/Makefile
+		 lib/Makefile
 		 icotool/Makefile
 		 wrestool/Makefile
 		 extresso/Makefile])

@@ -18,7 +18,7 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         --aux-dir=build-aux \
         --no-conditional-dependencies \
         --no-libtool \
-        --macro-prefix=gl \
+        --macro-prefix=iucl_gl \
         --no-vc-files \
         byteswap \
         configmake \
@@ -42,7 +42,6 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         strndup \
         strstr \
         vasprintf \
-        version-etc \
         xalloc \
         xalloc-die \
         xvasprintf
