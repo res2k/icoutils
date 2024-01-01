@@ -17,5 +17,5 @@ iucl_gl_EARLY
 # Gnulib
 iucl_gl_INIT
 
-AC_CONFIG_FILES([src/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
