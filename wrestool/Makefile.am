@@ -12,7 +12,7 @@ wrestool_SOURCES = \
 
 wrestool_LDADD = \
   ../common/libcommon.a \
-  ../compat-lib/src/libgnu.a \
+  ../compat-lib/src/libicoutils-compat.a \
   ../lib/libgnu.a \
   @LIBINTL@
 

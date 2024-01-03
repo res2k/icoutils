@@ -21,7 +21,7 @@ libcommon_a_SOURCES = \
 	tmap.h
 
 libcommon_la_LIBADD = \
-	../compat-lib/src/libgnu.a
+	../compat-lib/src/libicoutils-compat.a
 
 AM_CPPFLAGS = \
 	-I$(top_builddir)/compat-lib/src \

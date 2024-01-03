@@ -638,10 +638,10 @@ changequote([, ])dnl
     AC_SUBST([iucl_gltests_LIBOBJDEPS], [$iucl_gltests_libobjdeps])
   ])
   AC_REQUIRE([gl_CC_GNULIB_WARNINGS])
-  LIBGNU_LIBDEPS="$gl_libdeps"
-  AC_SUBST([LIBGNU_LIBDEPS])
-  LIBGNU_LTLIBDEPS="$gl_ltlibdeps"
-  AC_SUBST([LIBGNU_LTLIBDEPS])
+  LIBICOUTILS_COMPAT_LIBDEPS="$gl_libdeps"
+  AC_SUBST([LIBICOUTILS_COMPAT_LIBDEPS])
+  LIBICOUTILS_COMPAT_LTLIBDEPS="$gl_ltlibdeps"
+  AC_SUBST([LIBICOUTILS_COMPAT_LTLIBDEPS])
 ])
 
 # Like AC_LIBOBJ, except that the module name goes
