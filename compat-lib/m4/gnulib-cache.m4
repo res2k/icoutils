@@ -28,7 +28,7 @@
 
 # Specification in the form of a command-line invocation:
 # gnulib-tool --import \
-#  --lib=libicoutils-compat \
+#  --lib=libicoutils_compat \
 #  --source-base=compat-lib/src \
 #  --m4-base=compat-lib/m4 \
 #  --doc-base=. \
@@ -99,7 +99,7 @@ gl_M4_BASE([compat-lib/m4])
 gl_PO_BASE([])
 gl_DOC_BASE([.])
 gl_TESTS_BASE([test])
-gl_LIB([libicoutils-compat])
+gl_LIB([libicoutils_compat])
 gl_MAKEFILE_NAME([])
 gl_MACRO_PREFIX([iucl_gl])
 gl_PO_DOMAIN([])

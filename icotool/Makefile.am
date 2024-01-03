@@ -14,7 +14,7 @@ icotool_SOURCES = \
 icotool_LDADD = \
   @PNG_LIBS@ \
   ../common/libcommon.a \
-  ../compat-lib/src/libicoutils-compat.a \
+  ../compat-lib/src/libicoutils_compat.a \
   ../lib/libgnu.a \
   @LIBINTL@
 

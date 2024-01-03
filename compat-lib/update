@@ -10,7 +10,7 @@ if $gnulib_tool --version >/dev/null 2>&1; then
 
     $gnulib_tool \
         --import \
-        --lib=libicoutils-compat \
+        --lib=libicoutils_compat \
         --source-base=compat-lib/src \
         --m4-base=compat-lib/m4 \
         --doc-base=. \
