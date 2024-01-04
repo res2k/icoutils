@@ -51,6 +51,7 @@
 #  manywarnings \
 #  memchr \
 #  minmax \
+#  noreturn \
 #  progname \
 #  stdbool \
 #  stdint \
@@ -80,6 +81,7 @@ gl_MODULES([
   manywarnings
   memchr
   minmax
+  noreturn
   progname
   stdbool
   stdint

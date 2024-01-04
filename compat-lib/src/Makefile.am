@@ -46,6 +46,7 @@
 #  manywarnings \
 #  memchr \
 #  minmax \
+#  noreturn \
 #  progname \
 #  stdbool \
 #  stdint \
@@ -766,6 +767,13 @@ endif
 EXTRA_DIST += msvc-nothrow.h
 
 ## end   gnulib module msvc-nothrow
+
+## begin gnulib module noreturn
+
+
+EXTRA_DIST += noreturn.h
+
+## end   gnulib module noreturn
 
 ## begin gnulib module open
 

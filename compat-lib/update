@@ -33,6 +33,7 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         manywarnings \
         memchr \
         minmax \
+        noreturn \
         progname \
         stdbool \
         stdint \

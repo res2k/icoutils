@@ -103,6 +103,7 @@ AC_DEFUN([iucl_gl_EARLY],
   # Code from module msvc-nothrow:
   # Code from module multiarch:
   # Code from module nocrash:
+  # Code from module noreturn:
   # Code from module open:
   # Code from module pathmax:
   # Code from module progname:
@@ -773,6 +774,7 @@ AC_DEFUN([iucl_gl_FILE_LIST], [
   lib/msvc-inval.h
   lib/msvc-nothrow.c
   lib/msvc-nothrow.h
+  lib/noreturn.h
   lib/open.c
   lib/pathmax.h
   lib/printf-args.c

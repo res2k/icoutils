@@ -19,15 +19,16 @@
 #ifndef COMMON_ERROR_H
 #define COMMON_ERROR_H
 
+#include <noreturn.h> /* Gnulib */
 #include <stdarg.h>	/* Gnulib/C89 */
 #include <stddef.h>	/* C89 */
 #include <errno.h>	/* C89 */
 
 extern void (*program_termination_hook)(void);
 
-void internal_error(const char *msg, ...) __attribute__ ((noreturn));
-void die(const char *msg, ...) __attribute__ ((noreturn));
-void die_errno(const char *msg, ...) __attribute__ ((noreturn));
+_GL_NORETURN_FUNC void internal_error(const char *msg, ...);
+_GL_NORETURN_FUNC void die(const char *msg, ...);
+_GL_NORETURN_FUNC void die_errno(const char *msg, ...);
 void warn(const char *msg, ...);
 void warn_errno(const char *msg, ...);
 void set_message_header(const char *msg, ...);
@@ -36,7 +37,7 @@ void restore_message_header(void);
 void set_error(const char *msg, ...);
 const char *get_error(void);
 char *remove_error(void);
-void die_error(void) __attribute__ ((noreturn));
+_GL_NORETURN_FUNC void die_error(void);
 
 void free_error(void);
 
