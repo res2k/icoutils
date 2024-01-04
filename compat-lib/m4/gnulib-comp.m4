@@ -54,7 +54,10 @@ AC_DEFUN([iucl_gl_EARLY],
   # Code from module calloc-posix:
   # Code from module cloexec:
   # Code from module close:
+  # Code from module closedir:
   # Code from module configmake:
+  # Code from module dirent:
+  # Code from module dirfd:
   # Code from module dirname:
   # Code from module dirname-lgpl:
   # Code from module double-slash-root:
@@ -105,8 +108,10 @@ AC_DEFUN([iucl_gl_EARLY],
   # Code from module nocrash:
   # Code from module noreturn:
   # Code from module open:
+  # Code from module opendir:
   # Code from module pathmax:
   # Code from module progname:
+  # Code from module readdir:
   # Code from module realloc-gnu:
   # Code from module realloc-posix:
   # Code from module reallocarray:
@@ -200,8 +205,22 @@ AC_DEFUN([iucl_gl_INIT],
   gl_FUNC_CLOSE
   gl_CONDITIONAL([GL_COND_OBJ_CLOSE], [test $REPLACE_CLOSE = 1])
   gl_UNISTD_MODULE_INDICATOR([close])
+  gl_FUNC_CLOSEDIR
+  gl_CONDITIONAL([GL_COND_OBJ_CLOSEDIR],
+                 [test $HAVE_CLOSEDIR = 0 || test $REPLACE_CLOSEDIR = 1])
+  gl_DIRENT_MODULE_INDICATOR([closedir])
   gl_CONFIGMAKE
   AC_PROG_MKDIR_P
+  gl_DIRENT_H
+  gl_DIRENT_H_REQUIRE_DEFAULTS
+  AC_PROG_MKDIR_P
+  gl_FUNC_DIRFD
+  gl_CONDITIONAL([GL_COND_OBJ_DIRFD],
+                 [test $HAVE_DIRFD = 0 || test $REPLACE_DIRFD = 1])
+  AM_COND_IF([GL_COND_OBJ_DIRFD], [
+    gl_PREREQ_DIRFD
+  ])
+  gl_DIRENT_MODULE_INDICATOR([dirfd])
   gl_MODULE_INDICATOR([dirname])
   gl_DOUBLE_SLASH_ROOT
   gl_FUNC_DUP2
@@ -357,9 +376,17 @@ AC_DEFUN([iucl_gl_INIT],
     gl_PREREQ_OPEN
   ])
   gl_FCNTL_MODULE_INDICATOR([open])
+  gl_FUNC_OPENDIR
+  gl_CONDITIONAL([GL_COND_OBJ_OPENDIR],
+                 [test $HAVE_OPENDIR = 0 || test $REPLACE_OPENDIR = 1])
+  gl_DIRENT_MODULE_INDICATOR([opendir])
   gl_PATHMAX
   AC_CHECK_DECLS([program_invocation_name], [], [], [#include <errno.h>])
   AC_CHECK_DECLS([program_invocation_short_name], [], [], [#include <errno.h>])
+  gl_FUNC_READDIR
+  gl_CONDITIONAL([GL_COND_OBJ_READDIR],
+                 [test $HAVE_READDIR = 0 || test $REPLACE_READDIR = 1])
+  gl_DIRENT_MODULE_INDICATOR([readdir])
   gl_FUNC_REALLOC_GNU
   if test $REPLACE_REALLOC_FOR_REALLOC_GNU = 1; then
     AC_LIBOBJ([realloc])
@@ -719,6 +746,10 @@ AC_DEFUN([iucl_gl_FILE_LIST], [
   lib/cloexec.c
   lib/cloexec.h
   lib/close.c
+  lib/closedir.c
+  lib/dirent-private.h
+  lib/dirent.in.h
+  lib/dirfd.c
   lib/dirname-lgpl.c
   lib/dirname.c
   lib/dirname.h
@@ -776,6 +807,7 @@ AC_DEFUN([iucl_gl_FILE_LIST], [
   lib/msvc-nothrow.h
   lib/noreturn.h
   lib/open.c
+  lib/opendir.c
   lib/pathmax.h
   lib/printf-args.c
   lib/printf-args.h
@@ -783,6 +815,7 @@ AC_DEFUN([iucl_gl_FILE_LIST], [
   lib/printf-parse.h
   lib/progname.c
   lib/progname.h
+  lib/readdir.c
   lib/realloc.c
   lib/reallocarray.c
   lib/size_max.h
@@ -843,8 +876,11 @@ AC_DEFUN([iucl_gl_FILE_LIST], [
   m4/c-bool.m4
   m4/calloc.m4
   m4/close.m4
+  m4/closedir.m4
   m4/codeset.m4
   m4/configmake.m4
+  m4/dirent_h.m4
+  m4/dirfd.m4
   m4/double-slash-root.m4
   m4/dup2.m4
   m4/eealloc.m4
@@ -906,11 +942,13 @@ AC_DEFUN([iucl_gl_FILE_LIST], [
   m4/open-cloexec.m4
   m4/open-slash.m4
   m4/open.m4
+  m4/opendir.m4
   m4/pathmax.m4
   m4/pid_t.m4
   m4/po.m4
   m4/printf.m4
   m4/progtest.m4
+  m4/readdir.m4
   m4/realloc.m4
   m4/reallocarray.m4
   m4/size_max.m4

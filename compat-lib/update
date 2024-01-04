@@ -21,7 +21,9 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         --macro-prefix=iucl_gl \
         --no-vc-files \
         byteswap \
+        closedir \
         configmake \
+        dirent \
         dirname \
         dup2 \
         getline \
@@ -34,7 +36,9 @@ if $gnulib_tool --version >/dev/null 2>&1; then
         memchr \
         minmax \
         noreturn \
+        opendir\
         progname \
+        readdir \
         stdbool \
         stdint \
         strcase \

@@ -39,7 +39,9 @@
 #  --macro-prefix=iucl_gl \
 #  --no-vc-files \
 #  byteswap \
+#  closedir \
 #  configmake \
+#  dirent \
 #  dirname \
 #  dup2 \
 #  getline \
@@ -52,7 +54,9 @@
 #  memchr \
 #  minmax \
 #  noreturn \
+#  opendir \
 #  progname \
+#  readdir \
 #  stdbool \
 #  stdint \
 #  strcase \
@@ -69,7 +73,9 @@
 gl_LOCAL_DIR([])
 gl_MODULES([
   byteswap
+  closedir
   configmake
+  dirent
   dirname
   dup2
   getline
@@ -82,7 +88,9 @@ gl_MODULES([
   memchr
   minmax
   noreturn
+  opendir
   progname
+  readdir
   stdbool
   stdint
   strcase
