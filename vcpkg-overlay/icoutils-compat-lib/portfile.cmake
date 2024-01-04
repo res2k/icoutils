@@ -13,8 +13,6 @@ if(VCPKG_HOST_IS_WINDOWS)
             )
     set(SHELL "${MSYS_ROOT}/usr/bin/bash.exe")
     vcpkg_add_to_path("${MSYS_ROOT}/usr/bin")
-    #vcpkg_add_to_path("${MSYS_ROOT}/usr/share/automake-1.16")
-    # string(APPEND OPTIONS " --pkg-config=${CURRENT_HOST_INSTALLED_DIR}/tools/pkgconf/pkgconf${VCPKG_HOST_EXECUTABLE_SUFFIX}")
 else()
     find_program(SHELL bash)
 endif()
@@ -33,12 +31,12 @@ vcpkg_configure_make(
 vcpkg_build_make()
 
 # Copy libs
-file(INSTALL "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/src/libicoutils_compat.a" DESTINATION "${CURRENT_PACKAGES_DIR}/lib")
-file(INSTALL "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg/src/libicoutils_compat.a" DESTINATION "${CURRENT_PACKAGES_DIR}/lib" RENAME libicoutils_compat_d.a)
+file(INSTALL "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/src/libicoutils_compat.a" DESTINATION "${CURRENT_PACKAGES_DIR}/lib/manual-link" RENAME libicoutils_compat.lib)
+file(INSTALL "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-dbg/src/libicoutils_compat.a" DESTINATION "${CURRENT_PACKAGES_DIR}/debug/lib/manual-link" RENAME libicoutils_compat_d.lib)
 
 # Handle copyright & files vcpkg likes to have
 file(INSTALL ${SOURCE_ROOT}/COPYING DESTINATION ${CURRENT_PACKAGES_DIR}/share/icoutils-compat-lib RENAME copyright)
 
-# Create a dummy include to silence vcpkg warning
-file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/include")
-file(TOUCH "${CURRENT_PACKAGES_DIR}/include/.dummy")
+# Expose the generated headers
+file(MAKE_DIRECTORY "${CURRENT_PACKAGES_DIR}/include/compat-lib/src")
+file(INSTALL "${CURRENT_BUILDTREES_DIR}/${TARGET_TRIPLET}-rel/src/" DESTINATION "${CURRENT_PACKAGES_DIR}/include/compat-lib/src" FILES_MATCHING PATTERN "*.h")
