@@ -21,8 +21,13 @@
 
 #include <stdint.h>	/* POSIX/Gnulib */
 
+#if defined(_MSC_VER)
+#define PACKED
+#pragma pack(push, 1)
+#else // defined(_MSC_VER)
 #define PACKED __attribute__ ((packed))
 #pragma pack(1)
+#endif // defined(_MSC_VER)
 
 typedef struct {
     uint8_t width;
@@ -379,6 +384,10 @@ typedef struct {
     uint16_t number_of_id_entries;
 } Win32ImageResourceDirectory;
 
+#if defined(_MSC_VER)
+#pragma pack(pop)
+#else
 #pragma pack()
+#endif // defined(_MSC_VER)
 
 #endif /* WIN32_H */
