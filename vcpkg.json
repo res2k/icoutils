@@ -1,0 +1,6 @@
+{
+  "dependencies": [
+    "icoutils-compat-lib",
+    "libpng"
+  ]
+}
