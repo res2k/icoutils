@@ -26,7 +26,7 @@
 #define N_(s) gettext_noop(s)
 #include "version-etc.h"        	/* Gnulib */
 #include "progname.h"			/* Gnulib */
-//#include "strcase.h"			/* Gnulib */
+#include "strings.h"			/* Gnulib/C89 */
 #include "dirname.h"			/* Gnulib */
 #include "common/error.h"
 #include "xalloc.h"			/* Gnulib */
