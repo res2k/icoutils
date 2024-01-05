@@ -60,3 +60,13 @@ target_sources(icotool PRIVATE
 )
 target_include_directories(icotool PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(icotool PUBLIC common icoutils_compat gnulib PNG::PNG)
+
+add_executable(wrestool)
+target_sources(wrestool PRIVATE
+    wrestool/extract.c
+    wrestool/fileread.c
+    wrestool/main.c
+    wrestool/restable.c
+)
+target_include_directories(wrestool PUBLIC "${CMAKE_CURRENT_BINARY_DIR}" icotool)
+target_link_libraries(wrestool PUBLIC common icoutils_compat gnulib)
