@@ -60,6 +60,7 @@ target_sources(icotool PRIVATE
 )
 target_include_directories(icotool PUBLIC "${CMAKE_CURRENT_BINARY_DIR}")
 target_link_libraries(icotool PUBLIC common icoutils_compat gnulib PNG::PNG)
+install(TARGETS icotool)
 
 add_executable(wrestool)
 target_sources(wrestool PRIVATE
@@ -70,3 +71,7 @@ target_sources(wrestool PRIVATE
 )
 target_include_directories(wrestool PUBLIC "${CMAKE_CURRENT_BINARY_DIR}" icotool)
 target_link_libraries(wrestool PUBLIC common icoutils_compat gnulib)
+install(TARGETS wrestool)
+
+# Include dependent DLLs on Windows
+x_vcpkg_install_local_dependencies(TARGETS icotool wrestool DESTINATION bin)
