@@ -3,9 +3,11 @@ project(icoutils VERSION 0.33.0) # Keep version in sync with configure.ac
 
 include(CheckIncludeFile)
 
-set(PACKAGE_NAME "icoutils")
+set(PACKAGE "icoutils")
+set(PACKAGE_NAME "${PACKAGE}")
 set(PACKAGE_BUGREPORT "https://github.com/res2k/icoutils/issues")
 set(PACKAGE_URL "https://www.nongnu.org/icoutils/")
+set(VERSION "${CMAKE_PROJECT_VERSION}")
 
 # Find vcpkg'd icoutils_compat
 find_library(ICOUTILS_COMPAT_LIB_REL NAMES libicoutils_compat REQUIRED)
@@ -75,3 +77,9 @@ install(TARGETS wrestool)
 
 # Include dependent DLLs on Windows
 x_vcpkg_install_local_dependencies(TARGETS icotool wrestool DESTINATION bin)
+
+# Generate extresso scripts
+# (Generation at configure time mirrors autoconf build system behaviour)
+configure_file(extresso/extresso.in extresso FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+configure_file(extresso/genresscript.in genresscript FILE_PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+install(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/extresso" "${CMAKE_CURRENT_BINARY_DIR}/genresscript" TYPE BIN)

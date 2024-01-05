@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#define PACKAGE            "@PACKAGE_NAME@"
+#cmakedefine PACKAGE            "@PACKAGE@"
 #cmakedefine PACKAGE_BUGREPORT  "@PACKAGE_BUGREPORT@"
 #cmakedefine PACKAGE_NAME       "@PACKAGE_NAME@"
 #cmakedefine PACKAGE_URL        "@PACKAGE_URL@"
