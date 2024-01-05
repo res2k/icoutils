@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26)
-project(icoutils)
+project(icoutils VERSION 0.33.0) # Keep version in sync with configure.ac
 
 include(CheckIncludeFile)
 
