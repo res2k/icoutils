@@ -1,7 +1,8 @@
-cmake_minimum_required(VERSION 3.26)
+cmake_minimum_required(VERSION 3.22)
 project(icoutils VERSION 0.33.0) # Keep version in sync with configure.ac
 
 include(CheckIncludeFile)
+include(ExternalProject)
 
 set(PACKAGE "icoutils")
 set(PACKAGE_NAME "${PACKAGE}")
@@ -9,15 +10,39 @@ set(PACKAGE_BUGREPORT "https://github.com/res2k/icoutils/issues")
 set(PACKAGE_URL "https://www.nongnu.org/icoutils/")
 set(VERSION "${CMAKE_PROJECT_VERSION}")
 
-# Find vcpkg'd icoutils_compat
-find_library(ICOUTILS_COMPAT_LIB_REL NAMES libicoutils_compat REQUIRED)
-find_library(ICOUTILS_COMPAT_LIB_DBG NAMES libicoutils_compat_d REQUIRED)
-find_path(ICOUTILS_COMPAT_INCLUDE NAMES compat-lib/src/config.h)
-add_library(icoutils_compat INTERFACE)
-target_link_libraries(icoutils_compat INTERFACE "$<IF:$<CONFIG:Debug>,${ICOUTILS_COMPAT_LIB_DBG},${ICOUTILS_COMPAT_LIB_REL}>")
-target_include_directories(icoutils_compat INTERFACE compat-lib/src "${ICOUTILS_COMPAT_INCLUDE}/compat-lib/src" "${ICOUTILS_COMPAT_INCLUDE}")
-# TODO: Instead of "requiring" it, pull in as an external project -
-# should work if a *nix shell is available (incl Cygwin & MSYS)
+if(VCPKG_TOOLCHAIN)
+    # Find vcpkg'd icoutils_compat
+    find_library(ICOUTILS_COMPAT_LIB_REL NAMES libicoutils_compat REQUIRED)
+    find_library(ICOUTILS_COMPAT_LIB_DBG NAMES libicoutils_compat_d REQUIRED)
+    find_path(ICOUTILS_COMPAT_INCLUDE NAMES compat-lib/src/config.h)
+    add_library(icoutils_compat INTERFACE)
+    target_link_libraries(icoutils_compat INTERFACE "$<IF:$<CONFIG:Debug>,${ICOUTILS_COMPAT_LIB_DBG},${ICOUTILS_COMPAT_LIB_REL}>")
+    target_include_directories(icoutils_compat INTERFACE compat-lib/src "${ICOUTILS_COMPAT_INCLUDE}/compat-lib/src" "${ICOUTILS_COMPAT_INCLUDE}")
+elseif(MSVC)
+    # icoutils_compat requires building w/ autotools, which in turn requires an MSYS environment
+    # vcpkg encapsulates all that for us, hence the requirement
+    message(FATAL_ERROR "When building with MSVC, setting up dependencies with vcpkg is required.")
+else()
+    # Pull in as an external project.
+    # Assumes a *nix shell is available.
+    find_program(MAKE_EXE NAMES gmake make)
+    if(NOT MAKE_EXE)
+        message(FATAL_ERROR "make is required!")
+    endif()
+
+    set(ICOUTILS_COMPAT_BUILD "${CMAKE_CURRENT_BINARY_DIR}/compat-lib-build")
+    ExternalProject_Add(icoutils_compat_ext
+                        SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/compat-lib"
+                        BINARY_DIR "${ICOUTILS_COMPAT_BUILD}/compat-lib"
+                        CONFIGURE_COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/compat-lib/configure"
+                        BUILD_COMMAND ${MAKE_EXE}
+                        STEP_TARGETS build)
+
+    add_library(icoutils_compat INTERFACE)
+    target_link_libraries(icoutils_compat INTERFACE "${ICOUTILS_COMPAT_BUILD}/compat-lib/src/libicoutils_compat.a")
+    target_include_directories(icoutils_compat INTERFACE compat-lib/src "${ICOUTILS_COMPAT_BUILD}/compat-lib/src" "${ICOUTILS_COMPAT_BUILD}")
+    add_dependencies(icoutils_compat icoutils_compat_ext-build)
+endif()
 
 # Find libpng
 find_package(PNG REQUIRED)
@@ -75,8 +100,10 @@ target_include_directories(wrestool PUBLIC "${CMAKE_CURRENT_BINARY_DIR}" icotool
 target_link_libraries(wrestool PUBLIC common icoutils_compat gnulib)
 install(TARGETS wrestool)
 
-# Include dependent DLLs on Windows
-x_vcpkg_install_local_dependencies(TARGETS icotool wrestool DESTINATION bin)
+if(VCPKG_TOOLCHAIN)
+    # Include dependent DLLs on Windows
+    x_vcpkg_install_local_dependencies(TARGETS icotool wrestool DESTINATION bin)
+endif()
 
 # Generate extresso scripts
 # (Generation at configure time mirrors autoconf build system behaviour)
