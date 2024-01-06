@@ -130,6 +130,8 @@ following as as root:
 For more information regarding configure and make, see the INSTALL
 document.
 
+Experimental CMake support is available as well, see the INSTALL_cmake.md file.
+
 Usage
 =====
 
