@@ -1,1 +1,3 @@
+**/bootstrap text eol=lf
 **/build-aux/* text eol=lf
+**/m4/* text eol=lf
