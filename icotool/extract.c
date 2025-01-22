@@ -173,6 +173,7 @@ extract_icons(FILE *in, const char *inname, bool listmode, ExtractNameGen outfil
                         warn(_("PNG too large"));
                         goto done;
                     }
+                    offset += image_size;
                     completed++;
                     
                     if (!filter(completed, width, height, bitmap.bit_count, palette_count, dir.type == 1,
@@ -208,7 +209,6 @@ extract_icons(FILE *in, const char *inname, bool listmode, ExtractNameGen outfil
                             goto cleanup;
                         }
                     }
-                    offset += image_size;
                 }
                 else
                 {
