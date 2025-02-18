@@ -363,7 +363,7 @@ hmap_iterator(HMap *map, HMapIterator *it)
  * function. But no other entry.
  */
 void
-hmap_foreach_value(HMap *map, void (*iterator)())
+hmap_foreach_value(HMap *map, void (*iterator)(void *))
 {
     uint32_t c;
 
@@ -378,7 +378,7 @@ hmap_foreach_value(HMap *map, void (*iterator)())
 }
 
 void
-hmap_foreach_key(HMap *map, void (*iterator)())
+hmap_foreach_key(HMap *map, void (*iterator)(void *))
 {
     uint32_t c;
 

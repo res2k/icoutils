@@ -512,7 +512,7 @@ predecessor(TMapNode *node)
 #endif
 
 static void
-tmap_foreach_nodes_key(TMapNode *node, void (*iterator)())
+tmap_foreach_nodes_key(TMapNode *node, void (*iterator)(void *))
 {
     if (node->left != &nil)
     	tmap_foreach_nodes_key(node->left, iterator);
@@ -522,7 +522,7 @@ tmap_foreach_nodes_key(TMapNode *node, void (*iterator)())
 }
 
 static void
-tmap_foreach_nodes_value(TMapNode *node, void (*iterator)())
+tmap_foreach_nodes_value(TMapNode *node, void (*iterator)(void *))
 {
     if (node->left != &nil)
     	tmap_foreach_nodes_value(node->left, iterator);
@@ -532,14 +532,14 @@ tmap_foreach_nodes_value(TMapNode *node, void (*iterator)())
 }
 
 void
-tmap_foreach_key(TMap *map, void (*iterator)())
+tmap_foreach_key(TMap *map, void (*iterator)(void *))
 {
     if (map->root != &nil)
 	tmap_foreach_nodes_key(map->root, iterator);
 }
 
 void
-tmap_foreach_value(TMap *map, void (*iterator)())
+tmap_foreach_value(TMap *map, void (*iterator)(void *))
 {
     if (map->root != &nil)
 	tmap_foreach_nodes_value(map->root, iterator);

@@ -51,8 +51,8 @@ void *tmap_remove(TMap *map, const void *key);
 void tmap_iterator(TMap *map, TMapIterator *it); /* value iterator */
 bool tmap_iterator_partial(TMap *map, TMapIterator *it, const void *match, comparison_fn_t comparator);
 void tmap_clear(TMap *map);
-void tmap_foreach_key(TMap *map, void (*iterator)());
-void tmap_foreach_value(TMap *map, void (*iterator)());
+void tmap_foreach_key(TMap *map, void (*iterator)(void *));
+void tmap_foreach_value(TMap *map, void (*iterator)(void *));
 
 #ifdef ENABLE_TMAP_TESTING
 #include <stdio.h>
