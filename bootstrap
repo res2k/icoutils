@@ -1,62 +1,106 @@
 #!/bin/bash
-
 set -e
 
-GNULIB_SRCDIR=${GNULIB_SRCDIR:-../gnulib}
-gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
+delete_files()
+{
+	for target in $@
+	do
+		echo Deleted: $target
+		rm -rf $target
+	done
+}
 
-if $gnulib_tool --version >/dev/null 2>&1; then
-    echo "Updating gnulib files from $GNULIB_SRCDIR"
+run()
+{
+	echo executing: $@
+	$@
+}
 
-    $gnulib_tool \
-        --import \
-        --lib=libgnu \
-        --source-base=lib \
-        --m4-base=m4 \
-        --doc-base=. \
-        --tests-base=test \
-        --aux-dir=build-aux \
-        --no-conditional-dependencies \
-        --no-libtool \
-        --macro-prefix=gl \
-        byteswap \
-        configmake \
-        dirname \
-        dup2 \
-        getline \
-        getopt-gnu \
-        gettext \
-        gettimeofday \
-        lstat \
-        malloc-gnu \
-        manywarnings \
-        memchr \
-        minmax \
-        progname \
-        stdbool \
-        stdint \
-        strcase \
-        strdup-posix \
-        strerror \
-        strndup \
-        strstr \
-        vasprintf \
-        version-etc \
-        xalloc \
-        xalloc-die \
-        xvasprintf
-else
-    echo "***"
-    echo "Warning: Not updating gnulib files"
-    echo "***"
-    echo "If you get errors in the lib/ directory, then check out gnulib"
-    echo "from git and set \$GNULIB_SRCDIR to point to that directory."
-    echo "If you have gnulib in ../gnulib then it will be used automatically."
-    echo "***"
+version=""
+for v in $(autoconf --version | head -n 1);
+do
+	case "$v" in
+		''|*[!0-9\.]*) ;;
+		*) version=$v ;;
+	esac
+done
+
+if [ ! "$version" = "2.64" ]; then
+	echo "Version mismatch of autotools."
+	if gnulib-tool --version > /dev/null 2>&1; then
+		echo "Files will be regenerated with gnulib."
+		echo "Deleting old autotools files"
+			delete_files \
+			autom4te.cache \
+			build \
+			lib \
+			m4 \
+			aclocal.m4 \
+			configure \
+			Makefile \
+			Makefile.in \
+			common/Makefile.in \
+			extresso/Makefile.in \
+			icotool/Makefile.in \
+			wrestool/Makefile.in \
+			config.h \
+			config.h.in \
+			config.log \
+			config.status
+		run autoupdate
+		echo "Copying gnulib files"
+		run gnulib-tool \
+			--import \
+			--lib=libgnu \
+			--source-base=lib \
+			--m4-base=m4 \
+			--doc-base=. \
+			--tests-base=test \
+			--aux-dir=build-aux \
+			--no-conditional-dependencies \
+			--no-libtool \
+			--macro-prefix=gl \
+			byteswap \
+			configmake \
+			dirname \
+			dup2 \
+			getline \
+			getopt-gnu \
+			gettext \
+			gettimeofday \
+			lstat \
+			malloc-gnu \
+			manywarnings \
+			memchr \
+			minmax \
+			progname \
+			stdbool \
+			stdint \
+			strcase \
+			strdup-posix \
+			strerror \
+			strndup \
+			strstr \
+			vasprintf \
+			version-etc \
+			xalloc \
+			xalloc-die \
+			xvasprintf
+	else
+		echo "Unable to regenerate files with gnulib."
+		echo "gnulib-tool not found in PATH"
+	fi
 fi
 
-aclocal -I m4
-autoheader
-libtoolize --force -c
-automake -a -c
-autoconf
+echo "Updating autotools files"
+run autoreconf
+
+mkdir -p build
+cd build
+run ../configure
+echo
+echo "Build:"
+echo "cd build && make"
+echo
+echo "Build and Install:"
+echo "cd build && make && make install"
