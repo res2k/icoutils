@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -eset -e
+set -e
 
 GNULIB_SRCDIR=${GNULIB_SRCDIR:-../gnulib}
 gnulib_tool=$GNULIB_SRCDIR/gnulib-tool
