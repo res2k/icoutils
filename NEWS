@@ -1,5 +1,7 @@
 20??-??-??:
   GCC 15 build fix from Colin Watson (Debian bug 1096829)
+  Fixed a use-after-free.
+  Fix for extraction from icons with multiple PNGs by zymayunyan. (GitHub PR#2.)
 
 2022-03-14:  icoutils 0.33.0 released.
   wrestool: Fix get_resource_id_quoted() to return heap-allocated string.

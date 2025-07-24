@@ -44,3 +44,6 @@ Jerzy Kramarz <op7ica@gmail.com>
 Richard W.M. Jones <rjones@redhat.com>
  - Fixed compiler warnings and made improvements to the
    build scripts.
+
+zymayunyan
+ - Fix for extraction from icons with multiple PNGs
