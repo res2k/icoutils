@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ([2.64])
-AC_INIT(icoutils, 0.33.0, frank.richter@gmail.com)
+AC_PREREQ([2.69])
+AC_INIT([icoutils],[0.33.0],[frank.richter@gmail.com])
 AC_CONFIG_MACRO_DIR([m4]) # doesn't seem to have any effect at the moment
 AC_CONFIG_SRCDIR([icotool/icotool.h])
 AC_CONFIG_HEADER([config.h])
@@ -10,7 +10,7 @@ AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
 # Stuff for the config.h.in file
-AC_GNU_SOURCE
+AC_USE_SYSTEM_EXTENSIONS
 #AH_TEMPLATE([PKGUSERDIR], [User directory for program files])
 
 # Checks for programs.
