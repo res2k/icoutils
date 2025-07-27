@@ -9,7 +9,6 @@ Makefile.in
 /aclocal.m4
 /autom4te.cache
 /build-aux/compile
-/build-aux/config.rpath
 /build-aux/depcomp
 /build-aux/ltmain.sh
 /build-aux/missing
