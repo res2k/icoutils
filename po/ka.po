@@ -1,0 +1,851 @@
+# Georgian translation for icoutils.
+# Copyright (C) 2026 icoutils's authors.
+# This file is distributed under the same license as the icoutils package.
+# Ekaterine Papava <papava.e@gtu.ge>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: icoutils 0.33.0\n"
+"Report-Msgid-Bugs-To: frank.richter@gmail.com\n"
+"POT-Creation-Date: 2026-01-20 19:19+0100\n"
+"PO-Revision-Date: 2026-01-21 06:34+0100\n"
+"Last-Translator: Ekaterine Papava <papava.e@gtu.ge>\n"
+"Language-Team: Georgian <(nothing)>\n"
+"Language: ka\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+
+#: lib/error.c:195
+msgid "Unknown system error"
+msgstr "სისტემის უცნობი შეცდომა"
+
+#: lib/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: პარამეტრი '%s%s' გაურკვეველია\n"
+
+#: lib/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: პარამეტრი '%s%s' გაურკვეველია; შესაძლო ვარიანტები:"
+
+#: lib/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: უცნობი პარამეტრი '%s'%s'\n"
+
+#: lib/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: პარამეტრი '%s%s' არგუმენტებს არ იღებს\n"
+
+#: lib/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: პარამეტრი '%s%s' არგუმენტს საჭიროებს.\n"
+
+#: lib/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: არასწორი პარამეტრი -- '%c'\n"
+
+#: lib/getopt.c:636 lib/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: პარამეტრს ესაჭიროება არგუმენტი -- '%c'\n"
+
+#: lib/version-etc.c:73
+#, c-format
+msgid "Packaged by %s (%s)\n"
+msgstr "აწყობილია %s-ის მიერ (%s)\n"
+
+#: lib/version-etc.c:76
+#, c-format
+msgid "Packaged by %s\n"
+msgstr "აწყობილია %s-ის მიერ\n"
+
+#. TRANSLATORS: Translate "(C)" to the copyright symbol
+#. (C-in-a-circle), if this symbol is available in the user's
+#. locale.  Otherwise, do not translate "(C)"; leave it as-is.
+#: lib/version-etc.c:83
+msgid "(C)"
+msgstr "(C)"
+
+#. TRANSLATORS: The %s placeholder is the web address of the GPL license.
+#: lib/version-etc.c:88
+#, c-format
+msgid ""
+"License GPLv3+: GNU GPL version 3 or later <%s>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+msgstr ""
+"License GPLv3+: GNU GPL version 3 or later <%s>.\n"
+"This is free software: you are free to change and redistribute it.\n"
+"There is NO WARRANTY, to the extent permitted by law.\n"
+
+#. TRANSLATORS: %s denotes an author name.
+#: lib/version-etc.c:105
+#, c-format
+msgid "Written by %s.\n"
+msgstr "ავტორი: %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: lib/version-etc.c:109
+#, c-format
+msgid "Written by %s and %s.\n"
+msgstr "ავტორები: %s და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#: lib/version-etc.c:113
+#, c-format
+msgid "Written by %s, %s, and %s.\n"
+msgstr "ავტორები: %s, %s და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:120
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"ავტორები: %s, %s, %s\n"
+"და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:127
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"ავტორები: %s, %s, %s,\n"
+"%s და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:134
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, and %s.\n"
+msgstr ""
+"ავტორები: %s, %s, %s,\n"
+"%s, %s და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:142
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, and %s.\n"
+msgstr ""
+"ავტორები: %s, %s, %s,\n"
+"%s, %s, %s და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:150
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"and %s.\n"
+msgstr ""
+"ავტორები: %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:159
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, and %s.\n"
+msgstr ""
+"ავტორები: %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"%s და %s.\n"
+
+#. TRANSLATORS: Each %s denotes an author name.
+#. You can use line breaks, estimating that each author name occupies
+#. ca. 16 screen columns and that a screen line has ca. 80 columns.
+#: lib/version-etc.c:170
+#, c-format
+msgid ""
+"Written by %s, %s, %s,\n"
+"%s, %s, %s, %s,\n"
+"%s, %s, and others.\n"
+msgstr ""
+"ავტორები: %s, %s, %s,\n"
+"%s, %s, %s, %s\n"
+"%s, %s და სხვ.\n"
+
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
+#. "Report translation bugs to <...>\n" with the address for translation
+#. bugs (typically your translation team's web or email address).
+#: lib/version-etc.c:249
+#, c-format
+msgid "Report bugs to: %s\n"
+msgstr "შეცდომები გაუგზავნეთ: %s\n"
+
+#: lib/version-etc.c:251
+#, c-format
+msgid "Report %s bugs to: %s\n"
+msgstr "%s-ის შეცდომების შესახებ მისაწერი ელფოსტა: %s\n"
+
+#: lib/version-etc.c:255 lib/version-etc.c:257
+#, c-format
+msgid "%s home page: <%s>\n"
+msgstr "%s-ის საწყისი გვერდია: <%s>\n"
+
+#: lib/version-etc.c:260
+#, c-format
+msgid "General help using GNU software: <%s>\n"
+msgstr "GNU-ის პროგრამული უზრუნველყოფის საერთო დახმარება: <%s >\n"
+
+#: lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "მეხსიერება გადავსებულია"
+
+#: common/error.c:104
+#, c-format
+msgid ""
+"An internal error has occured. Please report this error by sending "
+"the\n"
+"output below to %s.\n"
+"\n"
+"Program: %s\n"
+"Version: %s\n"
+"Error: "
+msgstr ""
+"აღმოჩენილია შიდა შეცდომა. მოგვწერეთ ამ შეცდომის შესახებ ქვემოთ\n"
+"მოყვანილი ინფორმაციის გამოგზავნით მისამართზე %s.\n"
+"\n"
+"პროგრამა: %s\n"
+"ვერსია: %s\n"
+"შეცდომა: "
+
+#: common/llist.c:488
+msgid "Called iterator_remove before first iterator_next"
+msgstr "iterator_remove გამოძახებულია პირველ iterator_next-მდე"
+
+#: icotool/create.c:60 icotool/extract.c:67
+msgid "cannot read file"
+msgstr "ფაილის წაკითხვის შეცდომა"
+
+#: icotool/create.c:62 icotool/extract.c:69
+msgid "premature end"
+msgstr "მოულოდნელი ბოლო"
+
+#: icotool/create.c:118
+msgid "cannot open file"
+msgstr "ფაილი ვერ გავხსენი"
+
+#: icotool/create.c:125
+msgid "not a png file"
+msgstr "png ფაილი არაა"
+
+#: icotool/create.c:131 icotool/extract.c:295 icotool/extract.c:477
+msgid "cannot initialize PNG library"
+msgstr "PNG-ის ბიბლიოთეკის ინიციალიზაცია შეუძლებელია"
+
+#: icotool/create.c:136 icotool/extract.c:300 icotool/extract.c:482
+msgid "cannot create PNG info structure - out of memory"
+msgstr ""
+"PNG-ის ინფორმაციის სტრუქტურის შექმნა შეუძლებელია - არასაკმარისი "
+"მეხსიერება"
+
+#: icotool/create.c:249
+#, c-format
+msgid "cannot decrease bit depth from %d to %d, bit depth not changed"
+msgstr ""
+"ბიტური სიღრმის %d-დან %d-ზე გაზრდა შეუძლებელია. ბიტური სიღრმე არ "
+"შეცვლილა"
+
+#: icotool/create.c:264 icotool/extract.c:199 icotool/extract.c:309
+msgid "cannot create file"
+msgstr "ფაილის შექმნის შეცდომა"
+
+#: icotool/create.c:273 icotool/create.c:315 icotool/create.c:325
+#: icotool/create.c:399 icotool/extract.c:207
+msgid "cannot write to file"
+msgstr "ფაილში ჩაწერის შეცდომა"
+
+#: icotool/extract.c:86
+msgid "read error"
+msgstr "წაკითხვის შეცდომა"
+
+#: icotool/extract.c:114
+msgid "not an icon or cursor file (reserved non-zero)"
+msgstr "არ წარმოადგენს ხატულას, ან კურსორის ფაილს (დაცული არანულოვანია)"
+
+#: icotool/extract.c:118
+msgid "not an icon or cursor file (wrong type)"
+msgstr "არ წარმოადგენს ხატულას, ან კურსორის ფაილს (არასწორი ტიპი)"
+
+#: icotool/extract.c:128
+msgid "reserved is not zero"
+msgstr "დაცული ნული არაა"
+
+#: icotool/extract.c:173
+msgid "PNG too large"
+msgstr "PNG ფაილი მეტისმეტად დიდია"
+
+#: icotool/extract.c:187 icotool/extract.c:364
+#, c-format
+msgid ""
+"--%s --index=%d --width=%d --height=%d --bit-depth=%<PRIu32> --palette-"
+"size=%<PRIu32>"
+msgstr ""
+"--%s --index=%d --width=%d --height=%d --bit-depth=%<PRIu32> --palette-"
+"size=%<PRIu32>"
+
+#: icotool/extract.c:191 icotool/extract.c:368
+#, c-format
+msgid " --hotspot-x=%d --hotspot-y=%d"
+msgstr " --hotspot-x=%d --hotspot-y=%d"
+
+#: icotool/extract.c:216
+msgid "bitmap header is too short"
+msgstr "რასტრული გამოსახულების თავსართი მეტისმეტად მოკლეა"
+
+#: icotool/extract.c:220
+msgid "compressed image data not supported"
+msgstr "შეკუმშული გამოსახულების მონაცემები მხარდაჭერილი არაა"
+
+#: icotool/extract.c:224
+msgid "x_pels_per_meter field in bitmap should be zero"
+msgstr ""
+"x_pels_per_meter ველი რასტრულ გამოსახულებაში ნულის ტოლი უნდა იყოს"
+
+#: icotool/extract.c:226
+msgid "y_pels_per_meter field in bitmap should be zero"
+msgstr ""
+"y_pels_per_meter ველი რასტრულ გამოსახულებაში ნულის ტოლი უნდა იყოს"
+
+#: icotool/extract.c:228
+msgid "clr_important field in bitmap should be zero"
+msgstr "clr_important ველი რასტრულ გამოსახულებაში ნულის ტოლი უნდა იყოს"
+
+#: icotool/extract.c:230
+msgid "planes field in bitmap should be one"
+msgstr "planes ველი რასტრულ გამოსახულებაში ნულის ტოლი უნდა იყოს"
+
+#: icotool/extract.c:233
+#, c-format
+msgid "skipping %d bytes of extended bitmap header"
+msgstr ""
+"გაფართოებული რასტრული გამოსახულების თავსართის %d ბაიტის გამოტოვება"
+
+#: icotool/extract.c:241
+msgid "palette too large"
+msgstr "პალიტრა მეტისმეტად დიდია"
+
+#: icotool/extract.c:250
+msgid "invalid bitmap width"
+msgstr "არასწორი რასტრული გამოსახულების სიგანე"
+
+#: icotool/extract.c:254
+msgid "bitmap width too large"
+msgstr "რასტრული გამოსახულების სიგანე მეტისმეტად დიდაი"
+
+#: icotool/extract.c:265
+#, c-format
+msgid "incorrect total size of bitmap (%d specified; %d real)"
+msgstr ""
+"რასტრული გამოსახულების არასწორი ჯამური ზომა (მითითებული %d. რეალური %d)"
+
+#: icotool/extract.c:413
+msgid "offset of bitmap header incorrect (too low)"
+msgstr ""
+"რასტრული გამოსახულების თავსართის წანაცვლება არასწორია (მეტისმეტად "
+"დაბალია)"
+
+#: icotool/extract.c:417
+msgid "invalid data at expected offset (unrecoverable)"
+msgstr "არასწორი მონაცემები მოსალოდნელ წანაცვლებასთან (აღუდგენელია)"
+
+#: icotool/extract.c:420
+#, c-format
+msgid "skipping %u bytes of garbage at %u"
+msgstr "%u ბაიტი ნაგვის გამოტოვება მისამართზე %u"
+
+#: icotool/main.c:124
+msgid "refusing to write binary data to terminal"
+msgstr "ბინარული მონაცემები ტერმინალზე გამოტანილი არ იქნება"
+
+#: icotool/main.c:125 icotool/main.c:154
+msgid "(standard out)"
+msgstr "(სტანდარტული გამოტანა)"
+
+#: icotool/main.c:165 wrestool/main.c:183
+#, c-format
+msgid "Usage: %s [OPTION]... [FILE]...\n"
+msgstr "გამოყენება: %s [პარამეტრი].. [ფაილი]...\n"
+
+#: icotool/main.c:166
+#, c-format
+msgid "Convert and create Win32 icon (.ico) and cursor (.cur) files.\n"
+msgstr ""
+"Win32-ის ხატულას (.ico) და კურსორის (.cur) ფაილების შექმნა და "
+"გადაყვანა.\n"
+
+#: icotool/main.c:167 wrestool/main.c:185
+#, c-format
+msgid ""
+"\n"
+"Commands:\n"
+msgstr ""
+"\n"
+"ბრძანებები:\n"
+
+#: icotool/main.c:168
+#, c-format
+msgid "  -x, --extract                extract images from files\n"
+msgstr ""
+"  -x, --extract                გამოსახულებების ამოღება ფაილებიდან\n"
+
+#: icotool/main.c:169
+#, c-format
+msgid "  -l, --list                   print a list of images in files\n"
+msgstr ""
+"  -l, --list                   გამოსახულებების სიის გამოტანა "
+"ფაილებიდან\n"
+
+#: icotool/main.c:170
+#, c-format
+msgid ""
+"  -c, --create                 create an icon file from specified "
+"files\n"
+msgstr ""
+"  -c, --create                 ხატულას ფაილის შექმნა მითითებული "
+"ფაილებიდან\n"
+
+#: icotool/main.c:171
+#, c-format
+msgid "      --help                   display this help and exit\n"
+msgstr ""
+"      --help                   ამ დახმარების გამოტანა და გასვლა\n"
+
+#: icotool/main.c:172
+#, c-format
+msgid ""
+"      --version                output version information and exit\n"
+msgstr ""
+"      --version                ვერსიის ინფორმაციის გამოტანა და გასვლა\n"
+
+#: icotool/main.c:173
+#, c-format
+msgid ""
+"\n"
+"Options:\n"
+msgstr ""
+"\n"
+" პარამეტრები\n"
+
+#: icotool/main.c:174
+#, c-format
+msgid ""
+"  -i, --index=NUMBER           match index of image (first is 1)\n"
+msgstr ""
+"  -i, --index=NUMBER           გამოსახულების ინდექსის დამთხვევა "
+"(პირველი არის 1)\n"
+
+#: icotool/main.c:175
+#, c-format
+msgid "  -w, --width=PIXELS           match width of image\n"
+msgstr "  -w, --width=PIXELS           გამოსახულების სიგანის დამთხვევა\n"
+
+#: icotool/main.c:176
+#, c-format
+msgid "  -h, --height=PIXELS          match height of image\n"
+msgstr ""
+"  -h, --height=PIXELS          გამოსახულების სიმაღლის დამთხვევა\n"
+
+#: icotool/main.c:177
+#, c-format
+msgid ""
+"  -p, --palette-size=COUNT     match number of colors in palette (or "
+"0)\n"
+msgstr ""
+"  -p, --palette-size=COUNT     პალიტრაში ფერების რაოდენობის დამთხვევა "
+"(ან 0)\n"
+
+#: icotool/main.c:178
+#, c-format
+msgid ""
+"  -b, --bit-depth=COUNT        match or set number of bits per pixel\n"
+msgstr ""
+"  -b, --bit-depth=COUNT        ბიტების რაოდენობის დამთხვევა ან "
+"დაყენება თითოეული პიქსელისთვის\n"
+
+#: icotool/main.c:180
+#, c-format
+msgid ""
+"  -X, --hotspot-x=COORD        match or set cursor hotspot x-"
+"coordinate\n"
+msgstr ""
+"  -X, --hotspot-x=COORD        კურსორის hotspot x-coordinate-ის "
+"დაყენება, ან დამთხვევა\n"
+
+#: icotool/main.c:181
+#, c-format
+msgid ""
+"  -Y, --hotspot-y=COORD        match or set cursor hotspot y-"
+"coordinate\n"
+msgstr ""
+"  -Y, --hotspot-y=COORD        კურსორის hotspot y-coordinate-ის "
+"დამთხვევა, ან დაყენება\n"
+
+#: icotool/main.c:182
+#, c-format
+msgid ""
+"  -t, --alpha-threshold=LEVEL  highest level in alpha channel "
+"indicating\n"
+"                               transparent image portions (default is "
+"127)\n"
+msgstr ""
+"  -t, --alpha-threshold=LEVEL  უმაღლესი დონე ალფა არხის, რომელიც "
+"მიუთითებს\n"
+"                               გამოსახულების გამჭვირვალე ნაწილებზე "
+"(ნაგულისხმევია 127)\n"
+
+#: icotool/main.c:184
+#, c-format
+msgid ""
+"  -r, --raw=FILENAME           store input file as raw PNG (\"Vista "
+"icons\")\n"
+msgstr ""
+"  -r, --raw=FILENAME           შეყვანილი ფაილის შენახვა დაუმუშავებელი "
+"PNG ფაილის სახით (\"Vista-ის ხატულები\")\n"
+
+#: icotool/main.c:185
+#, c-format
+msgid "      --icon                   match icons only\n"
+msgstr "      --icon                   მხოლოდ ხატულების დამთხვევა\n"
+
+#: icotool/main.c:186
+#, c-format
+msgid "      --cursor                 match cursors only\n"
+msgstr "      --cursor                 მხოლოდ კურსორების დამთხვევა\n"
+
+#: icotool/main.c:187
+#, c-format
+msgid "  -o, --output=PATH            where to place extracted files\n"
+msgstr ""
+"  -o, --output=ბილიკი            სად მოთავსდება ამოღებული ფაილები\n"
+
+#: icotool/main.c:188
+#, c-format
+msgid "\n"
+msgstr "\n"
+
+#: icotool/main.c:189
+#, c-format
+msgid "Report bugs to <%s>.\n"
+msgstr "შეცდომების შესახებ მიწერეთ: <%s>\n"
+
+#: icotool/main.c:256 wrestool/main.c:216
+#, c-format
+msgid "%s: cannot set locale: %s"
+msgstr "%s: ვერ დავაყენე ლოკალი: %s"
+
+#: icotool/main.c:258 wrestool/main.c:218
+#, c-format
+msgid "%s: bindtextdomain failed: %s"
+msgstr "%s: bindtextdomain ჩავარდა: %s"
+
+#: icotool/main.c:260 wrestool/main.c:220
+#, c-format
+msgid "%s: cannot set message domain: %s"
+msgstr "%s: შეტყობინების დომენის დაყენება შეუძლებელია: %s"
+
+#: icotool/main.c:288
+#, c-format
+msgid "invalid index value: %s"
+msgstr "არასწორი ინდექსის მნიშვნელობა: %s"
+
+#: icotool/main.c:292
+#, c-format
+msgid "invalid width value: %s"
+msgstr "არასწორი სიგანის მნიშვნელობა: %s"
+
+#: icotool/main.c:296
+#, c-format
+msgid "invalid height value: %s"
+msgstr "არასწორი სიმაღლის მნიშვნელობა: %s"
+
+#: icotool/main.c:300
+#, c-format
+msgid "invalid palette-size value: %s"
+msgstr "არასწორი პალიტრის ზომის მნიშვნელობა: %s"
+
+#: icotool/main.c:304
+#, c-format
+msgid "invalid bit-depth value: %s"
+msgstr "არასწორი ბიტების სიღრმის მნიშვნელობა: %s"
+
+#: icotool/main.c:313
+#, c-format
+msgid "invalid hotspot-x value: %s"
+msgstr "hotspot-x-ის არასწორი მნიშვნელობა: %s"
+
+#: icotool/main.c:318
+#, c-format
+msgid "invalid hotspot-y value: %s"
+msgstr "hotspot-y-ის არასწორი მნიშვნელობა: %s"
+
+#: icotool/main.c:323
+#, c-format
+msgid "invalid alpha-threshold value: %s"
+msgstr "არასწორი ალფას ზღვრის მნიშვნელობა: %s"
+
+#: icotool/main.c:345
+msgid "multiple commands specified"
+msgstr "მითითებულია ერთზე მეტი ბრძანება"
+
+#: icotool/main.c:347
+msgid "missing argument"
+msgstr "ნაკლული არგუმენტი"
+
+#: icotool/main.c:352
+msgid "only one of --icon and --cursor may be specified"
+msgstr ""
+"შეგიძლიათ მიუთითოთ, მხოლოდ, ერთ-ერთი პარამეტრებიდან --icon და --cursor"
+
+#: icotool/main.c:356
+msgid "missing file argument"
+msgstr "აკლია ფაილის არგუმენტი"
+
+#: icotool/main.c:369 icotool/main.c:388
+msgid "missing arguments"
+msgstr "აკლია არგუმენტები"
+
+#: icotool/main.c:379
+#, c-format
+msgid "%s: no images matched\n"
+msgstr "%s: გამოსახულება არ დამთხვეულა\n"
+
+#: icotool/main.c:399
+#, c-format
+msgid "%s: No bit-depth given\n"
+msgstr "%s: ბიტური სიღრმე მითითებული არაა\n"
+
+#: wrestool/extract.c:108
+#, c-format
+msgid "%s: don't know how to extract resource, try `--raw'"
+msgstr "%s: არ ვიცი, რესურსი როგორ ამოვიღო. სცადეთ `--raw'"
+
+#: wrestool/extract.c:162 wrestool/extract.c:217
+#, c-format
+msgid "%s: could not find `%s' in `%s' resource."
+msgstr "%s: ვერ ვიპოვე `%s' `%s' რესურსში."
+
+#: wrestool/extract.c:170
+#, c-format
+msgid "%s: icon resource `%s' is empty, skipping"
+msgstr "%s: ხატულას რესურსი `%s' ცარიელია. გამოტოვება"
+
+#: wrestool/extract.c:175
+#, c-format
+msgid "%s: mismatch of size in icon resource `%s' and group (%zu vs %zu)"
+msgstr ""
+"%s: ხატულას რესურსის `%s' და ჯგუფის ზომები არ ემთხვევა (%zu და %zu)"
+
+#: wrestool/extract.c:180
+#, c-format
+msgid "%s: icon resource `%s' is corrupted, skipping"
+msgstr "%s: ხატულას რესურსი `%s' დაზიანებულია. გამოტოვება"
+
+#: wrestool/fileread.c:48
+#, c-format
+msgid "%s: premature end"
+msgstr "%s: მოულოდნელი დასასრული"
+
+#: wrestool/main.c:184
+#, c-format
+msgid "Extract resources from Microsoft Windows(R) binaries.\n"
+msgstr ""
+"რესურსების ამოღება Microsoft Windows(R)-ის ბინარული ფაილებიდან.\n"
+
+#: wrestool/main.c:186
+#, c-format
+msgid "  -x, --extract           extract resources\n"
+msgstr "  -x, --extract           რესურსების ამოღება\n"
+
+#: wrestool/main.c:187
+#, c-format
+msgid "  -l, --list              output list of resources (default)\n"
+msgstr ""
+"  -l, --list              რესურსების სიის გამოტანა (ნაგულისხმევი)\n"
+
+#: wrestool/main.c:188
+#, c-format
+msgid ""
+"\n"
+"Filters:\n"
+msgstr ""
+"\n"
+"ფილტრები:\n"
+
+#: wrestool/main.c:189
+#, c-format
+msgid "  -t, --type=[+|-]ID      resource type identifier\n"
+msgstr "  -t, --type=[+|-]ID      რესურსის ტიპის იდენტიფიკატორი\n"
+
+#: wrestool/main.c:190
+#, c-format
+msgid "  -n, --name=[+|-]ID      resource name identifier\n"
+msgstr "  -n, --name=[+|-]ID      რესურსის სახელის იდენტიფიკატორი\n"
+
+#: wrestool/main.c:191
+#, c-format
+msgid "  -L, --language=[+|-]ID  resource language identifier\n"
+msgstr "  -L, --language=[+|-]ID  რესურსის ენის იდენტიფიკატორი\n"
+
+#: wrestool/main.c:192
+#, c-format
+msgid ""
+"  -a, --all               perform operation on all resource (default)\n"
+msgstr ""
+"  -a, --all               ოპერაციის ჩატარება ყველა რესურსზე "
+"(ნაგულისხმევი)\n"
+
+#: wrestool/main.c:193
+#, c-format
+msgid ""
+"\n"
+"Miscellaneous:\n"
+msgstr ""
+"\n"
+"სხვადასხვა:\n"
+
+#: wrestool/main.c:194
+#, c-format
+msgid "  -o, --output=PATH       where to place extracted files\n"
+msgstr "  -o, --output=ბილიკი       სად მოთავსდება ამოღებული ფაილები\n"
+
+#: wrestool/main.c:195
+#, c-format
+msgid "  -R, --raw               do not parse resource contents\n"
+msgstr "  -R, --raw               რესურსის შემცველობა არ დამუშავდება\n"
+
+#: wrestool/main.c:196
+#, c-format
+msgid "  -v, --verbose           explain what is being done\n"
+msgstr "  -v, --verbose           ახნა, რა ხდება\n"
+
+#: wrestool/main.c:197
+#, c-format
+msgid "      --help              display this help and exit\n"
+msgstr "      --help              ამ დახმარების გამოტანა და გასვლა\n"
+
+#: wrestool/main.c:198
+#, c-format
+msgid "      --version           output version information and exit\n"
+msgstr ""
+"      --version           ვერსიის ინფორმაციის გამოტანა და გასვლა\n"
+
+#: wrestool/main.c:199
+#, c-format
+msgid ""
+"\n"
+"A leading `+' in --type, name or language options indicates a true "
+"string\n"
+"identifier. Similarly, `-' indicates a true numeric identifier.\n"
+"\n"
+msgstr ""
+"\n"
+"პარამეტრში --type, სახელის, ან ენის პარამეტრების '+' სიმბოლოთი დაწყება "
+"მიუთითებს ნამდვილი სტრიქონის იდენტიფიკატორზე.\n"
+"მსგავსად, `-' ნამდვილ რიცხვით იდენტიფიკატორს ნიშნავს.\n"
+"\n"
+
+#: wrestool/main.c:201
+#, c-format
+msgid "Report bugs to %s.\n"
+msgstr "შეცდომების შესახებ მიწერეთ: %s\n"
+
+#: wrestool/main.c:273
+msgid "--language has no effect without --name and --type"
+msgstr ""
+"პარამეტრს --language აზრი არ აქვს --name და --type პარამეტრების გარეშე"
+
+#: wrestool/main.c:275
+msgid "--name has no effect without --type"
+msgstr "პარამეტრს --name აზრი არ აქვს პარამეტრის --type გარეშე"
+
+#: wrestool/main.c:283
+#, c-format
+msgid ""
+"missing file argument\n"
+"Try `%s --help' for more information."
+msgstr ""
+"აკლია ფაილის არგუმენტი\n"
+"მეტი ინფორმაციისთვის სცადეთ '%s --help'."
+
+#: wrestool/main.c:303
+#, c-format
+msgid "%s: file has a size of 0"
+msgstr "%s: ფაილის ზომა ნულია"
+
+#: wrestool/main.c:332
+#, c-format
+msgid "%s: --language has no effect because file is 16-bit binary"
+msgstr ""
+"%s: პარამეტრს --language აზრი არ აქვს, რადგან ფაილი 16-ბიტიანი "
+"ბინარული ფაილია"
+
+#: wrestool/restable.c:103
+#, c-format
+msgid "%s: resource structure malformed"
+msgstr "%s: რესურსის სტრუქტურა არასწორია"
+
+#: wrestool/restable.c:144
+#, c-format
+msgid "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
+msgstr "--type=%s --name=%s%s%s [%s%s%soffset=0x%x size=%zu]\n"
+
+#: wrestool/restable.c:147
+msgid " --language="
+msgstr " --language="
+
+#: wrestool/restable.c:357
+#, c-format
+msgid "%s: resource table invalid, ignoring remaining entries"
+msgstr ""
+"%s: რესურსების ცხრილი არასწორია. დარჩენილი ჩანაწერების გამოტოვება"
+
+#: wrestool/restable.c:447 wrestool/restable.c:539
+#, c-format
+msgid "%s: not a PE or NE library"
+msgstr "%s: არ წარმოადგენს არც PE, არც NE ბიბლიოთეკას"
+
+#: wrestool/restable.c:464
+#, c-format
+msgid "%s: no resource directory found"
+msgstr "%s: რესურსების საქაღალდე აღმოჩენილი არაა"
+
+#: wrestool/restable.c:512
+#, c-format
+msgid "%s: invalid sections layout"
+msgstr "%s: არასწორი სექციების განლაგება"
+
+#: wrestool/restable.c:529
+#, c-format
+msgid "%s: file contains no resources"
+msgstr "%s: ფაილი რესურსებს არ შეიცავს"
