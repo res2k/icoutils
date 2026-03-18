@@ -42,7 +42,7 @@ struct _HMapIterator {
 
 uint32_t strhash(const char *str);
 uint32_t strcasehash(const char *str);
-#define hmap_is_empty(m) ((hmap_size(m) == 0)
+#define hmap_is_empty(m) ((hmap_size(m) == 0))
 HMap *hmap_new(void);
 void hmap_free(HMap *map);
 void *hmap_get(HMap *map, const void *key);
